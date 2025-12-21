@@ -90,6 +90,18 @@ async function main() {
         console.log(`Authenticating as ${adminEmail}...`);
         await pb.admins.authWithPassword(adminEmail, adminPassword);
 
+        // Helper to download image and return as Blob
+        async function downloadImage(url: string): Promise<Blob | null> {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) return null;
+                return await response.blob();
+            } catch (e) {
+                console.error(`Failed to download image from ${url}:`, e);
+                return null;
+            }
+        }
+
         // --- 1. INGREDIENTS COLLECTION ---
         console.log('Checking "ingredients" collection...');
         let ingredientsCollectionId = '';
@@ -98,12 +110,12 @@ async function main() {
             ingredientsCollectionId = collection.id;
             console.log('"ingredients" exists. Updating schema...');
 
-            // Update fields to include new ones
+            // Update fields to include new ones and change image to file
             await pb.collections.update(collection.id, {
                 fields: [
                     { name: 'name', type: 'text', required: true },
                     { name: 'description', type: 'text', required: true },
-                    { name: 'image', type: 'url', required: false },
+                    { name: 'image', type: 'file', required: false, options: { maxSelect: 1, maxSize: 5242880, mimeTypes: ['image/png', 'image/jpeg', 'image/webp'] } },
                     { name: 'category', type: 'text', required: false },
                     { name: 'calories', type: 'number', required: false },
                     { name: 'allergies', type: 'text', required: false },
@@ -123,7 +135,7 @@ async function main() {
                     fields: [
                         { name: 'name', type: 'text', required: true },
                         { name: 'description', type: 'text', required: true },
-                        { name: 'image', type: 'url', required: false },
+                        { name: 'image', type: 'file', required: false, options: { maxSelect: 1, maxSize: 5242880, mimeTypes: ['image/png', 'image/jpeg', 'image/webp'] } },
                         { name: 'category', type: 'text', required: false },
                         { name: 'calories', type: 'number', required: false },
                         { name: 'allergies', type: 'text', required: false },
@@ -145,13 +157,41 @@ async function main() {
         const ingredientMap: Record<string, string> = {};
         for (const ing of ingredientsData) {
             const existing = await pb.collection('ingredients').getList(1, 1, { filter: `name="${ing.name}"` });
+
+            // Handle image upload
+            const data: any = { ...ing };
+            if (ing.image && ing.image.startsWith('http')) {
+                const blob = await downloadImage(ing.image);
+                if (blob) {
+                    const formData = new FormData();
+                    formData.append('image', blob, `${ing.name.toLowerCase().replace(/\s+/g, '_')}.png`);
+
+                    // Add other fields to FormData
+                    for (const key in data) {
+                        if (key !== 'image') {
+                            formData.append(key, data[key]);
+                        }
+                    }
+
+                    if (existing.items.length === 0) {
+                        const record = await pb.collection('ingredients').create(formData);
+                        ingredientMap[ing.name] = record.id;
+                        console.log(`Created ingredient (with image): ${ing.name}`);
+                    } else {
+                        const record = await pb.collection('ingredients').update(existing.items[0].id, formData);
+                        ingredientMap[ing.name] = record.id;
+                        console.log(`Updated ingredient (with image): ${ing.name}`);
+                    }
+                    continue;
+                }
+            }
+
             if (existing.items.length === 0) {
-                const record = await pb.collection('ingredients').create(ing);
+                const record = await pb.collection('ingredients').create(data);
                 ingredientMap[ing.name] = record.id;
                 console.log(`Created ingredient: ${ing.name}`);
             } else {
-                // Update existing with new data
-                const record = await pb.collection('ingredients').update(existing.items[0].id, ing);
+                const record = await pb.collection('ingredients').update(existing.items[0].id, data);
                 ingredientMap[ing.name] = record.id;
                 console.log(`Updated ingredient: ${ing.name}`);
             }
@@ -167,7 +207,8 @@ async function main() {
 
             await pb.collections.update(collection.id, {
                 fields: [
-                    ...collection.fields.filter(f => !['ingredients', 'instructions', 'time', 'base_ingredients'].includes(f.name)),
+                    ...collection.fields.filter(f => !['ingredients', 'instructions', 'time', 'base_ingredients', 'image'].includes(f.name)),
+                    { name: 'image', type: 'file', required: false, options: { maxSelect: 1, maxSize: 5242880, mimeTypes: ['image/png', 'image/jpeg', 'image/webp'] } },
                     { name: 'ingredients', type: 'json' },
                     { name: 'instructions', type: 'json' },
                     { name: 'time', type: 'text', required: false },
@@ -188,7 +229,7 @@ async function main() {
                         { name: 'title', type: 'text', required: true },
                         { name: 'category', type: 'text', required: true },
                         { name: 'difficulty', type: 'number', required: false },
-                        { name: 'image', type: 'url', required: false },
+                        { name: 'image', type: 'file', required: false, options: { maxSelect: 1, maxSize: 5242880, mimeTypes: ['image/png', 'image/jpeg', 'image/webp'] } },
                         { name: 'price', type: 'text', required: false },
                         { name: 'description', type: 'text', required: false },
                         { name: 'ingredients', type: 'json' },
@@ -226,7 +267,7 @@ async function main() {
                     type: 'base',
                     fields: [
                         { name: 'name', type: 'text', required: true },
-                        { name: 'image', type: 'url', required: true },
+                        { name: 'image', type: 'file', required: false, options: { maxSelect: 1, maxSize: 5242880, mimeTypes: ['image/png', 'image/jpeg', 'image/webp'] } },
                         { name: 'affiliate_link', type: 'url', required: true },
                         { name: 'price', type: 'text' },
                         { name: 'clicks', type: 'number', required: false }
@@ -273,11 +314,41 @@ async function main() {
         const productIds: string[] = [];
         for (const p of catalogData) {
             const existing = await pb.collection('products').getList(1, 1, { filter: `name="${p.name}"` });
+
+            // Handle image upload
+            const data: any = { ...p };
+            if (p.image && p.image.startsWith('http')) {
+                const blob = await downloadImage(p.image);
+                if (blob) {
+                    const formData = new FormData();
+                    formData.append('image', blob, `${p.name.toLowerCase().replace(/\s+/g, '_')}.png`);
+
+                    for (const key in data) {
+                        if (key !== 'image') {
+                            formData.append(key, data[key]);
+                        }
+                    }
+
+                    if (existing.items.length === 0) {
+                        const record = await pb.collection('products').create(formData);
+                        productIds.push(record.id);
+                        console.log(`Created product (with image): ${p.name}`);
+                    } else {
+                        const record = await pb.collection('products').update(existing.items[0].id, formData);
+                        productIds.push(record.id);
+                        console.log(`Updated product (with image): ${p.name}`);
+                    }
+                    continue;
+                }
+            }
+
             if (existing.items.length === 0) {
                 const record = await pb.collection('products').create(p);
                 productIds.push(record.id);
+                console.log(`Created product: ${p.name}`);
             } else {
                 productIds.push(existing.items[0].id);
+                console.log(`Product exists: ${p.name}`);
             }
         }
 
@@ -299,11 +370,40 @@ async function main() {
                 const shuffled = productIds.sort(() => 0.5 - Math.random());
                 const selectedProducts = shuffled.slice(0, 2);
 
-                const recipeData = {
+                const recipeData: any = {
                     ...recipe,
                     products: selectedProducts,
                     base_ingredients: recipeBaseIngredients
                 };
+
+                // Handle image upload
+                if (recipe.image && recipe.image.startsWith('http')) {
+                    const blob = await downloadImage(recipe.image);
+                    if (blob) {
+                        const formData = new FormData();
+                        formData.append('image', blob, `${recipe.title.toLowerCase().replace(/\s+/g, '_')}.png`);
+
+                        // Add other fields to FormData
+                        for (const key in recipeData) {
+                            if (key !== 'image') {
+                                if (Array.isArray(recipeData[key])) {
+                                    recipeData[key].forEach((val: any) => formData.append(key, val));
+                                } else {
+                                    formData.append(key, recipeData[key]);
+                                }
+                            }
+                        }
+
+                        if (existing.items.length === 0) {
+                            await pb.collection('recipes').create(formData);
+                            console.log(`Created recipe (with image): ${recipe.title}`);
+                        } else {
+                            await pb.collection('recipes').update(existing.items[0].id, formData);
+                            console.log(`Updated recipe (with image): ${recipe.title}`);
+                        }
+                        continue;
+                    }
+                }
 
                 if (existing.items.length === 0) {
                     await pb.collection('recipes').create(recipeData);
@@ -319,8 +419,11 @@ async function main() {
 
         console.log('Done!');
 
-    } catch (err) {
+    } catch (err: any) {
         console.error('Error:', err);
+        if (err.response) {
+            console.error('Error Details:', JSON.stringify(err.response.data, null, 2));
+        }
         process.exit(1);
     }
 }

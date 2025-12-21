@@ -61,7 +61,7 @@ export function IngredientDetail() {
 
     return (
         <div className="max-w-4xl mx-auto pb-20 px-4">
-            <Link to="/ingredients" className="inline-block mb-6 font-retro hover:underline text-lg text-black">&larr; BACK TO PANTRY</Link>
+            <Link to="/ingredients" className="inline-block mb-6 font-retro hover:underline text-lg text-white">&larr; BACK TO PANTRY</Link>
 
             <div className="bg-white border-8 border-black shadow-hard overflow-hidden mb-12">
                 {/* Header Section */}
@@ -85,7 +85,7 @@ export function IngredientDetail() {
                     <div className="p-8 border-r-0 md:border-r-8 border-b-8 md:border-b-0 border-black bg-gray-50 flex items-center justify-center relative group">
                         <div className="absolute inset-4 border-2 border-dashed border-gray-300 pointer-events-none"></div>
                         <img
-                            src={ingredient.image}
+                            src={ingredient.image ? pb.files.getUrl(ingredient, ingredient.image) : ''}
                             alt={ingredient.name}
                             className="w-full aspect-square object-cover shadow-hard border-4 border-black"
                             style={{ imageRendering: 'pixelated' }}
@@ -177,7 +177,7 @@ export function IngredientDetail() {
                             >
                                 <div className="w-16 h-16 border-2 border-black flex-shrink-0 bg-gray-100">
                                     <img
-                                        src={recipe.image}
+                                        src={recipe.image ? pb.files.getUrl(recipe, recipe.image) : ''}
                                         alt={recipe.title}
                                         className="w-full h-full object-cover"
                                         style={{ imageRendering: 'pixelated' }}

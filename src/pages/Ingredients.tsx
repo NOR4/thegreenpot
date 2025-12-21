@@ -104,7 +104,7 @@ export function Ingredients() {
                     >
                         <div className="w-24 h-24 border-4 border-black flex-shrink-0 bg-yellow-50 overflow-hidden relative">
                             <img
-                                src={ing.image}
+                                src={ing.image ? pb.files.getUrl(ing, ing.image) : ''}
                                 alt={ing.name}
                                 className="w-full h-full object-cover"
                                 style={{ imageRendering: 'pixelated' }}

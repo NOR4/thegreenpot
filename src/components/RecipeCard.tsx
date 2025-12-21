@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { PixelButton } from './PixelButton';
 import { IconHeart, IconStar } from './icons';
+import { pb } from '../lib/pocketbase';
 
 interface RecipeCardProps {
     id: string;
@@ -13,6 +14,8 @@ interface RecipeCardProps {
 }
 
 export const RecipeCard = ({ id, title, image, difficulty, price, category, total_votes = 0 }: RecipeCardProps) => {
+    const imageUrl = image ? pb.files.getUrl({ collectionName: 'recipes', id }, image) : '';
+
     return (
         <div className="w-full max-w-sm bg-gray-retro border-4 border-black p-4 flex flex-col gap-4 shadow-hard">
             {/* Card Header (Category) */}
@@ -38,7 +41,7 @@ export const RecipeCard = ({ id, title, image, difficulty, price, category, tota
             {/* Card Image (Art) */}
             <div className="border-4 border-black bg-white aspect-square w-full overflow-hidden relative group">
                 <img
-                    src={image}
+                    src={imageUrl}
                     alt={title}
                     className="w-full h-full object-cover"
                     style={{ imageRendering: 'pixelated' }}

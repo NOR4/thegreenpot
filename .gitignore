@@ -30,4 +30,5 @@ pb_data/data.db
 pb_data/data.db-shm
 pb_data/data.db-wal
 pb_data/types.d.ts
+pb_data
 pb_server
