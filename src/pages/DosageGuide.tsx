@@ -1,5 +1,5 @@
 import potIcon from '../assets/pot-icon.png';
-import { IconLeaf } from '../components/icons/leaf';
+import leafImage from '../assets/leaf.png';
 
 export function DosageGuide() {
     return (
@@ -10,11 +10,11 @@ export function DosageGuide() {
                 <img src={potIcon} alt="Pot Icon" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
             </div>
 
-            <div className="overflow-x-auto pb-8">
-                <div className="min-w-[1400px] grid grid-cols-[200px_1fr_1fr_1fr_1fr_1fr] gap-6">
+            <div className="overflow-x-auto pb-8 no-scrollbar relative z-10">
+                <div className="min-w-[1400px] grid grid-cols-[250px_1fr_1fr_1fr_1fr_1fr] gap-6">
 
                     {/* Headers / Left Column Labels */}
-                    <div className="flex flex-col justify-center gap-16 pt-24 font-retro text-[#4ade80] text-right pr-6 text-xl">
+                    <div className="flex flex-col justify-start gap-6 pt-7 font-retro text-[#4ade80] text-right pr-6 text-xl">
                         <div className="h-24 flex items-center justify-end">CANTIDAD DE<br />CBD/ THC</div>
                         <div className="h-40 flex items-center justify-end">PERFIL DE<br />CONSUMIDOR@</div>
                         <div className="h-48 flex items-center justify-end">EFECTOS</div>
@@ -33,7 +33,7 @@ export function DosageGuide() {
                         amount="3 - 15 mg"
                         profile="Consumidores ocasionales. Pacientes con síntomas persistentes."
                         effects="Desaparición de la mayoría de los síntomas. Ligera euforia. Puede aparecer algo de descoordinación."
-                        bgColor="bg-[#e0f7e9]"
+                        bgColor="bg-[#bbf7d0]"
                     />
 
                     {/* Column 3: 15-30 mg */}
@@ -57,8 +57,8 @@ export function DosageGuide() {
                         amount="50 - 100 mg"
                         profile="Valientes. Pacientes con síntomas muy graves."
                         effects="Posiblemente te quedes fuera de combate por varias horas. No vas a saber ni cómo te llamas. Ojo, pueden aparecer náuseas y taquicardia."
-                        bgColor="bg-[#166534]"
-                        textColor="text-white bg-[#1a4a2e]"
+                        bgColor="bg-[#15803d]"
+                        textColor="text-white bg-[#14532d]"
                     />
 
                 </div>
@@ -69,8 +69,8 @@ export function DosageGuide() {
             </div>
 
             {/* Decoration */}
-            <div className="absolute -bottom-10 -left-10 text-[#4ade80] opacity-80 pointer-events-none rotate-12">
-                <IconLeaf className="w-64 h-64" />
+            <div className="absolute -bottom-10 -left-10 text-[#4ade80] opacity-80 pointer-events-none rotate-12 z-0">
+                <img src={leafImage} alt="Weed Leaf" className="w-64 h-64 object-contain" />
             </div>
         </div>
     );
@@ -86,12 +86,12 @@ interface DosageColumnProps {
 
 function DosageColumn({ amount, profile, effects, bgColor, textColor }: DosageColumnProps) {
     // Base classes
-    const containerClass = `flex flex-col gap-6 p-6 rounded-xl border-4 border-black ${bgColor} ${textColor || 'text-black'} hover:transform hover:-translate-y-2 transition-transform duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]`;
+    const containerClass = `flex flex-col gap-6 p-6 rounded-xl border-4 border-[#ff77ff] ${bgColor} ${textColor || 'text-black'} hover:transform hover:-translate-y-2 transition-transform duration-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]`;
 
     return (
         <div className={containerClass}>
             <div className="h-24 flex items-center justify-center border-b-2 border-black/10 pb-4">
-                <h3 className="font-retro text-3xl text-center">{amount}</h3>
+                <h3 className="font-retro text-2xl text-center">{amount}</h3>
             </div>
             <div className="h-40 flex items-start overflow-y-auto">
                 <p className="font-bold text-lg leading-snug">{profile}</p>
