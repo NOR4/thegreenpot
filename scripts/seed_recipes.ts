@@ -73,10 +73,13 @@ const recipes: SeedRecipe[] = [
     }
 ];
 
-const products = [
-    { name: "Magical Grinder", price: "25 GP", image: "https://placehold.co/200x200/444/fff?text=Grinder", affiliate_link: "https://amazon.com" },
-    { name: "Crystal Infuser", price: "15 GP", image: "https://placehold.co/200x200/444/fff?text=Infuser", affiliate_link: "https://amazon.com" },
-    { name: "Alchemist Jars", price: "10 GP", image: "https://placehold.co/200x200/444/fff?text=Jars", affiliate_link: "https://amazon.com" }
+const ingredientsData = [
+    { name: "Misty Tea Leaves", description: "Silver-green leaves that shimmer in the moonlight. Harvested from the highest peaks of the Misty Mountains.", category: "Herb", image: "https://placehold.co/200x200/png?text=Leaves", calories: 5, allergies: "None", rarity: "Rare", effects: "Calm, Clarity" },
+    { name: "Magic Dust", description: "Fine glowing powder that sparkles with arcane energy. Handle with care!", category: "Catalyst", image: "https://placehold.co/200x200/png?text=Dust", calories: 0, allergies: "Arcane Sensitivity", rarity: "Epic", effects: "Energy, Levitation" },
+    { name: "Blue Flower", description: "A rare azure bloom that only grows in deep forest shade. Known for its sedative properties.", category: "Herb", image: "https://placehold.co/200x200/png?text=Flower", calories: 10, allergies: "Pollen", rarity: "Common", effects: "Sleep, Relaxation" },
+    { name: "Dwarven Yeast", description: "Ancient fermented spores passed down through generations of mountain smiths.", category: "Ferment", image: "https://placehold.co/200x200/png?text=Yeast", calories: 45, allergies: "Gluten", rarity: "Common", effects: "Strength, Resilience" },
+    { name: "Fairy Flour", description: "Extra-fine flour ground from enchanted wheat. So light it can float on a breeze.", category: "Grain", image: "https://placehold.co/200x200/png?text=Flour", calories: 120, allergies: "Gluten", rarity: "Rare", effects: "Lightness, Joy" },
+    { name: "Sparkle Sugar", description: "Sugar crystals that literally pop and glow when touched. Adds a delightful sparkle to any treat.", category: "Sweetener", image: "https://placehold.co/200x200/png?text=Sugar", calories: 80, allergies: "None", rarity: "Common", effects: "Excitement, Glow" }
 ];
 
 async function main() {
@@ -87,7 +90,74 @@ async function main() {
         console.log(`Authenticating as ${adminEmail}...`);
         await pb.admins.authWithPassword(adminEmail, adminPassword);
 
-        // --- RECIPES COLLECTION ---
+        // --- 1. INGREDIENTS COLLECTION ---
+        console.log('Checking "ingredients" collection...');
+        let ingredientsCollectionId = '';
+        try {
+            const collection = await pb.collections.getOne('ingredients');
+            ingredientsCollectionId = collection.id;
+            console.log('"ingredients" exists. Updating schema...');
+
+            // Update fields to include new ones
+            await pb.collections.update(collection.id, {
+                fields: [
+                    { name: 'name', type: 'text', required: true },
+                    { name: 'description', type: 'text', required: true },
+                    { name: 'image', type: 'url', required: false },
+                    { name: 'category', type: 'text', required: false },
+                    { name: 'calories', type: 'number', required: false },
+                    { name: 'allergies', type: 'text', required: false },
+                    { name: 'rarity', type: 'text', required: false },
+                    { name: 'effects', type: 'text', required: false }
+                ],
+                listRule: "",
+                viewRule: "",
+            });
+            console.log('"ingredients" schema updated.');
+        } catch (err: any) {
+            if (err.status === 404) {
+                console.log('Creating "ingredients" collection...');
+                const collection = await pb.collections.create({
+                    name: 'ingredients',
+                    type: 'base',
+                    fields: [
+                        { name: 'name', type: 'text', required: true },
+                        { name: 'description', type: 'text', required: true },
+                        { name: 'image', type: 'url', required: false },
+                        { name: 'category', type: 'text', required: false },
+                        { name: 'calories', type: 'number', required: false },
+                        { name: 'allergies', type: 'text', required: false },
+                        { name: 'rarity', type: 'text', required: false },
+                        { name: 'effects', type: 'text', required: false }
+                    ],
+                    listRule: "",
+                    viewRule: "",
+                });
+                ingredientsCollectionId = collection.id;
+                console.log('Created "ingredients" collection.');
+            } else {
+                throw err;
+            }
+        }
+
+        // Seed Ingredients
+        console.log('Seeding ingredients...');
+        const ingredientMap: Record<string, string> = {};
+        for (const ing of ingredientsData) {
+            const existing = await pb.collection('ingredients').getList(1, 1, { filter: `name="${ing.name}"` });
+            if (existing.items.length === 0) {
+                const record = await pb.collection('ingredients').create(ing);
+                ingredientMap[ing.name] = record.id;
+                console.log(`Created ingredient: ${ing.name}`);
+            } else {
+                // Update existing with new data
+                const record = await pb.collection('ingredients').update(existing.items[0].id, ing);
+                ingredientMap[ing.name] = record.id;
+                console.log(`Updated ingredient: ${ing.name}`);
+            }
+        }
+
+        // --- 2. RECIPES COLLECTION ---
         console.log('Checking "recipes" collection...');
         let recipesCollectionId = '';
         try {
@@ -95,15 +165,16 @@ async function main() {
             recipesCollectionId = collection.id;
             console.log('"recipes" exists. Updating schema...');
 
-            // Check if fields exist, if not add them. 
-            // NOTE: Simplest way is to define full schema. PocketBase merges/updates.
             await pb.collections.update(collection.id, {
                 fields: [
-                    ...collection.fields.filter(f => !['ingredients', 'instructions', 'time'].includes(f.name)),
+                    ...collection.fields.filter(f => !['ingredients', 'instructions', 'time', 'base_ingredients'].includes(f.name)),
                     { name: 'ingredients', type: 'json' },
                     { name: 'instructions', type: 'json' },
-                    { name: 'time', type: 'text', required: false }
-                ]
+                    { name: 'time', type: 'text', required: false },
+                    { name: 'base_ingredients', type: 'relation', collectionId: ingredientsCollectionId, options: { maxSelect: null, collectionId: ingredientsCollectionId } }
+                ],
+                listRule: "",
+                viewRule: "",
             });
             console.log('"recipes" schema updated.');
 
@@ -123,8 +194,11 @@ async function main() {
                         { name: 'ingredients', type: 'json' },
                         { name: 'instructions', type: 'json' },
                         { name: 'time', type: 'text', required: false },
-                        { name: 'total_votes', type: 'number', required: false }
-                    ]
+                        { name: 'total_votes', type: 'number', required: false },
+                        { name: 'base_ingredients', type: 'relation', collectionId: ingredientsCollectionId, options: { maxSelect: null, collectionId: ingredientsCollectionId } }
+                    ],
+                    listRule: "",
+                    viewRule: "",
                 });
                 recipesCollectionId = collection.id;
                 console.log('Created "recipes" collection.');
@@ -133,156 +207,109 @@ async function main() {
             }
         }
 
-        // Update schema if it exists to ensure total_votes is there
-        try {
-            const collection = await pb.collections.getOne('recipes');
-            await pb.collections.update(collection.id, {
-                fields: [
-                    ...collection.fields.filter(f => f.name !== 'total_votes'),
-                    { name: 'total_votes', type: 'number', required: false }
-                ]
-            });
-            console.log('Updated "recipes" schema with total_votes.');
-        } catch (e) {
-            console.log('Error updating schema (might already be up to date):', e);
-        }
-
-        // --- 3. Manage Products Collection (Standalone Catalog) ---
+        // --- 3. PRODUCTS COLLECTION ---
         console.log('Checking "products" collection...');
         let productsCollectionId = '';
         try {
             const collection = await pb.collections.getOne('products');
             productsCollectionId = collection.id;
-            console.log('"products" collection exists. Updating schema...');
-
-            // Remove old recipe field if it exists (not strictly necessary to delete, but good for cleanup)
-            // Add 'clicks' field
+            console.log('"products" collection exists.');
             await pb.collections.update(collection.id, {
-                fields: [
-                    ...collection.fields.filter(f => f.name !== 'recipe'), // Remove recipe link from product side
-                    { name: 'clicks', type: 'number', required: false }
-                ]
+                listRule: "",
+                viewRule: "",
             });
-
         } catch (err: any) {
             if (err.status === 404) {
                 console.log('Creating "products" collection...');
-                try {
-                    const collection = await pb.collections.create({
-                        name: 'products',
-                        type: 'base',
-                        fields: [
-                            { name: 'name', type: 'text', required: true },
-                            { name: 'image', type: 'url', required: true },
-                            { name: 'affiliate_link', type: 'url', required: true },
-                            { name: 'price', type: 'text' },
-                            { name: 'clicks', type: 'number', required: false }
-                        ]
-                    });
-                    productsCollectionId = collection.id;
-                    console.log('Created "products" collection.');
-                } catch (e: any) {
-                    console.error('Failed to create products collection:', JSON.stringify(e.data, null, 2));
-                    throw e;
-                }
+                const collection = await pb.collections.create({
+                    name: 'products',
+                    type: 'base',
+                    fields: [
+                        { name: 'name', type: 'text', required: true },
+                        { name: 'image', type: 'url', required: true },
+                        { name: 'affiliate_link', type: 'url', required: true },
+                        { name: 'price', type: 'text' },
+                        { name: 'clicks', type: 'number', required: false }
+                    ],
+                    listRule: "",
+                    viewRule: "",
+                });
+                productsCollectionId = collection.id;
+                console.log('Created "products" collection.');
             } else {
                 throw err;
             }
         }
 
-        // --- 4. Update Recipes Schema for Relation ---
-        console.log('Updating "recipes" schema for product relations...');
-        const recipesCollection = await pb.collections.getOne('recipes');
-        await pb.collections.update(recipesCollection.id, {
-            fields: [
-                ...recipesCollection.fields,
-                {
-                    name: 'products',
-                    type: 'relation',
-                    required: false,
-                    collectionId: productsCollectionId,
-                    options: { maxSelect: null, collectionId: productsCollectionId } // Multiple products
-                }
-            ]
-        });
-
-
-        // --- USERS & LIKES/COMMENTS (Preserve existing logic roughly) ---
-        const usersCollection = await pb.collections.getOne('users');
-        const usersCollectionId = usersCollection.id;
-
-        // Ensure likes/comments exist (simplified from previous steps, assuming they work now)
-        try { await pb.collections.getOne('likes'); } catch {
-            await pb.collections.create({
-                name: 'likes',
-                type: 'base',
-                fields: [
-                    { name: 'recipe', type: 'relation', required: true, collectionId: recipesCollectionId, cascadeDelete: true, maxSelect: 1, options: { collectionId: recipesCollectionId, cascadeDelete: true, maxSelect: 1 } },
-                    { name: 'user', type: 'relation', required: true, collectionId: usersCollectionId, cascadeDelete: true, maxSelect: 1, options: { collectionId: usersCollectionId, cascadeDelete: true, maxSelect: 1 } }
-                ],
-                indexes: ['CREATE UNIQUE INDEX idx_recipe_user ON likes (recipe, user)']
-            });
-        }
-        try { await pb.collections.getOne('comments'); } catch {
-            await pb.collections.create({
-                name: 'comments',
-                type: 'base',
-                fields: [
-                    { name: 'text', type: 'text', required: true },
-                    { name: 'recipe', type: 'relation', required: true, collectionId: recipesCollectionId, cascadeDelete: true, maxSelect: 1, options: { collectionId: recipesCollectionId, cascadeDelete: true, maxSelect: 1 } },
-                    { name: 'user', type: 'relation', required: true, collectionId: usersCollectionId, cascadeDelete: true, maxSelect: 1, options: { collectionId: usersCollectionId, cascadeDelete: true, maxSelect: 1 } }
-                ]
-            });
+        // Update recipes for products relation IF NOT ALREADY THERE
+        try {
+            const recipesCollection = await pb.collections.getOne('recipes');
+            if (!recipesCollection.fields.find(f => f.name === 'products')) {
+                await pb.collections.update(recipesCollection.id, {
+                    fields: [
+                        ...recipesCollection.fields,
+                        {
+                            name: 'products',
+                            type: 'relation',
+                            required: false,
+                            collectionId: productsCollectionId,
+                            options: { maxSelect: null, collectionId: productsCollectionId }
+                        }
+                    ]
+                });
+            }
+        } catch (e) {
+            console.log('Error updating products relation:', e);
         }
 
-
-        // --- 5. Seed Data ---
-
-        // A. Seed Product Catalog
-        console.log('Seeding products catalog...');
+        // Seed Products
         const catalogData = [
             { name: 'Magical Herb Grinder', image: 'https://placehold.co/200x200/444/fff?text=Grinder', affiliate_link: 'https://amazon.com', price: '25 GP', clicks: 0 },
             { name: 'Crystal Infuser', image: 'https://placehold.co/200x200/444/fff?text=Infuser', affiliate_link: 'https://amazon.com', price: '15 GP', clicks: 0 },
             { name: 'Alchemist Jars', image: 'https://placehold.co/200x200/444/fff?text=Jars', affiliate_link: 'https://amazon.com', price: '10 GP', clicks: 0 },
-            { name: 'Obsidian Mortar', image: 'https://placehold.co/200x200/444/fff?text=Mortar', affiliate_link: 'https://amazon.com', price: '35 GP', clicks: 0 },
-            { name: 'Dragon Fire Torch', image: 'https://placehold.co/200x200/444/fff?text=Torch', affiliate_link: 'https://amazon.com', price: '100 GP', clicks: 0 }
+            { name: 'Obsidian Mortar', image: 'https://placehold.co/200x200/444/fff?text=Mortar', affiliate_link: 'https://amazon.com', price: '35 GP', clicks: 0 }
         ];
 
         const productIds: string[] = [];
-
         for (const p of catalogData) {
             const existing = await pb.collection('products').getList(1, 1, { filter: `name="${p.name}"` });
             if (existing.items.length === 0) {
                 const record = await pb.collection('products').create(p);
                 productIds.push(record.id);
-                console.log(`Created product: ${p.name}`);
             } else {
                 productIds.push(existing.items[0].id);
-                console.log(`Product exists: ${p.name}`);
             }
         }
 
-
-        // B. Seed Recipes with Relations
+        // --- 4. SEED RECIPES ---
         console.log('Seeding recipes...');
-
         for (const recipe of recipes) {
             try {
+                // Determine base ingredients for this recipe
+                const recipeBaseIngredients: string[] = [];
+                for (const ingName of recipe.ingredients) {
+                    // Check if the ingredient name exists (partial match)
+                    const found = Object.keys(ingredientMap).find(name => ingName.toLowerCase().includes(name.toLowerCase()));
+                    if (found) {
+                        recipeBaseIngredients.push(ingredientMap[found]);
+                    }
+                }
+
                 const existing = await pb.collection('recipes').getList(1, 1, { filter: `title="${recipe.title}"` });
-
-                // Randomly assign 2-3 products to each recipe
                 const shuffled = productIds.sort(() => 0.5 - Math.random());
-                const selectedProducts = shuffled.slice(0, 2 + Math.floor(Math.random() * 2));
+                const selectedProducts = shuffled.slice(0, 2);
 
-                const recipeData = { ...recipe, products: selectedProducts };
+                const recipeData = {
+                    ...recipe,
+                    products: selectedProducts,
+                    base_ingredients: recipeBaseIngredients
+                };
 
                 if (existing.items.length === 0) {
                     await pb.collection('recipes').create(recipeData);
                     console.log(`Created recipe: ${recipe.title}`);
                 } else {
-                    // Always update to ensure links are established and new fields are present
-                    const rec = existing.items[0];
-                    await pb.collection('recipes').update(rec.id, recipeData);
+                    await pb.collection('recipes').update(existing.items[0].id, recipeData);
                     console.log(`Updated recipe: ${recipe.title}`);
                 }
             } catch (e) {
@@ -299,3 +326,4 @@ async function main() {
 }
 
 main();
+

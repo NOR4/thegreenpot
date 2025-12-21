@@ -5,6 +5,8 @@ import { Layout } from './components/Layout';
 import { Home } from './pages/Home';
 import { RecipePage } from './pages/RecipePage';
 import { DosageGuide } from './pages/DosageGuide';
+import { Ingredients } from './pages/Ingredients';
+import { IngredientDetail } from './pages/IngredientDetail';
 
 function App() {
   const [ageVerified, setAgeVerified] = useState(false);
@@ -22,6 +24,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="recipe/:id" element={<RecipePage />} />
           <Route path="dosage-guide" element={<DosageGuide />} />
+          <Route path="ingredients" element={<Ingredients />} />
+          <Route path="ingredient/:id" element={<IngredientDetail />} />
         </Route>
       </Routes>
     </BrowserRouter>

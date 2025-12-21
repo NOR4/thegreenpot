@@ -16,15 +16,26 @@ async function main() {
             console.log(`  View Rule: ${c.viewRule}`);
         });
 
-        console.log('\nChecking some recipes and their products...');
+        console.log('\nChecking some recipes and their relations...');
         const recipes = await pb.collection('recipes').getList(1, 3, {
-            expand: 'products'
+            expand: 'products,base_ingredients'
         });
 
         recipes.items.forEach(r => {
-            console.log(`Recipe: ${r.title}`);
-            console.log(`- Products Filter string: ${r.products}`);
-            console.log(`- Expanded Products:`, JSON.stringify(r.expand?.products || [], null, 2));
+            console.log(`\n--- Recipe: ${r.title} ---`);
+            console.log(`- Ingredients (JSON):`, r.ingredients);
+
+            const baseIngs = r.expand?.base_ingredients;
+            const baseIngsArray = Array.isArray(baseIngs) ? baseIngs : (baseIngs ? [baseIngs] : []);
+
+            const products = r.expand?.products;
+            const productsArray = Array.isArray(products) ? products : (products ? [products] : []);
+
+            console.log(`- Expanded Products:`, productsArray.length);
+            console.log(`- Expanded Base Ingredients:`, baseIngsArray.length);
+            if (baseIngsArray.length > 0) {
+                console.log(`  - Names:`, baseIngsArray.map((i: any) => i.name));
+            }
         });
 
         console.log('\nChecking products collection directly...');

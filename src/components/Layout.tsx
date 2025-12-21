@@ -35,6 +35,17 @@ export function Layout() {
                         >
                             DOSAGE GUIDE
                         </NavLink>
+                        <NavLink
+                            to="/ingredients"
+                            className={({ isActive }) =>
+                                `font-retro text-lg p-3 border-4 transition-all ${isActive
+                                    ? 'bg-[#4ade80] border-black text-black shadow-hard transform -translate-y-1'
+                                    : 'bg-white border-black text-black hover:bg-[#eec39a]'
+                                }`
+                            }
+                        >
+                            PANTRY
+                        </NavLink>
                     </nav>
 
                     <div className="hidden md:block p-4 border-4 border-black bg-white mt-auto">

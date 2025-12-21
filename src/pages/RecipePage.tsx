@@ -22,7 +22,16 @@ interface Recipe {
     collectionId: string;
     expand?: {
         products?: AffiliateProduct[];
+        base_ingredients?: BaseIngredient[];
     };
+}
+
+interface BaseIngredient {
+    id: string;
+    name: string;
+    description: string;
+    image: string;
+    category: string;
 }
 
 interface AffiliateProduct {
@@ -44,20 +53,28 @@ export function RecipePage() {
         async function fetchData() {
             if (!id) return;
             try {
-                // Fetch Recipe with expanded products
+                // Fetch Recipe with expanded products and base ingredients
                 const record = await pb.collection('recipes').getOne<Recipe>(id, {
-                    expand: 'products'
+                    expand: 'products,base_ingredients'
                 });
 
+                // Normalize expansions
+                if (record.expand) {
+                    if (record.expand.products && !Array.isArray(record.expand.products)) {
+                        record.expand.products = [record.expand.products as any];
+                    }
+                    if (record.expand.base_ingredients && !Array.isArray(record.expand.base_ingredients)) {
+                        record.expand.base_ingredients = [record.expand.base_ingredients as any];
+                    }
+                }
+
+                console.log("RecipePage - Fetched record:", record);
                 setRecipe(record);
 
-                // PocketBase expansion for a relation with maxSelect > 1 usually returns an array,
-                // but let's be defensive. If it's a single object, wrap it.
+                // Update products state
                 const expandedProducts = record.expand?.products;
                 if (Array.isArray(expandedProducts)) {
                     setProducts(expandedProducts);
-                } else if (expandedProducts) {
-                    setProducts([expandedProducts]);
                 } else {
                     setProducts([]);
                 }
@@ -73,12 +90,6 @@ export function RecipePage() {
 
     const handleProductClick = async (productId: string) => {
         try {
-            // Atomic increment if supported, or read-write (simplified here as blind update 'clicks+')
-            // Note: JS SDK might not support 'clicks+' directly in type, but we cast or pass raw object.
-            // Using standard update for MVP: We don't have atomic increment exposed easily in client without custom endpoints usually, 
-            // but we can try sending the raw JSON key if the server supports it. 
-            // For now, let's just do a blind fetch-update which is safe enough for low traffic.
-            // BETTER: PocketBase 0.20+ supports `+` operator.
             await pb.collection('products').update(productId, {
                 'clicks+': 1
             });
@@ -107,7 +118,6 @@ export function RecipePage() {
         <div className="max-w-7xl mx-auto pb-10">
             <Link to="/" className="inline-block mb-4 font-retro hover:underline text-lg">&larr; ABANDON QUEST</Link>
 
-            {/* Header: Quest Log Stats */}
             <div className="bg-gray-800 text-white border-4 border-black p-6 mb-8 shadow-hard">
                 <div className="flex flex-col gap-2 mb-4">
                     <span className="font-pixel text-yellow-400 uppercase tracking-widest text-sm">{recipe.category} QUEST</span>
@@ -133,17 +143,13 @@ export function RecipePage() {
                     </div>
                     <div className="flex items-center gap-2">
                         <IconBag className="w-6 h-6 text-yellow-400" />
-                        <span className="font-retro text-xl">{recipe.ingredients?.length || 0} ITEMS NEEDED</span>
+                        <span className="font-retro text-xl">{Array.isArray(recipe.ingredients) ? recipe.ingredients.length : 0} ITEMS NEEDED</span>
                     </div>
                 </div>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-
-                {/* Left Column: Content */}
                 <div className="lg:col-span-2 flex flex-col gap-8">
-
-                    {/* Main Image */}
                     <div className="border-4 border-black aspect-video overflow-hidden bg-gray-900 shadow-hard relative">
                         <img
                             src={recipe.image}
@@ -156,7 +162,6 @@ export function RecipePage() {
                         </div>
                     </div>
 
-                    {/* Description */}
                     <div className="bg-white border-4 border-black p-6 shadow-hard">
                         <h2 className="font-retro text-2xl mb-4 border-b-4 border-black inline-block pr-8 bg-green-200 text-black">THE SCROLL SAYS...</h2>
                         <p className="font-pixel text-lg leading-relaxed text-gray-800">
@@ -169,69 +174,86 @@ export function RecipePage() {
                         </div>
                     </div>
 
-                    {/* Ingredients (Checkboxes) */}
                     <div className="bg-[#fdf6e3] border-4 border-black p-6 shadow-hard">
                         <h2 className="font-retro text-2xl mb-6 flex items-center gap-3 text-black">
                             <span className="bg-black text-white px-2 py-1">!</span>
                             REQUIRED MATERIALS
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {recipe.ingredients?.map((item, idx) => (
-                                <label key={idx} className="flex items-center gap-3 cursor-pointer group select-none">
-                                    <input type="checkbox" className="peer sr-only" />
-                                    <div className="w-6 h-6 border-4 border-black bg-white peer-checked:bg-[#4ade80] flex items-center justify-center transition-colors">
-                                        <IconCheck className="w-4 h-4 text-black opacity-0 peer-checked:opacity-100" />
-                                    </div>
-                                    <span className="font-pixel text-lg group-hover:underline decoration-2 text-black">{item}</span>
-                                </label>
-                            ))}
-                            {(!recipe.ingredients || recipe.ingredients.length === 0) && (
+                            {Array.isArray(recipe.ingredients) && recipe.ingredients.length > 0 ? (
+                                recipe.ingredients.map((item, idx) => (
+                                    <label key={idx} className="flex items-center gap-3 cursor-pointer group select-none">
+                                        <input type="checkbox" className="peer sr-only" />
+                                        <div className="w-6 h-6 border-4 border-black bg-white peer-checked:bg-[#4ade80] flex items-center justify-center transition-colors">
+                                            <IconCheck className="w-4 h-4 text-black opacity-0 peer-checked:opacity-100" />
+                                        </div>
+                                        <span className="font-pixel text-lg group-hover:underline decoration-2 text-black">{item}</span>
+                                    </label>
+                                ))
+                            ) : (
                                 <p className="font-pixel text-gray-500 italic">No materials listed in the scroll.</p>
                             )}
                         </div>
+
+                        {recipe.expand?.base_ingredients && recipe.expand.base_ingredients.length > 0 && (
+                            <div className="mt-8 pt-6 border-t-4 border-black border-dotted">
+                                <h3 className="font-retro text-lg mb-4 text-purple-600">INGREDIENT LORE</h3>
+                                <div className="flex flex-wrap gap-4">
+                                    {recipe.expand.base_ingredients.map((ing) => (
+                                        <Link
+                                            key={ing.id}
+                                            to={`/ingredient/${ing.id}`}
+                                            className="bg-purple-100 border-2 border-black px-3 py-1 flex items-center gap-2 hover:bg-purple-200 transition-colors group"
+                                        >
+                                            <div className="w-6 h-6 border border-black overflow-hidden bg-white">
+                                                <img src={ing.image} alt={ing.name} className="w-full h-full object-cover" style={{ imageRendering: 'pixelated' }} />
+                                            </div>
+                                            <span className="font-pixel text-sm font-bold group-hover:underline">{ing.name}</span>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
-                    {/* Steps */}
                     <div className="bg-white border-4 border-black p-6 shadow-hard">
                         <h2 className="font-retro text-2xl mb-6 text-black">QUEST STEPS</h2>
                         <div className="flex flex-col gap-6">
-                            {recipe.instructions?.map((step, idx) => (
-                                <div
-                                    key={idx}
-                                    onClick={() => toggleStep(idx)}
-                                    className={cn(
-                                        "flex gap-4 p-4 border-2 border-dashed transition-all cursor-pointer",
-                                        checkedStep.includes(idx) ? "bg-gray-100 border-gray-400 opacity-60" : "bg-white border-black hover:bg-gray-50"
-                                    )}
-                                >
-                                    <div className={cn(
-                                        "font-retro text-2xl w-10 h-10 flex-shrink-0 flex items-center justify-center border-2 border-black",
-                                        checkedStep.includes(idx) ? "bg-gray-400 text-white" : "bg-black text-white"
-                                    )}>
-                                        {idx + 1}
+                            {Array.isArray(recipe.instructions) && recipe.instructions.length > 0 ? (
+                                recipe.instructions.map((step, idx) => (
+                                    <div
+                                        key={idx}
+                                        onClick={() => toggleStep(idx)}
+                                        className={cn(
+                                            "flex gap-4 p-4 border-2 border-dashed transition-all cursor-pointer",
+                                            checkedStep.includes(idx) ? "bg-gray-100 border-gray-400 opacity-60" : "bg-white border-black hover:bg-gray-50"
+                                        )}
+                                    >
+                                        <div className={cn(
+                                            "font-retro text-2xl w-10 h-10 flex-shrink-0 flex items-center justify-center border-2 border-black",
+                                            checkedStep.includes(idx) ? "bg-gray-400 text-white" : "bg-black text-white"
+                                        )}>
+                                            {idx + 1}
+                                        </div>
+                                        <p className={cn(
+                                            "font-pixel text-lg leading-snug pt-1",
+                                            checkedStep.includes(idx) ? "line-through text-gray-500" : "text-black"
+                                        )}>
+                                            {step}
+                                        </p>
                                     </div>
-                                    <p className={cn(
-                                        "font-pixel text-lg leading-snug pt-1",
-                                        checkedStep.includes(idx) ? "line-through text-gray-500" : "text-black"
-                                    )}>
-                                        {step}
-                                    </p>
-                                </div>
-                            ))}
-                            {(!recipe.instructions || recipe.instructions.length === 0) && (
+                                ))
+                            ) : (
                                 <p className="font-pixel text-gray-500 italic">No steps revealed yet.</p>
                             )}
                         </div>
                     </div>
 
-                    {/* Comments Section */}
                     <div className="bg-white border-4 border-black p-6 shadow-hard">
                         <Comments recipeId={id!} />
                     </div>
-
                 </div>
 
-                {/* Right Column: Sticky Sidebar (Merchant's Wares) */}
                 <div className="lg:col-span-1 lg:sticky lg:top-4 z-10">
                     <div className="bg-[#444] border-4 border-black p-1 shadow-hard">
                         <div className="bg-gray-800 border-2 border-gray-600 p-4 mb-1">
@@ -260,7 +282,6 @@ export function RecipePage() {
                                                 </span>
                                             )}
                                         </div>
-
                                         <div className="text-center">
                                             <h4 className="font-retro text-lg leading-tight mb-3 min-h-[3rem] flex items-center justify-center">
                                                 {product.name}
@@ -286,7 +307,6 @@ export function RecipePage() {
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     );
