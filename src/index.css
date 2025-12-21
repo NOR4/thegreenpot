@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-pixel bg-purple-retro text-gray-retro antialiased;
+    image-rendering: pixelated;
+  }
+
+  /* Reset rounded corners for everything to strictly follow "Cero Curvas" rule */
+  *,
+  *::before,
+  *::after {
+    border-radius: 0 !important;
+  }
+}
+
+/* Custom utilities if needed */
+.text-xxs {
+  font-size: 0.625rem;
+}
