@@ -8,19 +8,36 @@ async function main() {
         const adminPassword = process.env.PB_ADMIN_PASSWORD || 'PASSWORD123456';
         await pb.admins.authWithPassword(adminEmail, adminPassword);
 
-        console.log('Fetching "recipes" collection...');
-        const collection = await pb.collections.getOne('recipes');
+        const collectionsToUpdate = ['recipes', 'products', 'comments', 'likes'];
 
-        // Allow public read access (empty string or rule expression)
-        // "" = public (careful, some older versions used null, but API usually expects string rules)
-        // For public list/view: ""
-        collection.listRule = "";
-        collection.viewRule = "";
+        for (const collectionName of collectionsToUpdate) {
+            console.log(`Updating rules for "${collectionName}"...`);
+            try {
+                const collection = await pb.collections.getOne(collectionName);
+                collection.listRule = "";
+                collection.viewRule = "";
 
-        console.log('Updating "recipes" rules...');
-        await pb.collections.update(collection.id, collection);
+                if (collectionName === 'recipes') {
+                    collection.updateRule = "";
+                }
 
-        console.log('Rules updated successfully. Public read access enabled.');
+                await pb.collections.update(collection.id, collection);
+                console.log(`Rules for "${collectionName}" updated successfully.`);
+            } catch (err: any) {
+                console.error(`Failed to update rules for "${collectionName}":`, err.message);
+            }
+        }
+
+        // Delete likes collection if it exists
+        try {
+            const likesCollection = await pb.collections.getOne('likes');
+            await pb.collections.delete(likesCollection.id);
+            console.log('Deleted "likes" collection.');
+        } catch (err: any) {
+            console.log('"likes" collection already deleted or not found.');
+        }
+
+        console.log('All public read access rules enabled.');
 
     } catch (e) {
         console.error('Script error:', e);

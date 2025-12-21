@@ -9,6 +9,7 @@ interface Recipe {
     difficulty: number;
     image: string;
     price: string;
+    total_votes: number;
 }
 
 export function Home() {
@@ -40,11 +41,13 @@ export function Home() {
                     {recipes.map((recipe) => (
                         <RecipeCard
                             key={recipe.id}
+                            id={recipe.id}
                             title={recipe.title}
                             category={recipe.category}
                             difficulty={recipe.difficulty}
                             image={recipe.image}
                             price={recipe.price}
+                            total_votes={recipe.total_votes}
                         />
                     ))}
                 </div>

@@ -28,3 +28,34 @@ export const IconSword = (props: IconProps) => (
         <path d="M22 2H2v12h2V4h16v10h2V2zM6 14H4v2h2v-2zm0 2h2v2h2v2H8v-2H6v-2zm4 4v2h4v-2h2v-2h-2v2h-4zm10-6h-2v2h-2v2h2v-2h2v-2z" fill="currentColor" />
     </svg>
 );
+
+export const IconExternalLink = (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+        <path d="M19 3h-8v2h8v8h2V3h-2zM3 3h2v2H3V3zm2 2h2v2H5V5zm2 2h2v2H7V7zm2 2h2v2H9V9zm2 2h2v2h-2v-2zm2 2h2v2h-2v-2zm2 2h2v2h-2v-2zM3 21h14v-2H3v2zm0-2v-2h2v2H3zm2-2v-2h2v2H5z" fill="currentColor" />
+    </svg>
+);
+
+export const IconCheck = (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+        <path d="M20 6h-2v2h-2v2h-2v2h-2v2H8v-2H6v-2H4v-2H2v6h2v-2h2v2h2v2h2v2h2v-2h2v-2h2v-2h2v-2h2V6h-2z" fill="currentColor" />
+    </svg>
+);
+
+export const IconClock = (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+        <path d="M2 11h20v2H2v-2zm18-7h2v5h-2V4zm-4-2h2v2h-2V2zM8 2h2v2H8V2zM4 4h2v5H4V4zm9 5h2v6h-2V9zm-4 4h2v2H9v-2z" fill="currentColor" />
+        {/* Simple pixel clock hand representation */}
+    </svg>
+);
+
+export const IconBag = (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+        <path d="M8 2h8v4h-2V4h-4v2H8V2zM4 6h16v14H4V6zm2 2v10h12V8H6z" fill="currentColor" />
+    </svg>
+);
+
+export const IconStar = (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+        <path fill="currentColor" fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+    </svg>
+);
