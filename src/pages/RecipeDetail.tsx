@@ -17,13 +17,14 @@ interface Recipe {
     description: string;
     time: string;
     total_votes: number;
-    ingredients: string[];
+    ingredients_text: string[]; // Renamed from ingredients
     instructions: string[];
     collectionId: string;
     expand?: {
         products?: AffiliateProduct[];
-        base_ingredients?: BaseIngredient[];
+        ingredients?: BaseIngredient[]; // Renamed from base_ingredientes_v5
     };
+    ingredients_json?: string[]; // Renamed from base_ingredients_json
 }
 
 interface BaseIngredient {
@@ -53,18 +54,50 @@ export function RecipeDetail() {
         async function fetchData() {
             if (!id) return;
             try {
-                // Fetch Recipe with expanded products and base ingredients
+                // Fetch Recipe with expanded products and ingredients
                 const record = await pb.collection('recipes').getOne<Recipe>(id, {
-                    expand: 'products,base_ingredients'
+                    expand: 'products,ingredients'
                 });
+
+                // Check if ingredients relation is populated
+                const rRelation = record.expand?.ingredients;
+                const hasRelationData = Array.isArray(rRelation) && rRelation.length > 0;
+
+                if (hasRelationData) {
+                    console.log(`[RecipeDetail] Using ${rRelation.length} ingredients from 'ingredients' relation.`);
+                } else {
+                    // Fallback: Check for JSON ingredients list
+                    const ingredientIds = record.ingredients_json;
+                    if (Array.isArray(ingredientIds) && ingredientIds.length > 0) {
+                        console.log(`[RecipeDetail] Relation missing/empty. Found ${ingredientIds.length} ingredients in JSON. manual fetching...`);
+
+                        // Construct filter for manual fetch
+                        const filter = ingredientIds.map(id => `id="${id}"`).join(' || ');
+
+                        try {
+                            const ingredients = await pb.collection('ingredients').getFullList<BaseIngredient>({
+                                filter: filter,
+                            });
+
+                            // Manually populate expand
+                            if (!record.expand) {
+                                record.expand = {};
+                            }
+                            record.expand.ingredients = ingredients;
+                            console.log(`[RecipeDetail] Manually fetched ${ingredients.length} ingredients.`);
+                        } catch (ingErr) {
+                            console.error("[RecipeDetail] Failed to fetch ingredients manually:", ingErr);
+                        }
+                    }
+                }
 
                 // Normalize expansions
                 if (record.expand) {
                     if (record.expand.products && !Array.isArray(record.expand.products)) {
                         record.expand.products = [record.expand.products as any];
                     }
-                    if (record.expand.base_ingredients && !Array.isArray(record.expand.base_ingredients)) {
-                        record.expand.base_ingredients = [record.expand.base_ingredients as any];
+                    if (record.expand.ingredients && !Array.isArray(record.expand.ingredients)) {
+                        record.expand.ingredients = [record.expand.ingredients as any];
                     }
                 }
 
@@ -143,7 +176,7 @@ export function RecipeDetail() {
                     </div>
                     <div className="flex items-center gap-2">
                         <IconBag className="w-6 h-6 text-yellow-400" />
-                        <span className="font-retro text-xl">{recipe.ingredients?.length || 0} ITEMS NEEDED</span>
+                        <span className="font-retro text-xl">{recipe.ingredients_text?.length || 0} ITEMS NEEDED</span>
                     </div>
                 </div>
             </div>
@@ -180,7 +213,7 @@ export function RecipeDetail() {
                             REQUIRED MATERIALS
                         </h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {Array.isArray(recipe.ingredients) ? recipe.ingredients.map((item, idx) => (
+                            {Array.isArray(recipe.ingredients_text) ? recipe.ingredients_text.map((item, idx) => (
                                 <label key={idx} className="flex items-center gap-3 cursor-pointer group select-none">
                                     <input type="checkbox" className="peer sr-only" />
                                     <div className="w-6 h-6 border-4 border-black bg-white peer-checked:bg-[#4ade80] flex items-center justify-center transition-colors">
@@ -193,11 +226,11 @@ export function RecipeDetail() {
                             )}
                         </div>
 
-                        {recipe.expand?.base_ingredients && recipe.expand.base_ingredients.length > 0 && (
+                        {recipe.expand?.ingredients && recipe.expand.ingredients.length > 0 && (
                             <div className="mt-8 pt-6 border-t-4 border-black border-dotted">
                                 <h3 className="font-retro text-lg mb-4 text-purple-600">INGREDIENT LORE</h3>
                                 <div className="flex flex-wrap gap-4">
-                                    {recipe.expand.base_ingredients.map((ing) => (
+                                    {recipe.expand.ingredients.map((ing) => (
                                         <Link
                                             key={ing.id}
                                             to={`/ingredient/${ing.id}`}
