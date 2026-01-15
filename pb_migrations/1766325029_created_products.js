@@ -33,15 +33,19 @@ migrate((app) => {
         "type": "text"
       },
       {
-        "exceptDomains": null,
         "hidden": false,
-        "id": "url3309110367",
+        "id": "file3309110367",
         "name": "image",
-        "onlyDomains": null,
         "presentable": false,
-        "required": true,
+        "required": false,
         "system": false,
-        "type": "url"
+        "type": "file",
+        "options": {
+          "maxSelect": 1,
+          "maxSize": 5242880,
+          "mimeTypes": ["image/jpeg", "image/png", "image/svg+xml", "image/gif", "image/webp"],
+          "thumbs": []
+        }
       },
       {
         "exceptDomains": null,

@@ -1,13 +1,15 @@
+import { useTranslation } from 'react-i18next';
 import potIcon from '../assets/pot-icon.png';
 import leafImage from '../assets/leaf.png';
 import { DOSAGE_BRACKETS, type DosageBracket } from '../lib/dosage';
 
 export function DosageGuide() {
+    const { t } = useTranslation();
     return (
         <div className="bg-purple-retro p-4 md:p-8 border-4 border-black shadow-hard text-black rounded-sm relative overflow-hidden">
             <div className="text-center mb-12 flex items-center justify-center gap-8">
                 <img src={potIcon} alt="Pot Icon" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
-                <h2 className="font-retro text-3xl md:text-5xl text-[#4ade80] drop-shadow-[4px_4px_0_#000000]">CALCULA TU DOSIS</h2>
+                <h2 className="font-retro text-3xl md:text-5xl text-[#4ade80] drop-shadow-[4px_4px_0_#000000]">{t('dosageGuide.title')}</h2>
                 <img src={potIcon} alt="Pot Icon" className="w-16 h-16 md:w-24 md:h-24 object-contain" />
             </div>
 
@@ -16,9 +18,9 @@ export function DosageGuide() {
 
                     {/* Headers / Left Column Labels */}
                     <div className="flex flex-col justify-start gap-6 pt-7 font-retro text-[#4ade80] text-right pr-6 text-xl">
-                        <div className="h-24 flex items-center justify-end">CANTIDAD DE<br />CBD/ THC</div>
-                        <div className="h-40 flex items-center justify-end">PERFIL DE<br />CONSUMIDOR@</div>
-                        <div className="h-48 flex items-center justify-end">EFECTOS</div>
+                        <div className="h-24 flex items-center justify-end" dangerouslySetInnerHTML={{ __html: t('dosageGuide.amountLabel').replace('\n', '<br />') }} />
+                        <div className="h-40 flex items-center justify-end" dangerouslySetInnerHTML={{ __html: t('dosageGuide.profileLabel').replace('\n', '<br />') }} />
+                        <div className="h-48 flex items-center justify-end">{t('dosageGuide.effectsLabel')}</div>
                     </div>
 
                     {DOSAGE_BRACKETS.map((bracket, index) => (
@@ -28,7 +30,7 @@ export function DosageGuide() {
                 </div>
 
                 <div className="mt-8 flex justify-center md:hidden">
-                    <span className="font-retro text-white text-xs">← SCROLL FOR MORE →</span>
+                    <span className="font-retro text-white text-xs">{t('dosageGuide.scrollMore')}</span>
                 </div>
             </div>
 

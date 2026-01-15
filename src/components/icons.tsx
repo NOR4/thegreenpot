@@ -71,3 +71,15 @@ export const IconChevronUp = (props: IconProps) => (
         <path d="M4 16h2v-2h2v-2h2v-2h2v-2h2v2h2v2h2v2h2v2H4z" fill="currentColor" />
     </svg>
 );
+
+export const IconUser = (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+        <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z" fill="currentColor" />
+    </svg>
+);
+
+export const IconX = (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" fill="currentColor" />
+    </svg>
+);

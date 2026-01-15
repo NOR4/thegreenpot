@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { pb } from '../lib/pocketbase';
 import { Link } from 'react-router-dom';
 
@@ -11,6 +12,7 @@ interface Ingredient {
 }
 
 export function Ingredients() {
+    const { t } = useTranslation();
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
@@ -39,12 +41,12 @@ export function Ingredients() {
     );
 
     if (loading) {
-        return <div className="font-retro text-2xl text-center mt-10 text-purple-retro animate-pulse">Consulting the ancient botanists...</div>;
+        return <div className="font-retro text-2xl text-center mt-10 text-purple-retro animate-pulse">{t('ingredients.loading')}</div>;
     }
 
     return (
         <div className="max-w-4xl mx-auto pb-10">
-            <Link to="/" className="inline-block mb-4 font-retro hover:underline text-lg">&larr; BACK TO SCROLLS</Link>
+            <Link to="/" className="inline-block mb-4 font-retro hover:underline text-lg">{t('ingredients.backToScrolls')}</Link>
 
             <div className="mb-10 relative">
                 {/* Decorative Background Elements */}
@@ -58,21 +60,21 @@ export function Ingredients() {
                     <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <div>
                             <div className="flex items-center gap-3 mb-2">
-                                <span className="bg-purple-600 text-white font-pixel text-xs px-2 py-1 uppercase tracking-tighter">Inventory Level: Grandmaster</span>
+                                <span className="bg-purple-600 text-white font-pixel text-xs px-2 py-1 uppercase tracking-tighter">{t('ingredients.inventoryLevel')}</span>
                                 <div className="h-[2px] w-12 bg-purple-600"></div>
                             </div>
                             <h1 className="font-retro text-5xl md:text-7xl text-black leading-none tracking-tight">
-                                PANTRY & <span className="text-purple-600">POTIONS</span>
+                                {t('ingredients.pantryTitle')} <span className="text-purple-600">{t('ingredients.potions')}</span>
                             </h1>
                             <p className="font-pixel text-xl text-gray-500 mt-4 max-w-xl leading-relaxed">
-                                A curated compendium of <span className="text-black font-bold">ARCANE COMPONENTS</span>, mystical herbs, and the essence of the pixelated wild.
+                                {t('ingredients.subtitle')} <span className="text-black font-bold">{t('ingredients.arcaneComponents')}</span>{t('ingredients.subtitle2')}
                             </p>
                         </div>
 
                         <div className="flex flex-col items-end gap-2 shrink-0">
                             <div className="bg-yellow-100 border-4 border-black p-3 transform rotate-3 hover:rotate-0 transition-transform cursor-default">
                                 <span className="font-retro text-2xl text-black">{ingredients.length}</span>
-                                <span className="font-pixel text-xs block text-gray-600 uppercase">ARTIFACTS FOUND</span>
+                                <span className="font-pixel text-xs block text-gray-600 uppercase">{t('ingredients.artifactsFound')}</span>
                             </div>
                         </div>
                     </div>
@@ -85,13 +87,13 @@ export function Ingredients() {
             <div className="relative mb-8 group">
                 <input
                     type="text"
-                    placeholder="QUERY THE ARCHIVES FOR COMPONENTS..."
+                    placeholder={t('ingredients.searchPlaceholder')}
                     className="w-full bg-[#fdf6e3] border-4 border-black p-5 font-pixel text-lg text-black focus:outline-none focus:bg-white shadow-hard transition-all group-hover:-translate-y-1 placeholder:text-gray-400"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <div className="absolute right-6 top-1/2 -translate-y-1/2 font-retro text-purple-600 pointer-events-none uppercase tracking-widest hidden md:block">
-                    SEARCH
+                    {t('ingredients.search')}
                 </div>
             </div>
 
@@ -110,7 +112,7 @@ export function Ingredients() {
                                 style={{ imageRendering: 'pixelated' }}
                             />
                             <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 flex items-center justify-center font-retro text-[10px] text-white">
-                                VIEW STATS
+                                {t('ingredients.viewStats')}
                             </div>
                         </div>
                         <div className="flex flex-col">
@@ -129,16 +131,16 @@ export function Ingredients() {
             {filteredIngredients.length === 0 && (
                 <div className="text-center py-20 border-4 border-black border-dashed bg-gray-50">
                     <p className="font-retro text-xl text-gray-400">
-                        {searchTerm ? `No mystical components found for "${searchTerm}"` : "The pantry is currently empty..."}
+                        {searchTerm ? `${t('ingredients.noComponentsFound')} "${searchTerm}"` : t('ingredients.pantryEmpty')}
                     </p>
                 </div>
             )}
 
             <div className="mt-12 p-6 border-4 border-black bg-green-50 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-16 h-16 bg-green-200 transform rotate-45 translate-x-8 -translate-y-8 border-l-4 border-black"></div>
-                <h3 className="font-retro text-2xl mb-2">PRO TIP</h3>
+                <h3 className="font-retro text-2xl mb-2">{t('ingredients.proTip')}</h3>
                 <p className="font-pixel text-sm text-green-800">
-                    Some ingredients are rarer than others! Look for the <span className="text-purple-600 font-bold">ARCANE</span> tag for ingredients that can only be found during a Blood Moon or in the deepest parts of the pixel forest.
+                    {t('ingredients.proTipText')} <span className="text-purple-600 font-bold">{t('ingredients.arcane')}</span> {t('ingredients.proTipText2')}
                 </p>
             </div>
         </div>

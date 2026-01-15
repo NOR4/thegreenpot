@@ -1,30 +1,35 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { pb } from '../lib/pocketbase';
 import { ShareButtons } from '../components/ShareButtons';
 import { LikeButton } from '../components/LikeButton';
 import { Comments } from '../components/Comments';
 import { IconHeart, IconExternalLink, IconCheck, IconClock, IconBag, IconStar, IconChevronDown, IconChevronUp } from '../components/icons';
 import { cn } from '../utils/cn';
-import { getDosageInfo } from '../lib/dosage';
 import { parseIngredientName } from '../utils/ingredients';
 
 interface Recipe {
     id: string;
     title: string;
+    title_es?: string;
     category: string;
+    category_es?: string;
     difficulty: number;
     image: string;
     price: string;
     description: string;
+    description_es?: string;
     time: string;
     total_votes: number;
-    ingredients_text: string[]; // Renamed from ingredients
+    ingredients_text: string[];
+    ingredients_text_es?: string[];
     instructions: string[];
+    instructions_es?: string[];
     collectionId: string;
     expand?: {
         products?: AffiliateProduct[];
-        ingredients?: BaseIngredient[]; // Renamed from base_ingredients
+        ingredients?: BaseIngredient[];
     };
     ingredients_json?: string[];
 }
@@ -32,9 +37,12 @@ interface Recipe {
 interface BaseIngredient {
     id: string;
     name: string;
+    name_es?: string;
     description: string;
+    description_es?: string;
     image: string;
     category: string;
+    category_es?: string;
     calories?: number;
     allergies?: string;
     rarity: string;
@@ -50,14 +58,19 @@ interface AffiliateProduct {
 }
 
 export function RecipePage() {
+    const { t, i18n } = useTranslation();
     const { id } = useParams<{ id: string }>();
     const [recipe, setRecipe] = useState<Recipe | null>(null);
     const [products, setProducts] = useState<AffiliateProduct[]>([]);
     const [loading, setLoading] = useState(true);
     const [checkedStep, setCheckedStep] = useState<number[]>([]);
     const [isIngredientsOpen, setIsIngredientsOpen] = useState(false);
-    const [isPotencyOpen, setIsPotencyOpen] = useState(false);
     const [isStepsOpen, setIsStepsOpen] = useState(false);
+
+    // Helper function to get localized field
+    const getLocalizedField = <T,>(enField: T, esField: T | undefined): T => {
+        return i18n.language === 'es' && esField ? esField : enField;
+    };
 
     useEffect(() => {
         async function fetchData() {
@@ -147,11 +160,11 @@ export function RecipePage() {
     };
 
     if (loading) {
-        return <div className="font-retro text-2xl text-center mt-10">Summoning scroll...</div>;
+        return <div className="font-retro text-2xl text-center mt-10">{t('recipePage.loading')}</div>;
     }
 
     if (!recipe) {
-        return <div className="font-retro text-2xl text-center mt-10 text-red-500">Scroll lost in the void!</div>;
+        return <div className="font-retro text-2xl text-center mt-10 text-red-500">{t('recipePage.notFound')}</div>;
     }
 
     const currentUrl = window.location.href;
@@ -164,18 +177,14 @@ export function RecipePage() {
             .filter(a => a && a.toLowerCase() !== 'none')
         || []));
 
-    // Calculate Dosage Info
-    const totalTHC = recipe.expand?.ingredients?.reduce((sum, ing) => sum + (ing.thc_mg || 0), 0) || 0;
-    const dosageInfo = getDosageInfo(totalTHC);
-
     return (
         <div className="max-w-7xl mx-auto pb-10">
-            <Link to="/" className="inline-block mb-4 font-retro hover:underline text-lg">&larr; ABANDON QUEST</Link>
+            <Link to="/" className="inline-block mb-4 font-retro hover:underline text-lg">{t('recipePage.backLink')}</Link>
 
             <div className="bg-gray-800 text-white border-4 border-black p-6 mb-8 shadow-hard">
                 <div className="flex flex-col gap-2 mb-4">
-                    <span className="font-pixel text-yellow-400 uppercase tracking-widest text-sm">{recipe.category} QUEST</span>
-                    <h1 className="font-retro text-4xl md:text-6xl text-white drop-shadow-md leading-none">{recipe.title}</h1>
+                    <span className="font-pixel text-yellow-400 uppercase tracking-widest text-sm">{getLocalizedField(recipe.category, recipe.category_es)} {t('recipePage.quest')}</span>
+                    <h1 className="font-retro text-4xl md:text-6xl text-white drop-shadow-md leading-none">{getLocalizedField(recipe.title, recipe.title_es)}</h1>
                 </div>
 
                 <div className="flex flex-wrap gap-6 md:gap-12 mt-6 border-t-2 border-gray-600 pt-4">
@@ -185,11 +194,11 @@ export function RecipePage() {
                                 <IconStar key={i} className={`w-6 h-6 ${i < recipe.difficulty ? "text-yellow-400 fill-current" : "text-gray-600"}`} />
                             ))}
                         </div>
-                        <span className="font-pixel text-gray-400 text-sm">DIFFICULTY</span>
+                        <span className="font-pixel text-gray-400 text-sm">{t('recipePage.difficulty')}</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <IconHeart className="w-6 h-6 text-red-500" />
-                        <span className="font-retro text-xl">{recipe.total_votes || 0} VOTES</span>
+                        <span className="font-retro text-xl">{recipe.total_votes || 0} {t('recipePage.votes')}</span>
                     </div>
                     <div className="flex items-center gap-2">
                         <IconClock className="w-6 h-6 text-blue-400" />
@@ -197,20 +206,20 @@ export function RecipePage() {
                     </div>
                     <div className="flex items-center gap-2">
                         <IconBag className="w-6 h-6 text-yellow-400" />
-                        <span className="font-retro text-xl">{Array.isArray(recipe.ingredients_text) ? recipe.ingredients_text.length : 0} ITEMS NEEDED</span>
+                        <span className="font-retro text-xl">{Array.isArray(recipe.ingredients_text) ? recipe.ingredients_text.length : 0} {t('recipePage.itemsNeeded')}</span>
                     </div>
 
                     {/* Dietary Info */}
                     {totalCalories > 0 && (
                         <div className="flex items-center gap-2">
-                            <span className="text-2xl">🔥</span>
-                            <span className="font-retro text-xl">{totalCalories} CAL</span>
+                            <span className="text-2xl">🔥🔥</span>
+                            <span className="font-retro text-xl">{totalCalories} {t('recipePage.cal')}</span>
                         </div>
                     )}
                     {uniqueAllergens.length > 0 && (
                         <div className="flex items-center gap-2 px-3 py-1 bg-red-900/50 border-2 border-red-500 text-red-200">
                             <span className="text-xl">⚠️</span>
-                            <span className="font-pixel text-sm uppercase">Contains: {uniqueAllergens.join(', ')}</span>
+                            <span className="font-pixel text-sm uppercase">{t('recipePage.contains')}: {uniqueAllergens.join(', ')}</span>
                         </div>
                     )}
                 </div>
@@ -226,53 +235,19 @@ export function RecipePage() {
                             style={{ imageRendering: 'pixelated' }}
                         />
                         <div className="absolute bottom-0 right-0 bg-black/70 p-2 border-t-4 border-l-4 border-black">
-                            <span className="font-retro text-white text-lg">{recipe.price} REWARD</span>
+                            <span className="font-retro text-white text-lg">{recipe.price} {t('recipePage.reward')}</span>
                         </div>
                     </div>
 
-                    {/* DOSAGE GUIDE SECTION - NEW */}
-                    {dosageInfo && (
-                        <div className={`border-4 border-black p-6 shadow-hard ${dosageInfo.bgColor} ${dosageInfo.textColor || 'text-black'} transition-all`}>
-                            <div
-                                className="flex items-center justify-between cursor-pointer select-none"
-                                onClick={() => setIsPotencyOpen(!isPotencyOpen)}
-                            >
-                                <h2 className="font-retro text-2xl border-b-4 border-black inline-block pr-8 bg-white/50 px-2">POTENCY ANALYSIS</h2>
-                                {isPotencyOpen ? (
-                                    <IconChevronUp className="w-8 h-8 text-black" />
-                                ) : (
-                                    <IconChevronDown className="w-8 h-8 text-black" />
-                                )}
-                            </div>
-
-                            {isPotencyOpen && (
-                                <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-6 animate-in slide-in-from-top-2 duration-300">
-                                    <div className="flex flex-col gap-1">
-                                        <span className="font-retro text-lg opacity-70">TOTAL DOSAGE</span>
-                                        <span className="font-retro text-4xl">{Math.round(totalTHC)} mg</span>
-                                    </div>
-                                    <div className="flex flex-col gap-1 md:col-span-2">
-                                        <span className="font-retro text-lg opacity-70">CONSUMER PROFILE</span>
-                                        <p className="font-bold text-xl leading-snug">{dosageInfo.profile}</p>
-                                    </div>
-                                    <div className="flex flex-col gap-1 md:col-span-3">
-                                        <span className="font-retro text-lg opacity-70">EXPECTED EFFECTS</span>
-                                        <p className="font-bold text-xl leading-snug">{dosageInfo.effects}</p>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
                     <div className="bg-white border-4 border-black p-6 shadow-hard">
-                        <h2 className="font-retro text-2xl mb-4 border-b-4 border-black inline-block pr-8 bg-green-200 text-black">THE SCROLL SAYS...</h2>
+                        <h2 className="font-retro text-2xl mb-4 border-b-4 border-black inline-block pr-8 bg-green-200 text-black">{t('recipePage.scrollSays')}</h2>
                         <p className="font-pixel text-lg leading-relaxed text-gray-800">
-                            {recipe.description}
+                            {getLocalizedField(recipe.description, recipe.description_es)}
                         </p>
                         <div className="mt-4 flex flex-wrap gap-4 items-center">
                             <LikeButton recipeId={id!} />
                             <div className="h-8 w-1 bg-gray-300 mx-2 hidden md:block"></div>
-                            <ShareButtons title={recipe.title} url={currentUrl} />
+                            <ShareButtons title={getLocalizedField(recipe.title, recipe.title_es)} url={currentUrl} />
                         </div>
                     </div>
 
@@ -283,7 +258,7 @@ export function RecipePage() {
                         >
                             <h2 className="font-retro text-2xl flex items-center gap-3 text-black">
                                 <span className="bg-black text-white px-2 py-1">!</span>
-                                REQUIRED MATERIALS
+                                {t('recipePage.requiredMaterials')}
                             </h2>
                             {isIngredientsOpen ? (
                                 <IconChevronUp className="w-8 h-8 text-black" />
@@ -296,11 +271,12 @@ export function RecipePage() {
                             <div className="mt-6 animate-in slide-in-from-top-2 duration-300">
                                 <div className="flex flex-col gap-4">
                                     {Array.isArray(recipe.ingredients_text) && recipe.ingredients_text.length > 0 ? (
-                                        recipe.ingredients_text.map((item, idx) => {
+                                        getLocalizedField(recipe.ingredients_text, recipe.ingredients_text_es).map((item, idx) => {
                                             // Find matching ingredient data
                                             const parsedName = parseIngredientName(item);
                                             const match = recipe.expand?.ingredients?.find(ing =>
-                                                ing.name.toLowerCase() === parsedName.toLowerCase()
+                                                ing.name.toLowerCase() === parsedName.toLowerCase() ||
+                                                ing.name_es?.toLowerCase() === parsedName.toLowerCase()
                                             );
 
                                             return (
@@ -354,7 +330,7 @@ export function RecipePage() {
                                             );
                                         })
                                     ) : (
-                                        <p className="font-pixel text-gray-500 italic">No materials listed in the scroll.</p>
+                                        <p className="font-pixel text-gray-500 italic">{t('recipePage.noMaterials')}</p>
                                     )}
                                 </div>
                             </div>
@@ -366,7 +342,7 @@ export function RecipePage() {
                             className="flex items-center justify-between cursor-pointer select-none"
                             onClick={() => setIsStepsOpen(!isStepsOpen)}
                         >
-                            <h2 className="font-retro text-2xl text-black">QUEST STEPS</h2>
+                            <h2 className="font-retro text-2xl text-black">{t('recipePage.questSteps')}</h2>
                             {isStepsOpen ? (
                                 <IconChevronUp className="w-8 h-8 text-black" />
                             ) : (
@@ -401,7 +377,7 @@ export function RecipePage() {
                                         </div>
                                     ))
                                 ) : (
-                                    <p className="font-pixel text-gray-500 italic">No steps revealed yet.</p>
+                                    <p className="font-pixel text-gray-500 italic">{t('recipePage.noSteps')}</p>
                                 )}
                             </div>
                         )}
@@ -416,10 +392,10 @@ export function RecipePage() {
                     <div className="bg-[#444] border-4 border-black p-1 shadow-hard">
                         <div className="bg-gray-800 border-2 border-gray-600 p-4 mb-1">
                             <h3 className="font-retro text-xl text-yellow-400 text-center tracking-widest animate-pulse">
-                                MERCHANT'S WARES
+                                {t('recipePage.merchantWares')}
                             </h3>
                             <p className="font-pixel text-xs text-center text-gray-400 mt-1">
-                                RARE LOOT FOR YOUR JOURNEY
+                                {t('recipePage.rareLoot')}
                             </p>
                         </div>
 
@@ -451,7 +427,7 @@ export function RecipePage() {
                                                 onClick={() => handleProductClick(product.id)}
                                                 className="flex items-center justify-center gap-2 bg-yellow-400 border-4 border-black text-black font-bold font-pixel uppercase py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all w-full text-sm"
                                             >
-                                                <span>GET LOOT</span>
+                                                <span>{t('recipePage.getLoot')}</span>
                                                 <IconExternalLink className="w-4 h-4" />
                                             </a>
                                         </div>
@@ -459,7 +435,7 @@ export function RecipePage() {
                                 ))
                             ) : (
                                 <div className="text-center py-4 text-gray-400 font-pixel">
-                                    No wares available today.
+                                    {t('recipePage.noWares')}
                                 </div>
                             )}
                         </div>

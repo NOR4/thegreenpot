@@ -3,6 +3,7 @@ import { pb } from '../lib/pocketbase';
 import { IconHeart } from './icons';
 import { PixelButton } from './PixelButton';
 import { cn } from '../utils/cn';
+import { useAuth } from '../contexts/AuthContext';
 
 interface LikeButtonProps {
     recipeId: string;
@@ -10,21 +11,23 @@ interface LikeButtonProps {
 }
 
 export const LikeButton = ({ recipeId, initialLikes = 0 }: LikeButtonProps) => {
+    const { user, openAuthModal } = useAuth();
     const [likes, setLikes] = useState(initialLikes);
     const [hasLiked, setHasLiked] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    // Persistence key for localStorage
+    // Initial fetch - could be improved by checking if user liked in DB if we had a likes collection
+    // For now assuming we just show total counts and local state for session or we need a real 'likes' collection relation?
+    // Since PocketBase 'total_votes' is just a counter, we can't easily know if *this* user liked it persistently without a new collection.
+    // For MVP, I will keep the localStorage check but GATE the action on login.
     const storageKey = `voted_${recipeId}`;
 
     useEffect(() => {
-        // Check if user has already voted in this browser
         const voted = localStorage.getItem(storageKey) === 'true';
         setHasLiked(voted);
 
         async function fetchLikeCount() {
             try {
-                // Fetch the latest count from the recipe record itself
                 const record = await pb.collection('recipes').getOne(recipeId, {
                     fields: 'total_votes'
                 });
@@ -33,15 +36,18 @@ export const LikeButton = ({ recipeId, initialLikes = 0 }: LikeButtonProps) => {
                 console.error("Error fetching like count:", err);
             }
         }
-
         fetchLikeCount();
     }, [recipeId, storageKey]);
 
     const handleToggleLike = async () => {
+        if (!user) {
+            openAuthModal();
+            return;
+        }
+
         setLoading(true);
         try {
             if (hasLiked) {
-                // Unvote - decrement total_votes
                 await pb.collection('recipes').update(recipeId, {
                     'total_votes-': 1
                 });
@@ -49,7 +55,6 @@ export const LikeButton = ({ recipeId, initialLikes = 0 }: LikeButtonProps) => {
                 setHasLiked(false);
                 setLikes(p => Math.max(0, p - 1));
             } else {
-                // Vote - increment total_votes
                 await pb.collection('recipes').update(recipeId, {
                     'total_votes+': 1
                 });
@@ -59,7 +64,6 @@ export const LikeButton = ({ recipeId, initialLikes = 0 }: LikeButtonProps) => {
             }
         } catch (err) {
             console.error("Failed to toggle like:", err);
-            alert("Failed to update vote. Please try again.");
         } finally {
             setLoading(false);
         }

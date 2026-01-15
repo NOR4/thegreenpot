@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { pb } from '../lib/pocketbase';
 import { PixelButton } from './PixelButton';
+import { useAuth } from '../contexts/AuthContext';
 
 interface Comment {
     id: string;
@@ -19,6 +20,7 @@ interface CommentsProps {
 }
 
 export const Comments = ({ recipeId }: CommentsProps) => {
+    const { user, openAuthModal } = useAuth();
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState('');
     const [loading, setLoading] = useState(false);
@@ -43,17 +45,17 @@ export const Comments = ({ recipeId }: CommentsProps) => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!newComment.trim()) return;
-        if (!pb.authStore.isValid) {
-            alert("You must be logged in to comment.");
+
+        if (!user) {
+            openAuthModal();
             return;
         }
 
         setLoading(true);
         try {
-            const userId = pb.authStore.model?.id;
             await pb.collection('comments').create({
                 recipe: recipeId,
-                user: userId,
+                user: user.id,
                 text: newComment
             });
             setNewComment('');
@@ -66,26 +68,35 @@ export const Comments = ({ recipeId }: CommentsProps) => {
         }
     };
 
+    // Handler for clicking the textarea when not logged in
+    const handleAuthClick = () => {
+        if (!user) {
+            openAuthModal();
+        }
+    };
+
     return (
         <div className="flex flex-col gap-6 w-full">
             <h3 className="font-retro text-xl border-b-4 border-black pb-2">TAVERN CHATTER</h3>
 
             {/* Comment Form */}
             <form onSubmit={handleSubmit} className="flex flex-col gap-4 bg-gray-100 p-4 border-4 border-black shadow-hard">
-                {!pb.authStore.isValid && (
-                    <div className="font-pixel text-red-500 text-sm mb-2">
-                        * You must be logged in to scribble a note.
+                {!user && (
+                    <div className="font-pixel text-red-500 text-sm mb-2 cursor-pointer hover:underline" onClick={openAuthModal}>
+                        * You must be logged in to scribble a note. Click here to login.
                     </div>
                 )}
-                <textarea
-                    className="font-pixel p-3 border-4 border-black min-h-[100px] resize-y focus:outline-none focus:bg-white bg-white w-full"
-                    placeholder="Leave a note for the chef..."
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    disabled={loading || !pb.authStore.isValid}
-                />
+                <div onClick={handleAuthClick} className="w-full">
+                    <textarea
+                        className={`font-pixel p-3 border-4 border-black min-h-[100px] resize-y focus:outline-none focus:bg-white w-full ${!user ? 'bg-gray-200 cursor-pointer pointer-events-none' : 'bg-white'}`}
+                        placeholder="Leave a note for the chef..."
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        disabled={loading}
+                    />
+                </div>
                 <div className="flex justify-end">
-                    <PixelButton type="submit" disabled={loading || !pb.authStore.isValid || !newComment.trim()}>
+                    <PixelButton type="submit" disabled={loading || !newComment.trim()}>
                         {loading ? 'SCRIBBLING...' : 'POST NOTE'}
                     </PixelButton>
                 </div>

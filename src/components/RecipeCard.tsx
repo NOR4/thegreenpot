@@ -11,9 +11,10 @@ interface RecipeCardProps {
     price?: string;
     category: string;
     total_votes?: number;
+    description: string;
 }
 
-export const RecipeCard = ({ id, title, image, difficulty, price, category, total_votes = 0 }: RecipeCardProps) => {
+export const RecipeCard = ({ id, title, image, difficulty, price, category, total_votes: _total_votes = 0, description }: RecipeCardProps) => {
     const imageUrl = image ? pb.files.getUrl({ collectionName: 'recipes', id }, image) : '';
 
     return (
@@ -23,7 +24,7 @@ export const RecipeCard = ({ id, title, image, difficulty, price, category, tota
                 <span className="font-pixel uppercase text-gray-500 tracking-wider text-lg">{category}</span>
                 <div className="flex items-center gap-2">
                     <div className="flex items-center gap-1">
-                        <span className="font-retro text-sm text-gray-600">{total_votes}</span>
+                        {/* Removed vote count number as per request */}
                         <IconHeart className="w-4 h-4 text-red-500 fill-current" />
                     </div>
                     {/* HP/Difficulty Bar */}
@@ -53,10 +54,10 @@ export const RecipeCard = ({ id, title, image, difficulty, price, category, tota
             </div>
 
             {/* Card Body */}
-            <div className="flex-1 flex flex-col gap-2">
-                <h3 className="font-retro text-lg truncate leading-tight mt-2">{title}</h3>
-                <p className="font-pixel text-gray-600 leading-none">
-                    A glorious concoction for your inventory.
+            <div className="flex-1 flex flex-col gap-2 text-center">
+                <h3 className="font-retro text-lg leading-tight mt-2 text-black line-clamp-2 min-h-[3.5rem] flex items-center justify-center">{title}</h3>
+                <p className="font-pixel text-gray-600 leading-tight line-clamp-3">
+                    {description}
                 </p>
             </div>
 

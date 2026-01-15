@@ -1,11 +1,13 @@
 import PocketBase from 'pocketbase';
+import fs from 'fs/promises';
+import path from 'path';
 
 const pb = new PocketBase('http://127.0.0.1:8090');
 
 // Extended Recipe Type
 interface SeedRecipe {
     title: string;
-    category: string;
+    category: string[];
     difficulty: number;
     image: string;
     price: string;
@@ -18,7 +20,7 @@ interface SeedRecipe {
 const recipes: SeedRecipe[] = [
     {
         title: "Rollitos Índicos de Gambas con Salsa de Mango",
-        category: "Edible",
+        category: ["Appetizer"],
         difficulty: 3,
         image: "/Users/madacluster/.gemini/antigravity/brain/6b8a391d-bdd6-4ba0-b8c0-b84350f7f51e/prawn_rolls_pixel_1766418297244.png",
         price: "45 GP",
@@ -53,16 +55,16 @@ const recipes: SeedRecipe[] = [
             "1/2 Cup Cornstarch"
         ],
         instructions: [
-            "Make Sauce: Blend mango, garlic, sugar, 1 tbsp ginger, habanero, orange juice, vinegar, and 1 tsp THC Oil until smooth.",
-            "Prepare Filling: Heat 1 tbsp THC Oil. Sauté mushrooms, soy sauce, sesame oil, chopped garlic, shallot, carrots, peppers, cabbage, chili paste, lime juice, green onions, ginger, and cilantro. Cool.",
-            "Prepare Shrimp: Coat shrimp in cornstarch. Fry in oil until cooked. Chop and mix with filling.",
-            "Assemble: Place filling in wrappers, brush edges with egg, and roll tightly.",
-            "Fry: Fry rolls in remaining oil until golden brown. Serve with mango sauce."
+            "1. Make Sauce: Blend mango, garlic, sugar, 1 tbsp ginger, habanero, orange juice, vinegar, and 1 tsp THC Oil until smooth.",
+            "2. Prepare Filling: Heat 1 tbsp THC Oil. Sauté mushrooms, soy sauce, sesame oil, chopped garlic, shallot, carrots, peppers, cabbage, chili paste, lime juice, green onions, ginger, and cilantro. Cool.",
+            "3. Prepare Shrimp: Coat shrimp in cornstarch. Fry in oil until cooked. Chop and mix with filling.",
+            "4. Assemble: Place filling in wrappers, brush edges with egg, and roll tightly.",
+            "5. Fry: Fry rolls in remaining oil until golden brown. Serve with mango sauce."
         ]
     },
     {
         title: "Cannabis Infused Chicken Wings",
-        category: "Edible",
+        category: ["Chicken"],
         difficulty: 3,
         image: "/Users/madacluster/.gemini/antigravity/brain/6b8a391d-bdd6-4ba0-b8c0-b84350f7f51e/chicken_wings_pixel_1766418310456.png",
         price: "35 GP",
@@ -90,6 +92,310 @@ const recipes: SeedRecipe[] = [
             "Step 4: Add Infusion. Turn off heat. Add Cannabis Infused Grapeseed Oil and sunflower lecithin. Whisk well to emulsify.",
             "Step 5: Coat and Finish. Coat wings with half the sauce. Bake 3-5 mins. Repeat if desired.",
             "Step 6: Garnish. Top with crushed peanuts and cilantro."
+        ]
+    },
+    {
+        title: "Rasta Pasta",
+        category: ["Pasta"],
+        difficulty: 2,
+        image: "/Users/madacluster/.gemini/antigravity/brain/e899239d-7e1c-461f-b948-6b548bc07dac/rasta_pasta_pixel_1768144384462.png",
+        price: "40 GP",
+        description: "A colorful Jamaican-inspired pasta with jerk seasoning and a creamy cannabis coconut milk sauce.",
+        time: "30 MIN",
+        ingredients_text: [
+            "12 oz Penne Pasta",
+            "1 each Red, Green, and Yellow Bell Pepper, sliced",
+            "2 tbsp Jerk Seasoning",
+            "1 Cup Heavy Cream",
+            "1/2 Cup Cannabis Infused Coconut Oil",
+            "3 Green Onions, chopped",
+            "1/2 Cup Parmesan Cheese"
+        ],
+        instructions: [
+            "1. Cook penne according to package directions.",
+            "2. In a large skillet, melt Cannabis Coconut Oil over medium heat. Sauté bell peppers until tender.",
+            "3. Stir in jerk seasoning, then add heavy cream. Bring to a light simmer.",
+            "4. Add cooked pasta and parmesan cheese to the skillet. Toss until the sauce thickens and coats the pasta.",
+            "5. Garnish with green onions and serve warm."
+        ]
+    },
+    {
+        title: "Canna-Linguini",
+        category: ["Pasta"],
+        difficulty: 2,
+        image: "/Users/madacluster/.gemini/antigravity/brain/e899239d-7e1c-461f-b948-6b548bc07dac/canna_linguini_pixel_1768144398224.png",
+        price: "32 GP",
+        description: "A simple yet elegant linguini tossed in a lemon-garlic cannabis butter sauce.",
+        time: "20 MIN",
+        ingredients_text: [
+            "12 oz Linguini",
+            "4 Cloves Garlic, minced",
+            "1/4 Cup Cannabis Infused Butter",
+            "1/4 Cup Extra Virgin Olive Oil",
+            "1 Lemon, zested and juiced",
+            "1/4 tsp Red Pepper Flakes",
+            "1/4 Cup Fresh Parsley, chopped"
+        ],
+        instructions: [
+            "1. Boil linguini in salted water until al dente.",
+            "2. In a pan, combine olive oil and Cannabis Infused Butter over low-medium heat.",
+            "3. Sauté garlic and red pepper flakes for 1-2 minutes (do not burn the garlic).",
+            "4. Add lemon juice and zest. Toss in the cooked linguini.",
+            "5. Remove from heat, stir in parsley, and serve immediately."
+        ]
+    },
+    {
+        title: "Pumpkin Cream",
+        category: ["Creams and Soups"],
+        difficulty: 1,
+        image: "/Users/madacluster/.gemini/antigravity/brain/e899239d-7e1c-461f-b948-6b548bc07dac/pumpkin_cream_pixel_1768144411345.png",
+        price: "22 GP",
+        description: "Velvety pumpkin soup infused with THC oil for a warming, relaxing experience.",
+        time: "35 MIN",
+        ingredients_text: [
+            "2 Cups Pumpkin Purée",
+            "1 Onion, diced",
+            "2 Cups Vegetable Broth",
+            "1/2 Cup Heavy Cream",
+            "1 tbsp THC Oil",
+            "1/2 tsp Nutmeg",
+            "Salt and Pepper to taste"
+        ],
+        instructions: [
+            "1. Sauté onions in a pot until translucent.",
+            "2. Stir in pumpkin purée, vegetable broth, and nutmeg. Bring to a boil, then simmer for 15 minutes.",
+            "3. Use an immersion blender to smooth the soup.",
+            "4. Stir in heavy cream and THC Oil. Do not let it boil after adding the THC oil.",
+            "5. Season and serve with a swirl of cream on top."
+        ]
+    },
+    {
+        title: "Chickpeas Cream with Bacon",
+        category: ["Creams and Soups"],
+        difficulty: 2,
+        image: "/Users/madacluster/.gemini/antigravity/brain/e899239d-7e1c-461f-b948-6b548bc07dac/chickpea_bacon_soup_pixel_1768144426336.png",
+        price: "28 GP",
+        description: "Hearty chickpea purée topped with crispy bacon and infused with cannabis oil.",
+        time: "40 MIN",
+        ingredients_text: [
+            "2 Cans (15oz) Chickpeas, drained",
+            "4 Slices Bacon, chopped",
+            "1 Onion, chopped",
+            "2 Cloves Garlic",
+            "3 Cups Chicken Broth",
+            "1 tbsp Cannabis Infused Oil",
+            "1 tsp Cumin"
+        ],
+        instructions: [
+            "1. In a pot, fry bacon until crispy. Remove bacon and set aside, keeping the fat in the pot.",
+            "2. Sauté onion and garlic in the bacon fat. Add cumin and chickpeas.",
+            "3. Add chicken broth and simmer for 20 minutes.",
+            "4. Blend the mixture until completely smooth.",
+            "5. Stir in the Cannabis Infused Oil and top with the crispy bacon bits before serving."
+        ]
+    },
+    {
+        title: "Ceviche Tropical",
+        category: ["Fish and Seafood", "Appetizers"],
+        difficulty: 3,
+        image: "/Users/madacluster/.gemini/antigravity/brain/e899239d-7e1c-461f-b948-6b548bc07dac/ceviche_tropical_pixel_1768144438627.png",
+        price: "48 GP",
+        description: "Fresh white fish cured in lime juice and infused citrus-cannabis oil.",
+        time: "25 MIN",
+        ingredients_text: [
+            "1 lb Fresh White Fish (Sea Bass or Tilapia), cubed",
+            "1/2 Cup Lime Juice",
+            "1/2 Red Onion, thinly sliced",
+            "1/4 Cup Cilantro, chopped",
+            "1 tsp Cannabis Infused Grapeseed Oil",
+            "1 Sweet Potato, boiled and sliced",
+            "1 Corn on the cob, kernels removed"
+        ],
+        instructions: [
+            "1. In a glass bowl, combine the fish and lime juice. Ensure fish is submerged. Refrigerate for 15-20 minutes.",
+            "2. Drain about half the lime juice.",
+            "3. Add red onion, cilantro, and corn kernels.",
+            "4. Gently fold in the Cannabis Infused Grapeseed Oil.",
+            "5. Serve cold on a plate with slices of sweet potato on the side."
+        ]
+    },
+    {
+        title: "Classic Pot Brownies",
+        category: ["Dessert"],
+        difficulty: 2,
+        image: "/Users/madacluster/.gemini/antigravity/brain/46cc6c03-a365-46bd-8587-58b9fd6c9e8b/pot_brownies_1767559535857.png",
+        price: "20 GP",
+        description: "Fudgy, rich chocolate brownies with a magical kick. A classic favorite.",
+        time: "45 MIN",
+        ingredients_text: [
+            "1/2 Cup Cannabis Infused Butter, melted",
+            "1 Cup White Sugar",
+            "2 Eggs",
+            "1 tsp Vanilla Extract",
+            "1/3 Cup Unsweetened Cocoa Powder",
+            "1/2 Cup All-Purpose Flour",
+            "1/4 tsp Salt",
+            "1/4 tsp Baking Powder"
+        ],
+        instructions: [
+            "1. Preheat oven to 350°F (175°C). Grease and flour an 8-inch square pan.",
+            "2. In a large bowl, mix melted cannabis butter and sugar. Beat in eggs and vanilla.",
+            "3. In a separate bowl, whisk cocoa, flour, salt, and baking powder. Stir into the wet mixture.",
+            "4. Pour batter into the prepared pan.",
+            "5. Bake for 25 to 30 minutes. Do not overcook.",
+            "6. Cool completely before cutting into squares."
+        ]
+    },
+    {
+        title: "Creamy Canna-Pesto Pasta",
+        category: ["Pasta"],
+        difficulty: 2,
+        image: "/Users/madacluster/.gemini/antigravity/brain/e899239d-7e1c-461f-b948-6b548bc07dac/creamy_canna_pesto_pasta_pixel_1768144463741.png",
+        price: "30 GP",
+        description: "Fresh basil pesto with pine nuts and a potent infusion of cannabis olive oil.",
+        time: "25 MIN",
+        ingredients_text: [
+            "12 oz Linguine or Spaghetti",
+            "2 Cups Fresh Basil Leaves",
+            "1/2 Cup Parmesan Cheese, grated",
+            "1/3 Cup Pine Nuts, toasted",
+            "3 Cloves Garlic",
+            "1/4 Cup Cannabis Infused Olive Oil",
+            "1/4 Cup Extra Virgin Olive Oil",
+            "1/2 tsp Salt",
+            "1/4 tsp Black Pepper"
+        ],
+        instructions: [
+            "1. Boil Pasta: Cook pasta in salted water according to package directions. Reserve 1/2 cup pasta water.",
+            "2. Blend Pesto: In a food processor, pulse basil, garlic, and pine nuts until coarsely chopped.",
+            "3. Emulsify: While blending, slowly drizzle in the Extra Virgin Olive Oil and the Cannabis Infused Olive Oil.",
+            "4. Combine: Stir in Parmesan cheese, salt, and pepper.",
+            "5. Toss: Mix the pesto with the warm pasta, adding reserved water if needed for creaminess. Do not boil the sauce to preserve THC potency."
+        ]
+    },
+    {
+        title: "Honey-Glazed Salmon with Infused Butter",
+        category: ["Fish and Seafood"],
+        difficulty: 3,
+        image: "https://dummyimage.com/600x400/cccccc/000000.png?text=Infused+Salmon",
+        price: "55 GP",
+        description: "Pan-seared salmon fillet finished with a sweet honey and cannabis-butter glaze.",
+        time: "30 MIN",
+        ingredients_text: [
+            "2 Salmon Fillets (6 oz each)",
+            "2 tbsp Honey",
+            "1 tbsp Soy Sauce",
+            "1 tbsp Lemon Juice",
+            "2 tbsp Cannabis Infused Butter",
+            "1 tsp Smoked Paprika",
+            "1/2 tsp Black Pepper",
+            "1 tbsp Olive Oil (for searing)"
+        ],
+        instructions: [
+            "1. Season: Pat salmon dry and season with salt, pepper, and smoked paprika.",
+            "2. Sear: Heat olive oil in a pan over medium-high heat. Sear salmon skin-side down for 4-5 minutes. Flip and cook for 2 more minutes.",
+            "3. Make Glaze: In a small bowl, whisk honey, soy sauce, and lemon juice.",
+            "4. Finish: Lower heat to low. Add the honey mixture and the Cannabis Infused Butter to the pan. Spoon the melting butter and glaze over the salmon for 1-2 minutes until glossy.",
+            "5. Serve: Plate immediately, pouring any remaining pan sauce over the fish."
+        ]
+    },
+    {
+        title: "Infused Guacamole",
+        category: "Appetizer",
+        difficulty: 1,
+        image: "/Users/madacluster/.gemini/antigravity/brain/46cc6c03-a365-46bd-8587-58b9fd6c9e8b/infused_guacamole_1767559550681.png",
+        price: "15 GP",
+        description: "Fresh, zesty guacamole infused with cannabis oil. Perfect for sharing.",
+        time: "15 MIN",
+        ingredients_text: [
+            "3 Ripe Avocados, peeled and pitted",
+            "1 Lime, juiced",
+            "1 tsp Salt",
+            "1/2 Cup Diced Onion",
+            "3 tbsp Fresh Cilantro, chopped",
+            "2 Tomatoes, diced",
+            "1 tsp Minced Garlic",
+            "1 tbsp Cannabis Infused Oil"
+        ],
+        instructions: [
+            "In a medium bowl, mash avocados with lime juice and salt.",
+            "Mix in onion, cilantro, tomatoes, and garlic.",
+            "Stir in the cannabis infused oil until well distributed.",
+            "Refrigerate for 10 minutes to let flavors blend before serving."
+        ]
+    },
+    {
+        title: "Cannabis Green Tea",
+        category: ["Drink"],
+        difficulty: 1,
+        image: "/Users/madacluster/.gemini/antigravity/brain/46cc6c03-a365-46bd-8587-58b9fd6c9e8b/cannabis_tea_1767559565193.png",
+        price: "10 GP",
+        description: "A soothing warm tea infused with cannabis butter or oil. Great for relaxation.",
+        time: "10 MIN",
+        ingredients_text: [
+            "1 Green Tea Bag",
+            "1 Cup Boiling Water",
+            "1 tsp Cannabis Infused Butter or Oil",
+            "1 tsp Honey (optional)",
+            "Lemon slice (optional)"
+        ],
+        instructions: [
+            "Place the tea bag and cannabis butter/oil in a mug.",
+            "Pour boiling water over the tea bag and oil.",
+            "Steep for 3-5 minutes.",
+            "Remove tea bag, stir well to help oil disperse (or use a little milk/cream to bind).",
+            "Add honey and lemon if desired."
+        ]
+    },
+    {
+        title: "Tropical Mango Canna-Salad",
+        category: ["Salad"],
+        difficulty: 1,
+        image: "https://dummyimage.com/600x400/cccccc/000000.png?text=Mango+Salad",
+        price: "18 GP",
+        description: "A refreshing, vibrant mango salad with a zesty lime and cannabis-infused honey dressing.",
+        time: "15 MIN",
+        ingredients_text: [
+            "2 Ripe Mangoes, cubed",
+            "1 Red Bell Pepper, finely diced",
+            "1/2 Red Onion, thinly sliced",
+            "1/4 Cup Fresh Cilantro, chopped",
+            "1 Jalapeño, seeded and minced",
+            "2 tbsp Lime Juice",
+            "1 tbsp Cannabis Infused Honey",
+            "1 tbsp Extra Virgin Olive Oil"
+        ],
+        instructions: [
+            "1. In a large bowl, combine the cubed mangoes, bell pepper, red onion, cilantro, and jalapeño.",
+            "2. In a small jar or bowl, whisk together the lime juice, Cannabis Infused Honey, and olive oil until emulsified.",
+            "3. Pour the dressing over the salad and toss gently to coat.",
+            "4. Let it sit for 5 minutes in the fridge before serving to let the flavors meld."
+        ]
+    },
+    {
+        title: "Infused Tuna, Egg & Asparagus Salad",
+        category: ["Salad"],
+        difficulty: 2,
+        image: "https://dummyimage.com/600x400/cccccc/000000.png?text=Tuna+Asparagus+Salad",
+        price: "28 GP",
+        description: "A protein-packed salad featuring blanched asparagus, hard-boiled eggs, and tuna with a cannabis-vinaigrette.",
+        time: "25 MIN",
+        ingredients_text: [
+            "1 bunch Asparagus, ends trimmed",
+            "2 Large Eggs",
+            "1 Can (5oz) High-quality Tuna, drained",
+            "1 Cup Cherry Tomatoes, halved",
+            "1 tbsp Cannabis Infused Olive Oil",
+            "1 tbsp Dijon Mustard",
+            "1 tbsp Apple Cider Vinegar",
+            "Salt and Black Pepper to taste"
+        ],
+        instructions: [
+            "1. Blanch Asparagus: Cook asparagus in boiling water for 3 minutes, then immediately plunge into ice water. Drain and pat dry.",
+            "2. Boil Eggs: Place eggs in boiling water for 9 minutes for a hard boil. Peel and quarter.",
+            "3. Make Vinaigrette: Whisk the Cannabis Infused Olive Oil, Dijon mustard, and vinegar until smooth. Season with salt and pepper.",
+            "4. Assemble: Lay the asparagus on a platter. Top with flaked tuna, cherry tomatoes, and egg quarters.",
+            "5. Finish: Drizzle the cannabis vinaigrette over the top just before serving."
         ]
     }
 ];
@@ -131,7 +437,35 @@ const ingredientsData = [
     { name: "Green Onions", description: "Fresh onions with green stalks and white bulbs.", category: "Vegetable", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Green+Onions", calories: 5, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
     { name: "Spring Roll Wrappers", description: "Thin sheets of dough wrappers.", category: "Pantry", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Wrappers", calories: 60, allergies: "Gluten", rarity: "Common", effects: "None", thc_mg: 0 },
     { name: "Egg", description: "Fresh chicken egg.", category: "Dairy", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Egg", calories: 70, allergies: "Egg", rarity: "Common", effects: "None", thc_mg: 0 },
-    { name: "Cornstarch", description: "Fine white powder used as a thickener.", category: "Pantry", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Cornstarch", calories: 30, allergies: "Corn", rarity: "Common", effects: "None", thc_mg: 0 }
+    { name: "Cornstarch", description: "Fine white powder used as a thickener.", category: "Pantry", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Cornstarch", calories: 30, allergies: "Corn", rarity: "Common", effects: "None", thc_mg: 0 },
+
+    { name: "Cannabis Infused Olive Oil", description: "Premium olive oil infused with decarboxylated cannabis.", category: "Oil", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Canna+Olive+Oil", calories: 120, allergies: "None", rarity: "Uncommon", effects: "Relaxation", thc_mg: 80 },
+    { name: "Basil", description: "Fresh, aromatic green basil leaves.", category: "Herb", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Basil", calories: 1, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Pine Nuts", description: "Small edible seeds from female cones of a pine.", category: "Nut", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Pine+Nuts", calories: 190, allergies: "Tree Nuts", rarity: "Uncommon", effects: "None", thc_mg: 0 },
+    { name: "Parmesan Cheese", description: "Hard, savory Italian cheese.", category: "Dairy", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Parmesan", calories: 110, allergies: "Dairy", rarity: "Common", effects: "None", thc_mg: 0 },
+
+    // Salmon Ingredients
+    { name: "Salmon Fillet", description: "Fresh Atlantic or Sockeye salmon.", category: "Seafood", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Salmon", calories: 350, allergies: "Fish", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Honey", description: "Natural sweet syrup made by bees.", category: "Condiment", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Honey", calories: 60, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Cannabis Infused Butter", description: "High-quality butter infused with THC.", category: "Dairy", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Canna+Butter", calories: 100, allergies: "Dairy", rarity: "Uncommon", effects: "Euphoria, Sleepiness", thc_mg: 100 },
+    { name: "Smoked Paprika", description: "Ground capsicum with a smoky flavor.", category: "Seasoning", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Paprika", calories: 6, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
+
+    //More  ingredients
+    { name: "Penne Pasta", description: "Cylinder-shaped pieces of pasta.", category: "Baking", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Penne", calories: 200, allergies: "Gluten", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Cannabis Infused Coconut Oil", description: "Coconut oil infused with high-grade THC.", category: "Oil", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Canna+Coconut+Oil", calories: 120, allergies: "None", rarity: "Rare", effects: "Strong Body High", thc_mg: 120 },
+    { name: "Jerk Seasoning", description: "Spicy Jamaican spice blend.", category: "Seasoning", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Jerk+Spice", calories: 5, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Pumpkin Purée", description: "Cooked and mashed pumpkin.", category: "Vegetable", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Pumpkin", calories: 50, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Chickpeas", description: "Nutritious legumes also known as garbanzo beans.", category: "Vegetable", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Chickpeas", calories: 260, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Bacon", description: "Salt-cured pork belly slices.", category: "Meat", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Bacon", calories: 150, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "White Fish", description: "Fresh lean fish like Sea Bass or Tilapia.", category: "Seafood", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Fish", calories: 130, allergies: "Fish", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Sweet Potato", description: "Starchy, sweet-tasting root vegetable.", category: "Vegetable", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Sweet+Potato", calories: 110, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Cannabis Infused Honey", description: "Sweet natural honey infused with decarboxylated cannabis extract.", category: "Condiment", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Canna+Honey", calories: 60, allergies: "None", rarity: "Uncommon", effects: "Uplifting, Sweet High", thc_mg: 40 },
+    { name: "Jalapeño", description: "Fresh green chili pepper with moderate heat.", category: "Vegetable", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Jalapeno", calories: 4, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Asparagus", description: "Tender green stalks, rich in vitamins.", category: "Vegetable", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Asparagus", calories: 20, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Eggs", description: "Large farm-fresh eggs.", category: "Dairy", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Eggs", calories: 70, allergies: "Eggs", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Tuna", description: "Canned or fresh skipjack/albacore tuna.", category: "Seafood", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Tuna", calories: 120, allergies: "Fish", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Dijon Mustard", description: "Sharp, tangy French mustard.", category: "Condiment", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Mustard", calories: 5, allergies: "Mustard", rarity: "Common", effects: "None", thc_mg: 0 },
+    { name: "Red Onion", description: "Sharp and crunchy purple-skinned onion.", category: "Vegetable", image: "https://dummyimage.com/200x200/cccccc/000000.png?text=Red+Onion", calories: 40, allergies: "None", rarity: "Common", effects: "None", thc_mg: 0 }
 ];
 
 async function main() {
@@ -156,16 +490,10 @@ async function main() {
                 } else if (url.startsWith('/')) {
                     console.log(`Reading local image: ${url}`);
                     try {
-                        const file = Bun.file(url);
-                        if (await file.exists()) {
-                            const buffer = await file.arrayBuffer();
-                            return new Blob([buffer]);
-                        } else {
-                            console.error(`Local file not found: ${url}`);
-                            return null;
-                        }
+                        const buffer = await fs.readFile(url);
+                        return new Blob([buffer]);
                     } catch (err) {
-                        console.error(`Error reading local file ${url}:`, err);
+                        console.error(`Local file not found or error: ${url}`, err);
                         return null;
                     }
                 }
@@ -455,7 +783,8 @@ async function main() {
             }
 
             if (existing.items.length === 0) {
-                const record = await pb.collection('products').create(p);
+                delete data.image; // Remove image URL string if not uploading file
+                const record = await pb.collection('products').create(data);
                 productIds.push(record.id);
                 console.log(`Created product: ${p.name}`);
             } else {
