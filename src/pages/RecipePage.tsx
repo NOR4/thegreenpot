@@ -220,7 +220,7 @@ export function RecipePage() {
                 <div className="lg:col-span-2 flex flex-col gap-8">
                     <div className="border-4 border-black aspect-video overflow-hidden bg-gray-900 shadow-hard relative">
                         <img
-                            src={recipe.image ? pb.files.getUrl(recipe, recipe.image) : ''}
+                            src={recipe.image ? pb.files.getURL(recipe, recipe.image) : ''}
                             alt={recipe.title}
                             className="w-full h-full object-cover"
                             style={{ imageRendering: 'pixelated' }}
@@ -289,7 +289,7 @@ export function RecipePage() {
                                                         >
                                                             <div className="w-12 h-12 border-2 border-black overflow-hidden bg-gray-100 flex-shrink-0">
                                                                 <img
-                                                                    src={match.image ? pb.files.getUrl(match, match.image) : ''}
+                                                                    src={match.image ? pb.files.getURL(match, match.image) : ''}
                                                                     alt={match.name}
                                                                     className="w-full h-full object-cover"
                                                                     style={{ imageRendering: 'pixelated' }}
@@ -417,7 +417,7 @@ export function RecipePage() {
 
                                             <div className="aspect-square bg-white border-2 border-black overflow-hidden relative">
                                                 <img
-                                                    src={product.image ? pb.files.getUrl(product, product.image) : ''}
+                                                    src={product.image ? pb.files.getURL(product, product.image) : ''}
                                                     alt={product.name}
                                                     className="w-full h-full object-cover"
                                                     style={{ imageRendering: 'pixelated' }}

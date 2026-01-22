@@ -15,7 +15,7 @@ interface RecipeCardProps {
 }
 
 export const RecipeCard = ({ id, title, image, difficulty, price, category, total_votes: _total_votes = 0, description }: RecipeCardProps) => {
-    const imageUrl = image ? pb.files.getUrl({ collectionName: 'recipes', id }, image) : '';
+    const imageUrl = image ? pb.files.getURL({ collectionName: 'recipes', id }, image) : '';
 
     return (
         <div className="w-full max-w-sm bg-gray-retro border-4 border-black p-4 flex flex-col gap-4 shadow-hard">

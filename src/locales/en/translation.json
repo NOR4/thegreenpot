@@ -1,12 +1,11 @@
 {
     "nav": {
         "recipes": "RECIPES",
-        "decarboxylation": "DECARBOXYLATION",
         "dosageGuide": "DOSAGE GUIDE",
         "calculator": "DOSAGE CALCULATOR",
         "pantry": "PANTRY",
         "est": "EST. 2024",
-        "dispensary": "PIXEL APOTHECARY"
+        "dispensary": "PIXEL DISPENSARY"
     },
     "auth": {
         "loginSignup": "LOGIN / SIGN UP",
@@ -35,7 +34,7 @@
     },
     "dosageGuide": {
         "title": "CALCULATE YOUR DOSE",
-        "amountLabel": "AMOUNT OF\nCALM/ ACTIVE",
+        "amountLabel": "AMOUNT OF\nTHC/ CBD",
         "profileLabel": "CONSUMER\nPROFILE",
         "effectsLabel": "EFFECTS",
         "scrollMore": "← SCROLL FOR MORE →"
@@ -54,7 +53,7 @@
             "effects": "You no longer remember what was hurting. Euphoria, creativity, silly laughter. Helps with falling asleep."
         },
         "high": {
-            "profile": "Experienced consumers. Patients with high tolerance to ACTIVE and/or CALM.",
+            "profile": "Experienced consumers. Patients with high tolerance to THC and/or CBD.",
             "effects": "Euphoria, slight short-term amnesia, talkativeness. If not accustomed, adverse effects may appear."
         },
         "heavy": {
@@ -68,13 +67,12 @@
         "potencyText": "The potency of your edibles depends entirely on the strength and quantity of your infused oil or butter. These recipes are guidelines. Please visit our",
         "dosageGuideLink": "Dosage Guide",
         "potencyText2": "to learn how to calculate and adjust dosage for your personal needs.",
+        "statsTitle": "ALCHEMICAL STATS",
+        "statsText": "Browse our collection of potent recipes and discover the perfect infusion for your next session.",
         "loading": "Loading recipes...",
         "noRecipesFound": "NO RECIPES FOUND IN THIS CATEGORY",
         "allCategories": "ALL",
-        "viewRecipe": "VIEW RECIPE",
-        "decarbTitle": "🔥 DON'T SKIP DECARB!",
-        "decarbText": "Did you know that raw botanical herbs aren't psychoactive? You MUST heat them first or your edibles won't work.",
-        "decarbLink": "Learn how here."
+        "viewRecipe": "VIEW RECIPE"
     },
     "ingredients": {
         "backToScrolls": "← BACK TO SCROLLS",
@@ -100,9 +98,9 @@
         "title": "DOSAGE CALCULATOR",
         "subtitle": "Plan your potion's potency before you brew.",
         "ingredients": "INGREDIENTS",
-        "cannabisAmount": "Herbal Amount (Grams)",
+        "cannabisAmount": "Cannabis Amount (Grams)",
         "cannabisPlaceholder": "e.g. 3.5, 7, 14",
-        "thcPercentage": "Active Percentage (%)",
+        "thcPercentage": "THC Percentage (%)",
         "thcHint": "Average flower is ~15-20%. Top shelf is 25%+.",
         "extractionYield": "Extraction Yield (%)",
         "whatIsThis": "What is this?",
@@ -116,7 +114,7 @@
         "servings": "Number of Servings",
         "results": "RESULTS",
         "totalBatchPotency": "TOTAL BATCH POTENCY",
-        "totalThcIn": "Total Active Essence in your",
+        "totalThcIn": "Total THC in your",
         "perServing": "PER SERVING",
         "perMl": "PER ML",
         "dosageGuideTitle": "DOSAGE GUIDE",

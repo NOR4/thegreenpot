@@ -93,7 +93,7 @@ export function IngredientDetail() {
                     <div className="p-8 border-r-0 md:border-r-8 border-b-8 md:border-b-0 border-black bg-gray-50 flex items-center justify-center relative group">
                         <div className="absolute inset-4 border-2 border-dashed border-gray-300 pointer-events-none"></div>
                         <img
-                            src={ingredient.image ? pb.files.getUrl(ingredient, ingredient.image) : ''}
+                            src={ingredient.image ? pb.files.getURL(ingredient, ingredient.image) : ''}
                             alt={getLocalizedField(ingredient.name, ingredient.name_es, currentLang)}
                             className="w-full aspect-square object-cover shadow-hard border-4 border-black"
                             style={{ imageRendering: 'pixelated' }}
@@ -185,7 +185,7 @@ export function IngredientDetail() {
                             >
                                 <div className="w-16 h-16 border-2 border-black flex-shrink-0 bg-gray-100">
                                     <img
-                                        src={recipe.image ? pb.files.getUrl(recipe, recipe.image) : ''}
+                                        src={recipe.image ? pb.files.getURL(recipe, recipe.image) : ''}
                                         alt={getLocalizedField(recipe.title, recipe.title_es, currentLang)}
                                         className="w-full h-full object-cover"
                                         style={{ imageRendering: 'pixelated' }}

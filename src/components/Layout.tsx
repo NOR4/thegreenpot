@@ -64,6 +64,17 @@ export function Layout() {
                             {t('nav.calculator')}
                         </NavLink>
                         <NavLink
+                            to="/decarboxylation"
+                            className={({ isActive }) =>
+                                `font-retro text-lg p-3 border-4 transition-all ${isActive
+                                    ? 'bg-[#4ade80] border-black text-black shadow-hard transform -translate-y-1'
+                                    : 'bg-white border-black text-black hover:bg-[#eec39a]'
+                                }`
+                            }
+                        >
+                            DECARB
+                        </NavLink>
+                        <NavLink
                             to="/ingredients"
                             className={({ isActive }) =>
                                 `font-retro text-lg p-3 border-4 transition-all ${isActive

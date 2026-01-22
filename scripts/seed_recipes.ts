@@ -22,7 +22,7 @@ const recipes: SeedRecipe[] = [
         title: "Rollitos Índicos de Gambas con Salsa de Mango",
         category: ["Appetizer"],
         difficulty: 3,
-        image: "/Users/madacluster/.gemini/antigravity/brain/6b8a391d-bdd6-4ba0-b8c0-b84350f7f51e/prawn_rolls_pixel_1766418297244.png",
+        image: "/Users/madacluster/.gemini/antigravity/brain/b49f8f83-0252-46ca-b848-327a88c4a5e8/prawn_rolls_pixel_1768934862014.png",
         price: "45 GP",
         description: "Crispy prawn rolls with a sweet and spicy mango sauce, infused with THC oil.",
         time: "50 MIN",
@@ -66,7 +66,7 @@ const recipes: SeedRecipe[] = [
         title: "Cannabis Infused Chicken Wings",
         category: ["Chicken"],
         difficulty: 3,
-        image: "/Users/madacluster/.gemini/antigravity/brain/6b8a391d-bdd6-4ba0-b8c0-b84350f7f51e/chicken_wings_pixel_1766418310456.png",
+        image: "/Users/madacluster/.gemini/antigravity/brain/b49f8f83-0252-46ca-b848-327a88c4a5e8/chicken_wings_pixel_1768934876731.png",
         price: "35 GP",
         description: "Sticky, savory, and potent wings with a Thai-inspired peanut glaze.",
         time: "1 HR 10 MIN",
@@ -98,7 +98,7 @@ const recipes: SeedRecipe[] = [
         title: "Rasta Pasta",
         category: ["Pasta"],
         difficulty: 2,
-        image: "/Users/madacluster/.gemini/antigravity/brain/e899239d-7e1c-461f-b948-6b548bc07dac/rasta_pasta_pixel_1768144384462.png",
+        image: "/Users/madacluster/.gemini/antigravity/brain/b49f8f83-0252-46ca-b848-327a88c4a5e8/rasta_pasta_pixel_1768934891872.png",
         price: "40 GP",
         description: "A colorful Jamaican-inspired pasta with jerk seasoning and a creamy cannabis coconut milk sauce.",
         time: "30 MIN",
@@ -123,7 +123,7 @@ const recipes: SeedRecipe[] = [
         title: "Canna-Linguini",
         category: ["Pasta"],
         difficulty: 2,
-        image: "/Users/madacluster/.gemini/antigravity/brain/e899239d-7e1c-461f-b948-6b548bc07dac/canna_linguini_pixel_1768144398224.png",
+        image: "/Users/madacluster/.gemini/antigravity/brain/b49f8f83-0252-46ca-b848-327a88c4a5e8/canna_linguini_pixel_1768934914976.png",
         price: "32 GP",
         description: "A simple yet elegant linguini tossed in a lemon-garlic cannabis butter sauce.",
         time: "20 MIN",
@@ -148,7 +148,7 @@ const recipes: SeedRecipe[] = [
         title: "Pumpkin Cream",
         category: ["Creams and Soups"],
         difficulty: 1,
-        image: "/Users/madacluster/.gemini/antigravity/brain/e899239d-7e1c-461f-b948-6b548bc07dac/pumpkin_cream_pixel_1768144411345.png",
+        image: "/Users/madacluster/.gemini/antigravity/brain/b49f8f83-0252-46ca-b848-327a88c4a5e8/pumpkin_cream_pixel_1768934930905.png",
         price: "22 GP",
         description: "Velvety pumpkin soup infused with THC oil for a warming, relaxing experience.",
         time: "35 MIN",
@@ -173,7 +173,7 @@ const recipes: SeedRecipe[] = [
         title: "Chickpeas Cream with Bacon",
         category: ["Creams and Soups"],
         difficulty: 2,
-        image: "/Users/madacluster/.gemini/antigravity/brain/e899239d-7e1c-461f-b948-6b548bc07dac/chickpea_bacon_soup_pixel_1768144426336.png",
+        image: "/Users/madacluster/.gemini/antigravity/brain/b49f8f83-0252-46ca-b848-327a88c4a5e8/chickpea_bacon_pixel_1768934947162.png",
         price: "28 GP",
         description: "Hearty chickpea purée topped with crispy bacon and infused with cannabis oil.",
         time: "40 MIN",
@@ -301,7 +301,7 @@ const recipes: SeedRecipe[] = [
     },
     {
         title: "Infused Guacamole",
-        category: "Appetizer",
+        category: ["Appetizer"],
         difficulty: 1,
         image: "/Users/madacluster/.gemini/antigravity/brain/46cc6c03-a365-46bd-8587-58b9fd6c9e8b/infused_guacamole_1767559550681.png",
         price: "15 GP",
@@ -396,6 +396,293 @@ const recipes: SeedRecipe[] = [
             "3. Make Vinaigrette: Whisk the Cannabis Infused Olive Oil, Dijon mustard, and vinegar until smooth. Season with salt and pepper.",
             "4. Assemble: Lay the asparagus on a platter. Top with flaked tuna, cherry tomatoes, and egg quarters.",
             "5. Finish: Drizzle the cannabis vinaigrette over the top just before serving."
+        ]
+    },
+    {
+        title: "Cannabis-Infused Ribeye Steak",
+        category: ["Meat"],
+        difficulty: 4,
+        image: "https://placehold.co/600x400/444/fff?text=Ribeye+Steak",
+        price: "75 GP",
+        description: "A premium ribeye steak grilled to perfection and topped with a potent cannabis-infused herb butter.",
+        time: "35 MIN",
+        ingredients_text: [
+            "1 lb Ribeye Steak",
+            "2 tbsp Cannabis Infused Butter",
+            "1 tbsp Fresh Rosemary, chopped",
+            "2 Cloves Garlic, minced",
+            "Salt and Black Pepper to taste",
+            "1 tbsp Olive Oil"
+        ],
+        instructions: [
+            "1. Season the steak generously with salt and pepper on both sides.",
+            "2. Heat olive oil in a cast-iron skillet over high heat until smoking.",
+            "3. Sear the steak for 3-4 minutes per side for medium-rare.",
+            "4. In a small bowl, mix the Cannabis Infused Butter with rosemary and minced garlic.",
+            "5. Remove steak from heat and immediately top with the infused herb butter. Let it rest for 5 minutes before serving."
+        ]
+    },
+    {
+        title: "Space Cakes with Cannabutter Frosting",
+        category: ["Dessert"],
+        difficulty: 3,
+        image: "https://placehold.co/600x400/444/fff?text=Space+Cakes",
+        price: "30 GP",
+        description: "Light and fluffy chocolate cupcakes with a rich, medicated green frosting.",
+        time: "55 MIN",
+        ingredients_text: [
+            "1 1/2 Cups All-Purpose Flour",
+            "1 Cup Sugar",
+            "1/2 Cup Cocoa Powder",
+            "1 tsp Baking Soda",
+            "1/2 Cup Vegetable Oil",
+            "1 Cup Water",
+            "1 tsp Vanilla Extract",
+            "1/2 Cup Cannabis Infused Butter (for frosting)",
+            "2 Cups Powdered Sugar",
+            "2 tbsp Milk",
+            "Green Food Coloring"
+        ],
+        instructions: [
+            "1. Preheat oven to 350°F (175°C) and line a cupcake tin.",
+            "2. Whisk flour, sugar, cocoa, and baking soda. Add oil, water, and vanilla. Mix until smooth.",
+            "3. Pour into liners and bake for 20-22 minutes. Cool completely.",
+            "4. Make Frosting: Beat Cannabis Infused Butter until creamy. Gradually add powdered sugar, milk, and food coloring.",
+            "5. Frost the cooled cupcakes and enjoy responsibly."
+        ]
+    },
+    {
+        title: "High-Tide Cannabis Margarita",
+        category: ["Drink"],
+        difficulty: 2,
+        image: "https://placehold.co/600x400/444/fff?text=Canna-Margarita",
+        price: "25 GP",
+        description: "A zesty, refreshing margarita infused with a touch of cannabis tincture or oil.",
+        time: "10 MIN",
+        ingredients_text: [
+            "2 oz Tequila",
+            "1 oz Lime Juice",
+            "1/2 oz Agave Nectar",
+            "1 tsp THC Oil",
+            "Salt (for rim)",
+            "Lime slice (for garnish)",
+            "Ice cubes"
+        ],
+        instructions: [
+            "1. Rim a glass with salt using a lime wedge.",
+            "2. In a shaker, combine tequila, lime juice, agave nectar, and THC Oil.",
+            "3. Add ice and shake vigorously for 15 seconds.",
+            "4. Strain into the prepared glass over fresh ice.",
+            "5. Garnish with a lime slice."
+        ]
+    },
+    {
+        title: "Garlic & Herb Infused Hummus",
+        category: ["Appetizer"],
+        difficulty: 1,
+        image: "https://placehold.co/600x400/444/fff?text=Infused+Hummus",
+        price: "18 GP",
+        description: "Creamy, homemade hummus infused with cannabis olive oil and plenty of garlic.",
+        time: "15 MIN",
+        ingredients_text: [
+            "1 Can (15oz) Chickpeas, drained and rinsed",
+            "1/4 Cup Tahini",
+            "2 tbsp Lemon Juice",
+            "2 Cloves Garlic, minced",
+            "2 tbsp Cannabis Infused Olive Oil",
+            "1/2 tsp Cumin",
+            "Salt to taste",
+            "Paprika and Parsley (for garnish)"
+        ],
+        instructions: [
+            "1. Combine chickpeas, tahini, lemon juice, garlic, and cumin in a food processor.",
+            "2. Pulse while slowly drizzling in the Cannabis Infused Olive Oil until smooth.",
+            "3. Add a splash of water if needed to reach desired consistency.",
+            "4. Season with salt. Transfer to a bowl.",
+            "5. Garnish with paprika, parsley, and an extra drizzle of oil. Serve with pita or veggies."
+        ]
+    },
+    {
+        title: "Canna-infused Avocado Toast",
+        category: ["Appetizer"],
+        difficulty: 2,
+        image: "https://placehold.co/600x400/444/fff?text=Avocado+Toast",
+        price: "22 GP",
+        description: "The ultimate breakfast quest: sourdough toast topped with creamy avocado and a cannabis-oil drizzle.",
+        time: "15 MIN",
+        ingredients_text: [
+            "1 Slice Sourdough Bread",
+            "1/2 Ripe Avocado",
+            "1 tsp Cannabis Infused Oil",
+            "1 Large Egg (optional, poached)",
+            "Red Pepper Flakes",
+            "Salt and Black Pepper",
+            "Lemon wedge"
+        ],
+        instructions: [
+            "1. Toast the sourdough bread until golden and crisp.",
+            "2. In a small bowl, mash the avocado with a squeeze of lemon, salt, and pepper.",
+            "3. Spread the avocado over the toast.",
+            "4. If using, poach the egg for 3 minutes and place it on top of the avocado.",
+            "5. Drizzle with Cannabis Infused Oil and sprinkle with red pepper flakes."
+        ]
+    },
+    {
+        title: "Potent Pasta a la Vodka",
+        category: ["Pasta"],
+        difficulty: 3,
+        image: "https://placehold.co/600x400/444/fff?text=Pasta+Vodka",
+        price: "35 GP",
+        description: "A rich, creamy tomato sauce with a splash of vodka and a potent cannabis infusion.",
+        time: "30 MIN",
+        ingredients_text: [
+            "12 oz Penne Pasta",
+            "1 tbsp Cannabis Infused Butter",
+            "2 Cloves Garlic, minced",
+            "1/2 Cup Vodka",
+            "1 Can (28oz) Crushed Tomatoes",
+            "1/2 Cup Heavy Cream",
+            "1/4 Cup Parmesan Cheese",
+            "Fresh Basil"
+        ],
+        instructions: [
+            "1. Cook pasta according to package directions.",
+            "2. Sauté garlic in Cannabis Infused Butter over medium heat.",
+            "3. Add vodka and simmer for 2 minutes. Stir in tomatoes and simmer for 10 minutes.",
+            "4. Stir in cream and parmesan. Toss with pasta and garnish with basil."
+        ]
+    },
+    {
+        title: "Cosmic Curry",
+        category: ["Creams and Soups"],
+        difficulty: 3,
+        image: "https://placehold.co/600x400/444/fff?text=Cosmic+Curry",
+        price: "28 GP",
+        description: "A spicy, fragrant chickpea curry infused with cannabis coconut oil.",
+        time: "40 MIN",
+        ingredients_text: [
+            "2 Cans Chickpeas",
+            "1 Onion, diced",
+            "2 tbsp Curry Powder",
+            "1 Can Coconut Milk",
+            "2 tbsp Cannabis Infused Coconut Oil",
+            "Fresh Spinach",
+            "Rice for serving"
+        ],
+        instructions: [
+            "1. Sauté onion in Cannabis Coconut Oil. Add curry powder and cook until fragrant.",
+            "2. Add chickpeas and coconut milk. Simmer for 20 minutes.",
+            "3. Stir in spinach until wilted. Serve over rice."
+        ]
+    },
+    {
+        title: "Herbal Gnocchi",
+        category: ["Pasta"],
+        difficulty: 4,
+        image: "https://placehold.co/600x400/444/fff?text=Herbal+Gnocchi",
+        price: "42 GP",
+        description: "Hand-rolled potato gnocchi served with a cannabis-infused sage butter sauce.",
+        time: "1 HR",
+        ingredients_text: [
+            "1 lb Potato Gnocchi",
+            "4 tbsp Cannabis Infused Butter",
+            "10 Fresh Sage Leaves",
+            "Parmesan Cheese",
+            "Lemon Zest"
+        ],
+        instructions: [
+            "1. Cook gnocchi in boiling water until they float.",
+            "2. Melt Cannabis Infused Butter in a pan. Add sage leaves and fry until crisp.",
+            "3. Toss gnocchi in the butter sauce. Top with parmesan and lemon zest."
+        ]
+    },
+    {
+        title: "Mary Jane's Muffins",
+        category: ["Dessert"],
+        difficulty: 2,
+        image: "https://placehold.co/600x400/444/fff?text=Muffins",
+        price: "15 GP",
+        description: "Moist blueberry muffins with a secret ingredient in every bite.",
+        time: "35 MIN",
+        ingredients_text: [
+            "1 1/2 Cups Flour",
+            "3/4 Cup Sugar",
+            "2 tsp Baking Powder",
+            "1/3 Cup Cannabis Infused Oil",
+            "1 Egg",
+            "1/3 Cup Milk",
+            "1 Cup Fresh Blueberries"
+        ],
+        instructions: [
+            "1. Preheat oven to 400°F (200°C).",
+            "2. Mix dry ingredients. Combine oil, egg, and milk; stir into dry ingredients.",
+            "3. Fold in blueberries. Bake for 20-25 minutes."
+        ]
+    },
+    {
+        title: "Magical Mushroom Risotto",
+        category: ["Pasta"],
+        difficulty: 4,
+        image: "https://placehold.co/600x400/444/fff?text=Mushroom+Risotto",
+        price: "50 GP",
+        description: "Creamy arborio rice with earthy mushrooms and a potent cannabis butter finish.",
+        time: "45 MIN",
+        ingredients_text: [
+            "1 1/2 Cups Arborio Rice",
+            "1 lb Mixed Mushrooms",
+            "4 Cups Vegetable Broth",
+            "1/2 Cup White Wine",
+            "2 tbsp Cannabis Infused Butter",
+            "Shallots and Garlic"
+        ],
+        instructions: [
+            "1. Sauté shallots and mushrooms. Add rice and toast slightly.",
+            "2. Add wine, then broth one ladle at a time, stirring until absorbed.",
+            "3. Finish by stirring in Cannabis Infused Butter and parmesan."
+        ]
+    },
+    {
+        title: "High-Octane Banana Bread",
+        category: ["Dessert"],
+        difficulty: 2,
+        image: "https://placehold.co/600x400/444/fff?text=Banana+Bread",
+        price: "20 GP",
+        description: "Sweet, moist banana bread infused with cannabis coconut oil.",
+        time: "1 HR 10 MIN",
+        ingredients_text: [
+            "3 Ripe Bananas",
+            "1/3 Cup Cannabis Infused Coconut Oil",
+            "3/4 Cup Sugar",
+            "1 Egg",
+            "1 1/2 Cups Flour",
+            "1 tsp Baking Soda"
+        ],
+        instructions: [
+            "1. Mash bananas and mix with melted oil and sugar.",
+            "2. Add egg, then fold in flour and baking soda.",
+            "3. Bake at 350°F (175°C) for 60 minutes."
+        ]
+    },
+    {
+        title: "Chronic Chocolate Chip Cookies",
+        category: ["Dessert"],
+        difficulty: 2,
+        image: "https://placehold.co/600x400/444/fff?text=Cookies",
+        price: "12 GP",
+        description: "Classic chewy cookies with a very special kind of butter.",
+        time: "25 MIN",
+        ingredients_text: [
+            "1/2 Cup Cannabis Infused Butter",
+            "1/2 Cup Sugar",
+            "1/2 Cup Brown Sugar",
+            "1 Egg",
+            "1 1/2 Cups Flour",
+            "1 Cup Chocolate Chips"
+        ],
+        instructions: [
+            "1. Cream butter and sugars. Add egg.",
+            "2. Mix in flour, then chocolate chips.",
+            "3. Bake at 350°F (175°C) for 10-12 minutes."
         ]
     }
 ];

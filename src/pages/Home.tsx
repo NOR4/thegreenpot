@@ -95,15 +95,12 @@ export function Home() {
                     </p>
                 </div>
 
-                {/* Decarb Disclaimer */}
-                <div className="bg-orange-100 border-l-4 border-orange-500 text-orange-800 p-4 font-pixel shadow-md relative" role="alert">
-                    <p className="font-bold font-retro text-lg mb-1">{t('home.decarbTitle')}</p>
+                {/* Decarb Warning */}
+                <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 font-pixel shadow-md relative" role="alert">
+                    <p className="font-bold font-retro text-lg mb-1">{t('decarb.title')}</p>
                     <p className="text-sm">
-                        {t('home.decarbText')} <a href="/decarboxylation" className="underline font-bold hover:text-orange-950">{t('home.decarbLink')}</a>
+                        {t('decarb.warning')} <a href="/decarboxylation" className="underline font-bold hover:text-red-900">{t('decarb.importance')}</a>
                     </p>
-                    <div className="absolute top-2 right-2 text-orange-300 opacity-50 select-none pointer-events-none">
-                        🔥
-                    </div>
                 </div>
             </div>
 

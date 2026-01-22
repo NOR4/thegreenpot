@@ -1,12 +1,11 @@
 {
     "nav": {
         "recipes": "RECETAS",
-        "decarboxylation": "DESCARBOXILACIÓN",
         "dosageGuide": "GUÍA DE DOSIS",
         "calculator": "CALCULADORA",
         "pantry": "DESPENSA",
         "est": "EST. 2024",
-        "dispensary": "BOTICARIO PIXEL"
+        "dispensary": "DISPENSARIO PIXEL"
     },
     "auth": {
         "loginSignup": "ENTRAR / REGISTRO",
@@ -35,8 +34,8 @@
     },
     "dosageGuide": {
         "title": "CALCULA TU DOSIS",
-        "amountLabel": "CANTIDAD DE\nCALMA/ ACTIVO",
-        "profileLabel": "PERFIL DE\nCONSUMIDOR@",
+        "amountLabel": "CANTIDAD DE\nTHC/ CBD",
+        "profileLabel": "PERFIL DE\nCONSUMIDOR",
         "effectsLabel": "EFECTOS",
         "scrollMore": "← DESLIZA PARA MÁS →"
     },
@@ -54,7 +53,7 @@
             "effects": "Ya no te acuerdas de qué te duele. Euforia, creatividad, risa tonta. Ayuda a conciliar el sueño."
         },
         "high": {
-            "profile": "Consumidores experimentados. Pacientes con alta tolerancia al ACTIVO y/o a la CALMA.",
+            "profile": "Consumidores experimentados. Pacientes con alta tolerancia al THC y/o al CBD.",
             "effects": "Euforia, leve amnesia de los hechos recientes, verborrea. Si no estás acostumbrado pueden aparecer efectos adversos."
         },
         "heavy": {
@@ -68,13 +67,12 @@
         "potencyText": "La potencia de tus comestibles depende completamente de la fuerza y cantidad de tu aceite o mantequilla infusionada. Estas recetas son guías. Por favor visita nuestra",
         "dosageGuideLink": "Guía de Dosis",
         "potencyText2": "para aprender cómo calcular y ajustar la dosis según tus necesidades personales.",
+        "statsTitle": "ESTADÍSTICAS ALQUÍMICAS",
+        "statsText": "Explora nuestra colección de recetas potentes y descubre la infusión perfecta para tu próxima sesión.",
         "loading": "Cargando recetas...",
         "noRecipesFound": "NO SE ENCONTRARON RECETAS EN ESTA CATEGORÍA",
         "allCategories": "TODAS",
-        "viewRecipe": "VER RECETA",
-        "decarbTitle": "🔥 ¡NO TE SALTES EL DECARB!",
-        "decarbText": "¿Sabías que la hierba botánica cruda no es psicoactiva? DEBES calentarla primero o tus comestibles no funcionarán.",
-        "decarbLink": "Aprende cómo aquí."
+        "viewRecipe": "VER RECETA"
     },
     "ingredients": {
         "backToScrolls": "← VOLVER A PERGAMINOS",
@@ -100,9 +98,9 @@
         "title": "CALCULADORA DE DOSIS",
         "subtitle": "Planifica la potencia de tu poción antes de prepararla.",
         "ingredients": "INGREDIENTES",
-        "cannabisAmount": "Cantidad Botánica (Gramos)",
+        "cannabisAmount": "Cantidad de Cannabis (Gramos)",
         "cannabisPlaceholder": "ej. 3.5, 7, 14",
-        "thcPercentage": "Porcentaje Activo (%)",
+        "thcPercentage": "Porcentaje de THC (%)",
         "thcHint": "La flor promedio es ~15-20%. La de primera calidad es 25%+.",
         "extractionYield": "Rendimiento de Extracción (%)",
         "whatIsThis": "¿Qué es esto?",
@@ -116,7 +114,7 @@
         "servings": "Número de Porciones",
         "results": "RESULTADOS",
         "totalBatchPotency": "POTENCIA TOTAL DEL LOTE",
-        "totalThcIn": "Activo total en tus",
+        "totalThcIn": "Total de THC en tus",
         "perServing": "POR PORCIÓN",
         "perMl": "POR ML",
         "dosageGuideTitle": "GUÍA DE DOSIS",

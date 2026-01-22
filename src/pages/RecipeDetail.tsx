@@ -185,7 +185,7 @@ export function RecipeDetail() {
                 <div className="lg:col-span-2 flex flex-col gap-8">
                     <div className="border-4 border-black aspect-video overflow-hidden bg-gray-900 shadow-hard relative">
                         <img
-                            src={recipe.image ? pb.files.getUrl(recipe, recipe.image) : ''}
+                            src={recipe.image ? pb.files.getURL(recipe, recipe.image) : ''}
                             alt={recipe.title}
                             className="w-full h-full object-cover"
                             style={{ imageRendering: 'pixelated' }}
@@ -237,7 +237,7 @@ export function RecipeDetail() {
                                             className="bg-purple-100 border-2 border-black px-3 py-1 flex items-center gap-2 hover:bg-purple-200 transition-colors group"
                                         >
                                             <div className="w-6 h-6 border border-black overflow-hidden bg-white">
-                                                <img src={ing.image ? pb.files.getUrl(ing, ing.image) : ''} alt={ing.name} className="w-full h-full object-cover" style={{ imageRendering: 'pixelated' }} />
+                                                <img src={ing.image ? pb.files.getURL(ing, ing.image) : ''} alt={ing.name} className="w-full h-full object-cover" style={{ imageRendering: 'pixelated' }} />
                                             </div>
                                             <span className="font-pixel text-sm font-bold group-hover:underline">{ing.name}</span>
                                         </Link>
@@ -300,7 +300,7 @@ export function RecipeDetail() {
                                     <div key={product.id} className="bg-white border-4 border-black p-3 flex flex-col gap-3 group hover:translate-x-1 transition-transform">
                                         <div className="aspect-square bg-gray-100 border-2 border-black overflow-hidden relative">
                                             <img
-                                                src={product.image ? pb.files.getUrl(product, product.image) : ''}
+                                                src={product.image ? pb.files.getURL(product, product.image) : ''}
                                                 alt={product.name}
                                                 className="w-full h-full object-cover"
                                                 style={{ imageRendering: 'pixelated' }}

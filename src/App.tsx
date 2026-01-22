@@ -8,6 +8,7 @@ import { DosageGuide } from './pages/DosageGuide';
 import { Ingredients } from './pages/Ingredients';
 import { IngredientDetail } from './pages/IngredientDetail';
 import { DosageCalculator } from './pages/DosageCalculator';
+import { Decarboxylation } from './pages/Decarboxylation';
 
 function App() {
   const [ageVerified, setAgeVerified] = useState(false);
@@ -28,6 +29,7 @@ function App() {
           <Route path="calculator" element={<DosageCalculator />} />
           <Route path="ingredients" element={<Ingredients />} />
           <Route path="ingredient/:id" element={<IngredientDetail />} />
+          <Route path="decarboxylation" element={<Decarboxylation />} />
         </Route>
       </Routes>
     </BrowserRouter>

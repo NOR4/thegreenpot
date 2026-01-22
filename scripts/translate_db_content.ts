@@ -333,6 +333,245 @@ const recipeTranslations: Record<string, {
             "4. Armar: Colocar los espárragos en una fuente. Cubrir con atún desmenuzado, tomates cherry y cuartos de huevo.",
             "5. Terminar: Rociar la vinagreta de cannabis por encima justo antes de servir."
         ]
+    },
+    "Cannabis-Infused Ribeye Steak": {
+        title_es: "Chuletón de Ribeye Infusionado con Cannabis",
+        description_es: "Un chuletón de ribeye de primera calidad a la parrilla a la perfección y cubierto con una potente mantequilla de hierbas con cannabis.",
+        category_es: "Carne",
+        ingredients_text_es: [
+            "1 lb de Chuletón de Ribeye",
+            "2 cucharadas de Mantequilla Infusionada con Cannabis",
+            "1 cucharada de Romero Fresco, picado",
+            "2 Dientes de Ajo, picados",
+            "Sal y Pimienta Negra al gusto",
+            "1 cucharada de Aceite de Oliva"
+        ],
+        instructions_es: [
+            "1. Sazonar el chuletón generosamente con sal y pimienta por ambos lados.",
+            "2. Calentar el aceite de oliva en una sartén de hierro fundido a fuego alto hasta que humee.",
+            "3. Sellar el chuletón durante 3-4 minutos por lado para que quede al punto (medio-crudo).",
+            "4. En un tazón pequeño, mezclar la Mantequilla Infusionada con Cannabis con el romero y el ajo picado.",
+            "5. Retirar el chuletón del fuego e inmediatamente cubrir con la mantequilla de hierbas infusionada. Dejar reposar durante 5 minutos antes de servir."
+        ]
+    },
+    "Space Cakes with Cannabutter Frosting": {
+        title_es: "Pastelitos Espaciales con Glaseado de Canna-mantequilla",
+        description_es: "Pastelitos de chocolate ligeros y esponjosos con un glaseado verde rico y potente.",
+        category_es: "Postre",
+        ingredients_text_es: [
+            "1 1/2 Tazas de Harina para Todo Uso",
+            "1 Taza de Azúcar",
+            "1/2 Taza de Cacao en Polvo",
+            "1 cucharadita de Bicarbonato de Sodio",
+            "1/2 Taza de Aceite Vegetal",
+            "1 Taza de Agua",
+            "1 cucharadita de Extracto de Vainilla",
+            "1/2 Taza de Mantequilla Infusionada con Cannabis (para el glaseado)",
+            "2 Tazas de Azúcar Glass",
+            "2 cucharadas de Leche",
+            "Colorante Alimentario Verde"
+        ],
+        instructions_es: [
+            "1. Precalentar el horno a 350°F (175°C) y preparar un molde para pastelitos.",
+            "2. Batir la harina, el azúcar, el cacao y el bicarbonato. Agregar el aceite, el agua y la vainilla. Mezclar hasta que esté suave.",
+            "3. Verter en los moldes y hornear por 20-22 minutos. Enfriar completamente.",
+            "4. Hacer el Glaseado: Batir la Mantequilla Infusionada con Cannabis hasta que esté cremosa. Agregar gradualmente el azúcar glass, la leche y el colorante.",
+            "5. Glasear los pastelitos fríos y disfrutar con responsabilidad."
+        ]
+    },
+    "High-Tide Cannabis Margarita": {
+        title_es: "Margarita de Cannabis de Marea Alta",
+        description_es: "Una margarita de lima picante y refrescante infusionada con un toque de tintura o aceite de THC.",
+        category_es: "Bebida",
+        ingredients_text_es: [
+            "2 oz de Tequila",
+            "1 oz de Jugo de Lima",
+            "1/2 oz de Néctar de Agave",
+            "1 cucharadita de Aceite de THC",
+            "Sal (para el borde)",
+            "Rodaja de lima (para decorar)",
+            "Cubitos de hielo"
+        ],
+        instructions_es: [
+            "1. Bordear un vaso con sal usando una rodaja de lima.",
+            "2. En una coctelera, combinar el tequila, el jugo de lima, el néctar de agave y el Aceite de THC.",
+            "3. Agregar hielo y agitar vigorosamente durante 15 segundos.",
+            "4. Colar en el vaso preparado con hielo fresco.",
+            "5. Decorar con una rodaja de lima."
+        ]
+    },
+    "Garlic & Herb Infused Hummus": {
+        title_es: "Hummus Infusionado con Ajo y Hierbas",
+        description_es: "Hummus casero cremoso infusionado con aceite de oliva con cannabis y mucho ajo.",
+        category_es: "Aperitivo",
+        ingredients_text_es: [
+            "1 Lata (15oz) de Garbanzos, escurridos y enjuagados",
+            "1/4 Taza de Tahini",
+            "2 cucharadas de Jugo de Lima",
+            "2 Dientes de Ajo, picados",
+            "2 cucharadas de Aceite de Oliva Infusionado con Cannabis",
+            "1/2 cucharadita de Comino",
+            "Sal al gusto",
+            "Pimentón y Perejil (para decorar)"
+        ],
+        instructions_es: [
+            "1. Combinar garbanzos, tahini, jugo de lima, ajo y comino en un procesador de alimentos.",
+            "2. Pulsar mientras se vierte lentamente el Aceite de Oliva Infusionado con Cannabis hasta que esté suave.",
+            "3. Agregar un chorrito de agua si es necesario para alcanzar la consistencia deseada.",
+            "4. Sazonar con sal. Transferir a un tazón.",
+            "5. Decorar con pimentón, perejil y un chorrito extra de aceite. Servir con pita o verduras."
+        ]
+    },
+    "Canna-infused Avocado Toast": {
+        title_es: "Tostada de Aguacate Infusionada con Cannabis",
+        description_es: "La misión definitiva del desayuno: tostada de masa madre cubierta con aguacate cremoso y un chorrito de aceite de cannabis.",
+        category_es: "Aperitivo",
+        ingredients_text_es: [
+            "1 Rebanada de Pan de Masa Madre",
+            "1/2 Aguacate Maduro",
+            "1 cucharadita de Aceite Infusionado con Cannabis",
+            "1 Huevo Grande (opcional, escalfado)",
+            "Hojuelas de Pimiento Rojo",
+            "Sal y Pimienta Negra",
+            "Rodaja de limón"
+        ],
+        instructions_es: [
+            "1. Tostar el pan de masa madre hasta que esté dorado y crujiente.",
+            "2. En un tazón pequeño, machacar el aguacate con un chorrito de limón, sal y pimienta.",
+            "3. Untar el aguacate sobre la tostada.",
+            "4. Si se usa, escalfar el huevo durante 3 minutos y colocarlo sobre el aguacate.",
+            "5. Rociar con Aceite Infusionado con Cannabis y espolvorear con hojuelas de pimiento rojo."
+        ]
+    },
+    "Potent Pasta a la Vodka": {
+        title_es: "Pasta Potente a la Vodka",
+        description_es: "Una rica y cremosa salsa de tomate con un toque de vodka y una potente infusión de cannabis.",
+        category_es: "Pasta",
+        ingredients_text_es: [
+            "12 oz de Pasta Penne",
+            "1 cucharada de Mantequilla Infusionada con Cannabis",
+            "2 Dientes de Ajo, picados",
+            "1/2 Taza de Vodka",
+            "1 Lata (28oz) de Tomates Triturados",
+            "1/2 Taza de Crema Espesa",
+            "1/4 Taza de Queso Parmesano",
+            "Albahaca Fresca"
+        ],
+        instructions_es: [
+            "1. Cocinar la pasta según las instrucciones del paquete.",
+            "2. Saltear el ajo en Mantequilla Infusionada con Cannabis a fuego medio.",
+            "3. Agregar el vodka y cocinar a fuego lento durante 2 minutos. Incorporar los tomates y cocinar a fuego lento durante 10 minutos.",
+            "4. Incorporar la crema y el parmesano. Mezclar con la pasta y decorar con albahaca."
+        ]
+    },
+    "Cosmic Curry": {
+        title_es: "Curry Cósmico",
+        description_es: "Un fragante y picante curry de garbanzos infusionado con aceite de coco y cannabis.",
+        category_es: "Cremas y Sopas",
+        ingredients_text_es: [
+            "2 Latas de Garbanzos",
+            "1 Cebolla, en cubos",
+            "2 cucharadas de Polvo de Curry",
+            "1 Lata de Leche de Coco",
+            "2 cucharadas de Aceite de Coco Infusionado con Cannabis",
+            "Espinacas Frescas",
+            "Arroz para servir"
+        ],
+        instructions_es: [
+            "1. Saltear la cebolla en Aceite de Coco con Cannabis. Agregar el polvo de curry y cocinar hasta que esté fragante.",
+            "2. Agregar los garbanzos y la leche de coco. Cocinar a fuego lento durante 20 minutos.",
+            "3. Incorporar las espinacas hasta que se marchiten. Servir sobre arroz."
+        ]
+    },
+    "Herbal Gnocchi": {
+        title_es: "Ñoquis de Hierbas",
+        description_es: "Ñoquis de papa hechos a mano servidos con una salsa de mantequilla y salvia infusionada con cannabis.",
+        category_es: "Pasta",
+        ingredients_text_es: [
+            "1 lb de Ñoquis de Papa",
+            "4 cucharadas de Mantequilla Infusionada con Cannabis",
+            "10 Hojas de Salvia Fresca",
+            "Queso Parmesano",
+            "Ralladura de Limón"
+        ],
+        instructions_es: [
+            "1. Cocinar los ñoquis en agua hirviendo hasta que floten.",
+            "2. Derretir la Mantequilla Infusionada con Cannabis en una sartén. Agregar las hojas de salvia y freír hasta que estén crujientes.",
+            "3. Mezclar los ñoquis en la salsa de mantequilla. Cubrir con parmesano y ralladura de limón."
+        ]
+    },
+    "Mary Jane's Muffins": {
+        title_es: "Muffins de Mary Jane",
+        description_es: "Muffins de arándanos húmedos con un ingrediente secreto en cada bocado.",
+        category_es: "Postre",
+        ingredients_text_es: [
+            "1 1/2 Tazas de Harina",
+            "3/4 Taza de Azúcar",
+            "2 cucharaditas de Polvo de Hornear",
+            "1/3 Taza de Aceite Infusionado con Cannabis",
+            "1 Huevo",
+            "1/3 Taza de Leche",
+            "1 Taza de Arándanos Frescos"
+        ],
+        instructions_es: [
+            "1. Precalentar el horno a 400°F (200°C).",
+            "2. Mezclar los ingredientes secos. Combinar aceite, huevo y leche; incorporar a los ingredientes secos.",
+            "3. Incorporar suavemente los arándanos. Hornear durante 20-25 minutos."
+        ]
+    },
+    "Magical Mushroom Risotto": {
+        title_es: "Risotto Mágico de Champiñones",
+        description_es: "Arroz arborio cremoso con champiñones terrosos y un final potente de mantequilla de cannabis.",
+        category_es: "Pasta",
+        ingredients_text_es: [
+            "1 1/2 Tazas de Arroz Arborio",
+            "1 lb de Champiñones Mixtos",
+            "4 Tazas de Caldo de Verduras",
+            "1/2 Taza de Vino Blanco",
+            "2 cucharadas de Mantequilla Infusionada con Cannabis",
+            "Chalotas y Ajo"
+        ],
+        instructions_es: [
+            "1. Saltear chalotas y champiñones. Agregar el arroz y tostar ligeramente.",
+            "2. Agregar vino, luego caldo un cucharón a la vez, revolviendo hasta que se absorba.",
+            "3. Terminar incorporando la Mantequilla Infusionada con Cannabis y parmesano."
+        ]
+    },
+    "High-Octane Banana Bread": {
+        title_es: "Pan de Plátano de Alto Octanaje",
+        description_es: "Pan de plátano dulce y húmedo infusionado con aceite de coco y cannabis.",
+        category_es: "Postre",
+        ingredients_text_es: [
+            "3 Plátanos Maduros",
+            "1/3 Taza de Aceite de Coco Infusionado con Cannabis",
+            "3/4 Taza de Azúcar",
+            "1 Huevo",
+            "1 1/2 Tazas de Harina",
+            "1 cucharadita de Bicarbonato de Sodio"
+        ],
+        instructions_es: [
+            "1. Machacar los plátanos y mezclar con aceite derretido y azúcar.",
+            "2. Agregar huevo, luego incorporar harina y bicarbonato.",
+            "3. Hornear a 350°F (175°C) durante 60 minutos."
+        ]
+    },
+    "Chronic Chocolate Chip Cookies": {
+        title_es: "Galletas de Chispas de Chocolate Crónicas",
+        description_es: "Galletas masticables clásicas con un tipo de mantequilla muy especial.",
+        category_es: "Postre",
+        ingredients_text_es: [
+            "1/2 Taza de Mantequilla Infusionada con Cannabis",
+            "1/2 Taza de Azúcar",
+            "1/2 Taza de Azúcar Morena",
+            "1 Huevo",
+            "1 1/2 Tazas de Harina",
+            "1 Taza de Chispas de Chocolate"
+        ],
+        instructions_es: [
+            "1. Batir la mantequilla y los azúcares. Agregar huevo.",
+            "2. Mezclar la harina, luego las chispas de chocolate.",
+            "3. Hornear a 350°F (175°C) durante 10-12 minutos."
+        ]
     }
 };
 
@@ -398,7 +637,78 @@ const ingredientTranslations: Record<string, {
     "Eggs": { name_es: "Huevos", description_es: "Huevos grandes frescos de granja.", category_es: "Lácteo" },
     "Tuna": { name_es: "Atún", description_es: "Atún enlatado o fresco listado/albacora.", category_es: "Mariscos" },
     "Dijon Mustard": { name_es: "Mostaza Dijon", description_es: "Mostaza francesa picante y ácida.", category_es: "Condimento" },
-    "Red Onion": { name_es: "Cebolla Roja", description_es: "Cebolla de piel morada picante y crujiente.", category_es: "Verdura" }
+    "Red Onion": { name_es: "Cebolla Roja", description_es: "Cebolla de piel morada picante y crujiente.", category_es: "Verdura" },
+    "Water": { name_es: "Agua", description_es: "Agua pura.", category_es: "Bebida" },
+    "Salt to taste": { name_es: "Sal al gusto", description_es: "Cantidad de sal deseada.", category_es: "Condimento" },
+    "Paprika and Parsley": { name_es: "Pimentón y Perejil", description_es: "Especias para decorar.", category_es: "Condimento" },
+    "Salt and Black Pepper": { name_es: "Sal y Pimienta Negra", description_es: "Condimento básico.", category_es: "Condimento" },
+    "Lemon wedge": { name_es: "Rodaja de Limón", description_es: "Trozo de limón fresco.", category_es: "Fruta" },
+    "Vodka": { name_es: "Vodka", description_es: "Vodka premium.", category_es: "Bebida" },
+    "Fresh Basil": { name_es: "Albahaca Fresca", description_es: "Hojas de albahaca fresca.", category_es: "Hierba" },
+    "Curry Powder": { name_es: "Polvo de Curry", description_es: "Mezcla de especias aromáticas.", category_es: "Condimento" },
+    "Coconut Milk": { name_es: "Leche de Coco", description_es: "Leche de coco cremosa.", category_es: "Lácteo" },
+    "Fresh Spinach": { name_es: "Espinacas Frescas", description_es: "Hojas de espinaca fresca.", category_es: "Verdura" },
+    "Rice for serving": { name_es: "Arroz para servir", description_es: "Arroz blanco o integral cocido.", category_es: "Despensa" },
+    "Potato Gnocchi": { name_es: "Ñoquis de Papa", description_es: "Pasta de papa italiana.", category_es: "Pasta" },
+    "Fresh Sage Leaves": { name_es: "Hojas de Salvia Fresca", description_es: "Hierba aromática de sabor terroso.", category_es: "Hierba" },
+    "Lemon Zest": { name_es: "Ralladura de Limón", description_es: "Cáscara de limón rallada.", category_es: "Fruta" },
+    "Flour": { name_es: "Harina", description_es: "Harina de trigo.", category_es: "Despensa" },
+    "Fresh Blueberries": { name_es: "Arándanos Frescos", description_es: "Bayas dulces y antioxidantes.", category_es: "Fruta" },
+    "Arborio Rice": { name_es: "Arroz Arborio", description_es: "Arroz de grano corto para risotto.", category_es: "Despensa" },
+    "Mixed Mushrooms": { name_es: "Champiñones Mixtos", description_es: "Variedad de hongos comestibles.", category_es: "Verdura" },
+    "White Wine": { name_es: "Vino Blanco", description_es: "Vino blanco seco para cocinar.", category_es: "Bebida" },
+    "Shallots and Garlic": { name_es: "Chalotas y Ajo", description_es: "Base aromática de cocina.", category_es: "Verdura" },
+    "Ripe Bananas": { name_es: "Plátanos Maduros", description_es: "Plátanos dulces y suaves.", category_es: "Fruta" },
+    "Brown Sugar": { name_es: "Azúcar Morena", description_es: "Azúcar con melaza.", category_es: "Despensa" },
+    "Chocolate Chips": { name_es: "Chispas de Chocolate", description_es: "Pequeños trozos de chocolate semidulce.", category_es: "Despensa" },
+    "Cannabis Infused Oil": { name_es: "Aceite Infusionado con Cannabis", description_es: "Aceite versátil infusionado con THC.", category_es: "Aceite" },
+    "Salt and Black Pepper to taste": { name_es: "Sal y Pimienta Negra al gusto", description_es: "Sazonar al gusto.", category_es: "Condimento" },
+    "Fresh White Fish": { name_es: "Pescado Blanco Fresco", description_es: "Pescado magro fresco.", category_es: "Mariscos" },
+    "Corn on the cob": { name_es: "Mazorca de Maíz", description_es: "Maíz dulce en la mazorca.", category_es: "Verdura" },
+    "White Sugar": { name_es: "Azúcar Blanca", description_es: "Azúcar refinada estándar.", category_es: "Despensa" },
+    "Vanilla Extract": { name_es: "Extracto de Vainilla", description_es: "Aromatizante de vainilla puro.", category_es: "Condimento" },
+    "Unsweetened Cocoa Powder": { name_es: "Cacao en Polvo Sin Azúcar", description_es: "Cacao puro para hornear.", category_es: "Despensa" },
+    "Linguine or Spaghetti": { name_es: "Linguine o Espagueti", description_es: "Pasta larga italiana.", category_es: "Despensa" },
+    "Fresh Basil Leaves": { name_es: "Hojas de Albahaca Fresca", description_es: "Albahaca aromática.", category_es: "Hierba" },
+    "Black Pepper": { name_es: "Pimienta Negra", description_es: "Pimienta negra molida.", category_es: "Condimento" },
+    "Salmon Fillets": { name_es: "Filetes de Salmón", description_es: "Cortes frescos de salmón.", category_es: "Mariscos" },
+    "Olive Oil": { name_es: "Aceite de Oliva", description_es: "Aceite de oliva virgen.", category_es: "Aceite" },
+    "Ripe Avocados": { name_es: "Aguacates Maduros", description_es: "Aguacates listos para comer.", category_es: "Verdura" },
+    "Lime": { name_es: "Lima", description_es: "Cítrico verde ácido.", category_es: "Fruta" },
+    "Diced Onion": { name_es: "Cebolla Picada", description_es: "Cebolla cortada en cubos.", category_es: "Verdura" },
+    "Fresh Cilantro": { name_es: "Cilantro Fresco", description_es: "Hierba fresca picante.", category_es: "Hierba" },
+    "Tomatoes": { name_es: "Tomates", description_es: "Tomates rojos y jugosos.", category_es: "Verdura" },
+    "Minced Garlic": { name_es: "Ajo Picado", description_es: "Ajo finamente picado.", category_es: "Verdura" },
+    "Green Tea Bag": { name_es: "Bolsita de Té Verde", description_es: "Té verde para infusionar.", category_es: "Bebida" },
+    "Boiling Water": { name_es: "Agua Hirviendo", description_es: "Agua caliente a 100°C.", category_es: "Bebida" },
+    "Cannabis Infused Butter or Oil": { name_es: "Mantequilla o Aceite Infusionado con Cannabis", description_es: "Grasa infusionada a elección.", category_es: "Aceite" },
+    "Lemon slice": { name_es: "Rodaja de limón", description_es: "Rebanada de limón fresco.", category_es: "Fruta" },
+    "Ripe Mangoes": { name_es: "Mangos Maduros", description_es: "Mangos dulces y jugosos.", category_es: "Fruta" },
+    "Red Bell Pepper": { name_es: "Pimiento Rojo", description_es: "Pimiento dulce rojo.", category_es: "Verdura" },
+    "Cherry Tomatoes": { name_es: "Tomates Cherry", description_es: "Tomates pequeños y dulces.", category_es: "Verdura" },
+    "Apple Cider Vinegar": { name_es: "Vinagre de Sidra de Manzana", description_es: "Vinagre fermentado de manzana.", category_es: "Condimento" },
+    "Chicken Broth": { name_es: "Caldo de Pollo", description_es: "Base de sopa sabrosa.", category_es: "Despensa" },
+    "Cumin": { name_es: "Comino", description_es: "Especia cálida y terrosa.", category_es: "Condimento" },
+    "Vegetable Broth": { name_es: "Caldo de Verduras", description_es: "Caldo base vegetal.", category_es: "Despensa" },
+    "Nutmeg": { name_es: "Nuez Moscada", description_es: "Especia dulce y aromática.", category_es: "Condimento" },
+    "Heavy Cream": { name_es: "Crema Espesa", description_es: "Crema de leche rica en grasa.", category_es: "Lácteo" },
+    "Ribeye Steak": { name_es: "Chuletón de Ribeye", description_es: "Corte de carne tierno y con mucho sabor.", category_es: "Carne" },
+    "Fresh Rosemary": { name_es: "Romero Fresco", description_es: "Hierba aromática con fragancia de pino.", category_es: "Hierba" },
+    "All-Purpose Flour": { name_es: "Harina para Todo Uso", description_es: "Harina de trigo versátil.", category_es: "Despensa" },
+    "Cocoa Powder": { name_es: "Cacao en Polvo", description_es: "Cacao en polvo sin azúcar.", category_es: "Despensa" },
+    "Baking Soda": { name_es: "Bicarbonato de Sodio", description_es: "Agente leudante químico.", category_es: "Despensa" },
+    "Powdered Sugar": { name_es: "Azúcar Glass", description_es: "Azúcar finamente molida.", category_es: "Despensa" },
+    "Milk": { name_es: "Leche", description_es: "Leche fresca de vaca.", category_es: "Lácteo" },
+    "Green Food Coloring": { name_es: "Colorante Alimentario Verde", description_es: "Colorante para repostería.", category_es: "Despensa" },
+    "Tequila": { name_es: "Tequila", description_es: "Destilado de agave azul.", category_es: "Bebida" },
+    "Agave Nectar": { name_es: "Néctar de Agave", description_es: "Endulzante natural de agave.", category_es: "Bebida" },
+    "Lime slice": { name_es: "Rodaja de Lima", description_es: "Lima fresca cortada en rodajas.", category_es: "Fruta" },
+    "Ice cubes": { name_es: "Cubitos de Hielo", description_es: "Hielo de agua purificada.", category_es: "Bebida" },
+    "Tahini": { name_es: "Tahini", description_es: "Pasta de semillas de sésamo.", category_es: "Condimento" },
+    "Sourdough Bread": { name_es: "Pan de Masa Madre", description_es: "Pan artesanal fermentado naturalmente.", category_es: "Despensa" },
+    "Ripe Avocado": { name_es: "Aguacate Maduro", description_es: "Aguacate suave y listo para comer.", category_es: "Verdura" },
+    "Red Pepper Flakes": { name_es: "Hojuelas de Pimiento Rojo", description_es: "Pimiento rojo seco y triturado.", category_es: "Condimento" },
+    "Meat": { name_es: "Carne", description_es: "Carne fresca de calidad.", category_es: "Carne" }
 };
 
 // Category translations
