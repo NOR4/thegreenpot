@@ -1,11 +1,12 @@
 {
     "nav": {
         "recipes": "RECETAS",
+        "decarboxylation": "DESCARBOXILACIÓN",
         "dosageGuide": "GUÍA DE DOSIS",
         "calculator": "CALCULADORA",
         "pantry": "DESPENSA",
         "est": "EST. 2024",
-        "dispensary": "DISPENSARIO PIXEL"
+        "dispensary": "BOTICARIO PIXEL"
     },
     "auth": {
         "loginSignup": "ENTRAR / REGISTRO",
@@ -34,10 +35,32 @@
     },
     "dosageGuide": {
         "title": "CALCULA TU DOSIS",
-        "amountLabel": "CANTIDAD DE\nCBD/ THC",
+        "amountLabel": "CANTIDAD DE\nCALMA/ ACTIVO",
         "profileLabel": "PERFIL DE\nCONSUMIDOR@",
         "effectsLabel": "EFECTOS",
         "scrollMore": "← DESLIZA PARA MÁS →"
+    },
+    "db": {
+        "micro": {
+            "profile": "Primerizos y microdosis.",
+            "effects": "Ligero alivio de dolores y otros síntomas (temblores, crisis, estrés). Relajación muy suave."
+        },
+        "low": {
+            "profile": "Consumidores ocasionales. Pacientes con síntomas persistentes.",
+            "effects": "Desaparición de la mayoría de los síntomas. Ligera euforia. Puede aparecer algo de descoordinación."
+        },
+        "medium": {
+            "profile": "Consumidores frecuentes. Pacientes con síntomas persistentes.",
+            "effects": "Ya no te acuerdas de qué te duele. Euforia, creatividad, risa tonta. Ayuda a conciliar el sueño."
+        },
+        "high": {
+            "profile": "Consumidores experimentados. Pacientes con alta tolerancia al ACTIVO y/o a la CALMA.",
+            "effects": "Euforia, leve amnesia de los hechos recientes, verborrea. Si no estás acostumbrado pueden aparecer efectos adversos."
+        },
+        "heavy": {
+            "profile": "Valientes. Pacientes con síntomas muy graves.",
+            "effects": "Posiblemente te quedes fuera de combate por varias horas. No vas a saber ni cómo te llamas. Ojo, pueden aparecer náuseas y taquicardia."
+        }
     },
     "home": {
         "latestRecipes": "ÚLTIMAS RECETAS",
@@ -46,7 +69,12 @@
         "dosageGuideLink": "Guía de Dosis",
         "potencyText2": "para aprender cómo calcular y ajustar la dosis según tus necesidades personales.",
         "loading": "Cargando recetas...",
-        "noRecipesFound": "NO SE ENCONTRARON RECETAS EN ESTA CATEGORÍA"
+        "noRecipesFound": "NO SE ENCONTRARON RECETAS EN ESTA CATEGORÍA",
+        "allCategories": "TODAS",
+        "viewRecipe": "VER RECETA",
+        "decarbTitle": "🔥 ¡NO TE SALTES EL DECARB!",
+        "decarbText": "¿Sabías que la hierba botánica cruda no es psicoactiva? DEBES calentarla primero o tus comestibles no funcionarán.",
+        "decarbLink": "Aprende cómo aquí."
     },
     "ingredients": {
         "backToScrolls": "← VOLVER A PERGAMINOS",
@@ -72,13 +100,13 @@
         "title": "CALCULADORA DE DOSIS",
         "subtitle": "Planifica la potencia de tu poción antes de prepararla.",
         "ingredients": "INGREDIENTES",
-        "cannabisAmount": "Cantidad de Cannabis (Gramos)",
+        "cannabisAmount": "Cantidad Botánica (Gramos)",
         "cannabisPlaceholder": "ej. 3.5, 7, 14",
-        "thcPercentage": "Porcentaje de THC (%)",
+        "thcPercentage": "Porcentaje Activo (%)",
         "thcHint": "La flor promedio es ~15-20%. La de primera calidad es 25%+.",
         "extractionYield": "Rendimiento de Extracción (%)",
         "whatIsThis": "¿Qué es esto?",
-        "yieldTooltip": "No todo el THC se extrae de la planta. Las infusiones caseras típicamente extraen 60-80%.",
+        "yieldTooltip": "No todo el activo se extrae de la planta. Las infusiones caseras típicamente extraen 60-80%.",
         "yieldPoor": "40% - Infusión Pobre/Corta",
         "yieldStandard": "60% - Infusión Casera Estándar",
         "yieldEfficient": "80% - Altamente Eficiente (Lecitina)",
@@ -88,7 +116,7 @@
         "servings": "Número de Porciones",
         "results": "RESULTADOS",
         "totalBatchPotency": "POTENCIA TOTAL DEL LOTE",
-        "totalThcIn": "THC total en tus",
+        "totalThcIn": "Activo total en tus",
         "perServing": "POR PORCIÓN",
         "perMl": "POR ML",
         "dosageGuideTitle": "GUÍA DE DOSIS",
@@ -97,5 +125,36 @@
         "strong": "Fuerte. Coordinación afectada.",
         "veryStrong": "Muy Fuerte. Sedación pesada probable.",
         "heroic": "Heroica. Solo para usuarios experimentados."
+    },
+    "ingredientDetail": {
+        "loading": "Escaneando los registros botánicos...",
+        "notFound": "¡Artefacto Perdido en el Tiempo!",
+        "backLink": "← VOLVER A LA DESPENSA",
+        "item": "OBJETO",
+        "lore": "HISTORIA DEL OBJETO",
+        "energy": "Contenido Energético",
+        "growth": "Ciclo de Crecimiento",
+        "fast": "RÁPIDO",
+        "risks": "Factores de Riesgo (Alergias)",
+        "noRisks": "SIN RIESGOS REGISTRADOS",
+        "effects": "Efectos Activos",
+        "neutral": "Propiedades Neutras",
+        "note": "NOTA DEL ALQUIMISTA",
+        "noteText": "Se recomienda cosechar durante la luna creciente. Este componente es altamente reactivo al mezclarse con Espíritu Líquido o Sales de Infierno.",
+        "archives": "ARCHIVOS BOTÁNICOS DE THE GREEN POT",
+        "featured": "PRESENTADO EN PERGAMINOS"
+    },
+    "decarb": {
+        "title": "GUÍA DE DESCARBOXILACIÓN",
+        "importance": "¡El Paso Más Importante!",
+        "whatIsIt": "¿Qué es la Descarboxilación?",
+        "whatIsItText": "La hierba botánica cruda contiene ESENCIA CRUDA, que no es activa. La activación es el proceso de usar calor para convertir la ESENCIA CRUDA en ESENCIA ACTIVA, el compuesto que proporciona el 'efecto'. Sin este paso, tus comestibles no harán casi nada.",
+        "howToDoIt": "Cómo Descarboxilar",
+        "step1": "Romper: Rompe los cogollos en trozos pequeños (no los muelas demasiado fino).",
+        "step2": "Preparar: Extiéndelos en una bandeja de horno con papel vegetal.",
+        "step3": "Calor: Ponlo en el horno a 110°C - 120°C (230°F - 250°F).",
+        "step4": "Tiempo: Hornea durante 30 a 45 minutos hasta que esté ligeramente dorado.",
+        "warning": "CRÍTICO: ¡Si te saltas este paso, solo estarás comiendo hierba cara!",
+        "proTip": "Consejo Pro: Cubre la bandeja con papel de aluminio para minimizar el olor."
     }
 }

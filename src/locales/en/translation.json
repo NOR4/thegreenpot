@@ -1,11 +1,12 @@
 {
     "nav": {
         "recipes": "RECIPES",
+        "decarboxylation": "DECARBOXYLATION",
         "dosageGuide": "DOSAGE GUIDE",
         "calculator": "DOSAGE CALCULATOR",
         "pantry": "PANTRY",
         "est": "EST. 2024",
-        "dispensary": "PIXEL DISPENSARY"
+        "dispensary": "PIXEL APOTHECARY"
     },
     "auth": {
         "loginSignup": "LOGIN / SIGN UP",
@@ -34,10 +35,32 @@
     },
     "dosageGuide": {
         "title": "CALCULATE YOUR DOSE",
-        "amountLabel": "AMOUNT OF\nCBD/ THC",
+        "amountLabel": "AMOUNT OF\nCALM/ ACTIVE",
         "profileLabel": "CONSUMER\nPROFILE",
         "effectsLabel": "EFFECTS",
         "scrollMore": "← SCROLL FOR MORE →"
+    },
+    "db": {
+        "micro": {
+            "profile": "Beginners and micro-dosing.",
+            "effects": "Mild relief of pain and other symptoms (tremors, crisis, stress). Very gentle relaxation."
+        },
+        "low": {
+            "profile": "Occasional consumers. Patients with persistent symptoms.",
+            "effects": "Disappearance of most symptoms. Mild euphoria. Some discoordination may appear."
+        },
+        "medium": {
+            "profile": "Frequent consumers. Patients with persistent symptoms.",
+            "effects": "You no longer remember what was hurting. Euphoria, creativity, silly laughter. Helps with falling asleep."
+        },
+        "high": {
+            "profile": "Experienced consumers. Patients with high tolerance to ACTIVE and/or CALM.",
+            "effects": "Euphoria, slight short-term amnesia, talkativeness. If not accustomed, adverse effects may appear."
+        },
+        "heavy": {
+            "profile": "Brave hearts. Patients with very severe symptoms.",
+            "effects": "You'll likely be out of action for several hours. You won't even know your own name. Warning: nausea and tachycardia may occur."
+        }
     },
     "home": {
         "latestRecipes": "LATEST RECIPES",
@@ -46,7 +69,12 @@
         "dosageGuideLink": "Dosage Guide",
         "potencyText2": "to learn how to calculate and adjust dosage for your personal needs.",
         "loading": "Loading recipes...",
-        "noRecipesFound": "NO RECIPES FOUND IN THIS CATEGORY"
+        "noRecipesFound": "NO RECIPES FOUND IN THIS CATEGORY",
+        "allCategories": "ALL",
+        "viewRecipe": "VIEW RECIPE",
+        "decarbTitle": "🔥 DON'T SKIP DECARB!",
+        "decarbText": "Did you know that raw botanical herbs aren't psychoactive? You MUST heat them first or your edibles won't work.",
+        "decarbLink": "Learn how here."
     },
     "ingredients": {
         "backToScrolls": "← BACK TO SCROLLS",
@@ -72,13 +100,13 @@
         "title": "DOSAGE CALCULATOR",
         "subtitle": "Plan your potion's potency before you brew.",
         "ingredients": "INGREDIENTS",
-        "cannabisAmount": "Cannabis Amount (Grams)",
+        "cannabisAmount": "Herbal Amount (Grams)",
         "cannabisPlaceholder": "e.g. 3.5, 7, 14",
-        "thcPercentage": "THC Percentage (%)",
+        "thcPercentage": "Active Percentage (%)",
         "thcHint": "Average flower is ~15-20%. Top shelf is 25%+.",
         "extractionYield": "Extraction Yield (%)",
         "whatIsThis": "What is this?",
-        "yieldTooltip": "Not all THC is extracted from the plant. Home infusions typically extract 60-80%.",
+        "yieldTooltip": "Not all active essence is extracted from the plant. Home infusions typically extract 60-80%.",
         "yieldPoor": "40% - Poor/Short Infusion",
         "yieldStandard": "60% - Standard Home Infusion",
         "yieldEfficient": "80% - Highly Efficient (Lecithin)",
@@ -88,7 +116,7 @@
         "servings": "Number of Servings",
         "results": "RESULTS",
         "totalBatchPotency": "TOTAL BATCH POTENCY",
-        "totalThcIn": "Total THC in your",
+        "totalThcIn": "Total Active Essence in your",
         "perServing": "PER SERVING",
         "perMl": "PER ML",
         "dosageGuideTitle": "DOSAGE GUIDE",
@@ -97,5 +125,36 @@
         "strong": "Strong. Impaired coordination.",
         "veryStrong": "Very Strong. Heavy sedation likely.",
         "heroic": "Heroic. For experienced users only."
+    },
+    "ingredientDetail": {
+        "loading": "Scanning the botanical records...",
+        "notFound": "Artifact Lost in Time!",
+        "backLink": "← BACK TO PANTRY",
+        "item": "ITEM",
+        "lore": "ITEM LORE",
+        "energy": "Energy Content",
+        "growth": "Growth Cycle",
+        "fast": "FAST",
+        "risks": "Risk Factors (Allergies)",
+        "noRisks": "NO RECORDED RISKS",
+        "effects": "Active Effects",
+        "neutral": "Neutral Properties",
+        "note": "ALCHEMIST'S NOTE",
+        "noteText": "Best harvested during a waxing moon. This component is highly reactive when mixed with Liquid Spirit or Inferno Salts.",
+        "archives": "THE GREEN POT BOTANICAL ARCHIVES",
+        "featured": "FEATURED IN SCROLLS"
+    },
+    "decarb": {
+        "title": "DECARBOXYLATION GUIDE",
+        "importance": "The Most Important Step!",
+        "whatIsIt": "What is Decarboxylation?",
+        "whatIsItText": "Raw botanical herb contains RAW ESSENCE, which is not active. Activation is the process of using heat to turn RAW ESSENCE into ACTIVE ESSENCE, the compound that provides the 'magic'. Without this step, your edibles will have very little effect.",
+        "howToDoIt": "How to Decarb",
+        "step1": "Break: Break your flower into small pieces (don't grind too fine).",
+        "step2": "Bake: Spread on a baking tray with parchment paper.",
+        "step3": "Heat: Place in the oven at 110°C - 120°C (230°F - 250°F).",
+        "step4": "Time: Bake for 30 to 45 minutes until light brown.",
+        "warning": "CRITICAL: If you skip this, you are just eating expensive grass!",
+        "proTip": "Pro Tip: Cover the tray with aluminum foil to minimize the smell."
     }
 }

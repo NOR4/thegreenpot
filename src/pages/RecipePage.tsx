@@ -8,6 +8,7 @@ import { Comments } from '../components/Comments';
 import { IconHeart, IconExternalLink, IconCheck, IconClock, IconBag, IconStar, IconChevronDown, IconChevronUp } from '../components/icons';
 import { cn } from '../utils/cn';
 import { parseIngredientName } from '../utils/ingredients';
+import { getLocalizedField } from '../utils/i18n';
 
 interface Recipe {
     id: string;
@@ -66,76 +67,60 @@ export function RecipePage() {
     const [checkedStep, setCheckedStep] = useState<number[]>([]);
     const [isIngredientsOpen, setIsIngredientsOpen] = useState(false);
     const [isStepsOpen, setIsStepsOpen] = useState(false);
-
-    // Helper function to get localized field
-    const getLocalizedField = <T,>(enField: T, esField: T | undefined): T => {
-        return i18n.language === 'es' && esField ? esField : enField;
-    };
+    const currentLang = i18n.language;
 
     useEffect(() => {
         async function fetchData() {
             if (!id) return;
             try {
-                // Fetch Recipe with expanded products and ingredients
+                // Fetch Recipe with expanded ingredients
                 const record = await pb.collection('recipes').getOne<Recipe>(id, {
-                    expand: 'products,ingredients'
+                    expand: 'ingredients'
                 });
 
                 // Check if ingredients relation is populated
                 const rRelation = record.expand?.ingredients;
                 const hasRelationData = Array.isArray(rRelation) && rRelation.length > 0;
 
-                if (hasRelationData) {
-                    console.log(`[RecipePage] Using ${rRelation.length} ingredients from 'ingredients' relation.`);
-                } else {
+                if (!hasRelationData) {
                     // Fallback: Check for JSON ingredients list
                     const ingredientIds = record.ingredients_json;
                     if (Array.isArray(ingredientIds) && ingredientIds.length > 0) {
-                        console.log(`[RecipePage] Relation missing/empty. Found ${ingredientIds.length} ingredients in JSON. Manual fetching...`);
-
-                        // Construct filter for manual fetch
-                        const filter = ingredientIds.map(id => `id="${id}"`).join(' || ');
-
+                        const filter = ingredientIds.map(fid => `id="${fid}"`).join(' || ');
                         try {
                             const ingredients = await pb.collection('ingredients').getFullList<BaseIngredient>({
                                 filter: filter,
                             });
-
-                            // Manually populate expand
-                            if (!record.expand) {
-                                record.expand = {};
-                            }
+                            if (!record.expand) record.expand = {};
                             record.expand.ingredients = ingredients;
-                            console.log(`[RecipePage] Manually fetched ${ingredients.length} ingredients.`);
                         } catch (ingErr) {
-                            console.error("[RecipePage] Failed to fetch ingredients manually:", ingErr);
+                            console.error("Failed to fetch ingredients manually:", ingErr);
                         }
-                    }
-                }
-
-                // Normalize expansions
-                if (record.expand) {
-                    if (record.expand.products && !Array.isArray(record.expand.products)) {
-                        record.expand.products = [record.expand.products as any];
-                    }
-                    if (record.expand.ingredients && !Array.isArray(record.expand.ingredients)) {
-                        record.expand.ingredients = [record.expand.ingredients as any];
                     }
                 }
 
                 console.log("RecipePage - Fetched record:", record);
                 setRecipe(record);
 
-                // Update products state
-                const expandedProducts = record.expand?.products;
-                if (Array.isArray(expandedProducts)) {
-                    setProducts(expandedProducts);
-                } else {
-                    setProducts([]);
+                // Fetch products independently to ensure they appear even if recipe fetch has issues
+                try {
+                    const productsResult = await pb.collection('products').getList<AffiliateProduct>(1, 50, {
+                        sort: '@random' // Some PB versions support this, if not we shuffle manually
+                    });
+
+                    if (productsResult.items.length > 0) {
+                        const shuffled = [...productsResult.items].sort(() => 0.5 - Math.random());
+                        setProducts(shuffled.slice(0, 4));
+                        console.log("RecipePage - Loaded products:", shuffled.length);
+                    } else {
+                        console.log("RecipePage - No products found in DB");
+                    }
+                } catch (prodErr) {
+                    console.error("RecipePage - Error fetching products:", prodErr);
                 }
 
             } catch (err) {
-                console.error("Error fetching data:", err);
+                console.error("RecipePage - Error fetching recipe data:", err);
             } finally {
                 setLoading(false);
             }
@@ -183,8 +168,14 @@ export function RecipePage() {
 
             <div className="bg-gray-800 text-white border-4 border-black p-6 mb-8 shadow-hard">
                 <div className="flex flex-col gap-2 mb-4">
-                    <span className="font-pixel text-yellow-400 uppercase tracking-widest text-sm">{getLocalizedField(recipe.category, recipe.category_es)} {t('recipePage.quest')}</span>
-                    <h1 className="font-retro text-4xl md:text-6xl text-white drop-shadow-md leading-none">{getLocalizedField(recipe.title, recipe.title_es)}</h1>
+                    <span className="font-pixel text-yellow-400 uppercase tracking-widest text-sm">
+                        {(() => {
+                            const enCats = (recipe.category || "Uncategorized").split(',').map(c => c.trim());
+                            const esCats = (recipe.category_es || recipe.category || "Uncategorized").split(',').map(c => c.trim());
+                            return currentLang === 'es' ? esCats.join(' & ') : enCats.join(' & ');
+                        })()} {t('recipePage.quest')}
+                    </span>
+                    <h1 className="font-retro text-4xl md:text-6xl text-white drop-shadow-md leading-none">{getLocalizedField(recipe.title, recipe.title_es, currentLang)}</h1>
                 </div>
 
                 <div className="flex flex-wrap gap-6 md:gap-12 mt-6 border-t-2 border-gray-600 pt-4">
@@ -242,12 +233,12 @@ export function RecipePage() {
                     <div className="bg-white border-4 border-black p-6 shadow-hard">
                         <h2 className="font-retro text-2xl mb-4 border-b-4 border-black inline-block pr-8 bg-green-200 text-black">{t('recipePage.scrollSays')}</h2>
                         <p className="font-pixel text-lg leading-relaxed text-gray-800">
-                            {getLocalizedField(recipe.description, recipe.description_es)}
+                            {getLocalizedField(recipe.description, recipe.description_es, currentLang)}
                         </p>
                         <div className="mt-4 flex flex-wrap gap-4 items-center">
                             <LikeButton recipeId={id!} />
                             <div className="h-8 w-1 bg-gray-300 mx-2 hidden md:block"></div>
-                            <ShareButtons title={getLocalizedField(recipe.title, recipe.title_es)} url={currentUrl} />
+                            <ShareButtons title={getLocalizedField(recipe.title, recipe.title_es, currentLang)} url={currentUrl} />
                         </div>
                     </div>
 
@@ -271,7 +262,7 @@ export function RecipePage() {
                             <div className="mt-6 animate-in slide-in-from-top-2 duration-300">
                                 <div className="flex flex-col gap-4">
                                     {Array.isArray(recipe.ingredients_text) && recipe.ingredients_text.length > 0 ? (
-                                        getLocalizedField(recipe.ingredients_text, recipe.ingredients_text_es).map((item, idx) => {
+                                        getLocalizedField(recipe.ingredients_text, recipe.ingredients_text_es, currentLang).map((item, idx) => {
                                             // Find matching ingredient data
                                             const parsedName = parseIngredientName(item);
                                             const match = recipe.expand?.ingredients?.find(ing =>
@@ -401,38 +392,63 @@ export function RecipePage() {
 
                         <div className="flex flex-col gap-4 p-2 bg-gray-700/50">
                             {products.length > 0 ? (
-                                products.map((product) => (
-                                    <div key={product.id} className="bg-white border-4 border-black p-3 flex flex-col gap-3 group hover:translate-x-1 transition-transform">
-                                        <div className="aspect-square bg-gray-100 border-2 border-black overflow-hidden relative">
-                                            <img
-                                                src={product.image ? pb.files.getUrl(product, product.image) : ''}
-                                                alt={product.name}
-                                                className="w-full h-full object-cover"
-                                                style={{ imageRendering: 'pixelated' }}
-                                            />
-                                            {product.price && (
-                                                <span className="absolute top-1 right-1 bg-black text-white font-retro text-xs px-1">
-                                                    {product.price}
-                                                </span>
-                                            )}
+                                products.map((product) => {
+                                    const isAmazon = product.affiliate_link?.includes('amazon') || product.affiliate_link?.includes('amzn');
+                                    const isTemu = product.affiliate_link?.includes('temu');
+
+                                    const buttonStyles = isAmazon
+                                        ? "bg-[#232F3E] text-white hover:bg-[#37475A]"
+                                        : isTemu
+                                            ? "bg-[#FB7701] text-white hover:bg-[#ff8c33]"
+                                            : "bg-yellow-400 text-black hover:bg-yellow-300";
+
+                                    return (
+                                        <div key={product.id} className={cn(
+                                            "border-4 p-3 flex flex-col gap-3 group hover:translate-x-1 transition-transform relative",
+                                            isAmazon ? "bg-blue-50 border-[#00a8e1]" : isTemu ? "bg-orange-50 border-[#ff6900]" : "bg-white border-black"
+                                        )}>
+                                            {/* Source Badge */}
+                                            <div className={cn(
+                                                "absolute -top-3 -right-3 font-pixel text-[10px] px-2 py-1 border-2 border-black rotate-12 group-hover:rotate-0 transition-transform z-20",
+                                                isAmazon ? "bg-[#00a8e1] text-white" : isTemu ? "bg-[#ff6900] text-white" : "bg-black text-white"
+                                            )}>
+                                                {isAmazon ? 'AMAZON' : isTemu ? 'TEMU' : 'LINK'}
+                                            </div>
+
+                                            <div className="aspect-square bg-white border-2 border-black overflow-hidden relative">
+                                                <img
+                                                    src={product.image ? pb.files.getUrl(product, product.image) : ''}
+                                                    alt={product.name}
+                                                    className="w-full h-full object-cover"
+                                                    style={{ imageRendering: 'pixelated' }}
+                                                />
+                                                {product.price && (
+                                                    <span className="absolute top-1 right-1 bg-black text-white font-retro text-xs px-1 border border-white/20">
+                                                        {product.price}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="text-center">
+                                                <h4 className="font-retro text-lg leading-tight mb-3 min-h-[3rem] flex items-center justify-center text-black">
+                                                    {product.name}
+                                                </h4>
+                                                <a
+                                                    href={product.affiliate_link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    onClick={() => handleProductClick(product.id)}
+                                                    className={cn(
+                                                        "flex items-center justify-center gap-2 border-4 border-black font-bold font-pixel uppercase py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-none transition-all w-full text-sm",
+                                                        buttonStyles
+                                                    )}
+                                                >
+                                                    <span>{t('recipePage.getLoot')}</span>
+                                                    <IconExternalLink className="w-4 h-4" />
+                                                </a>
+                                            </div>
                                         </div>
-                                        <div className="text-center">
-                                            <h4 className="font-retro text-lg leading-tight mb-3 min-h-[3rem] flex items-center justify-center">
-                                                {product.name}
-                                            </h4>
-                                            <a
-                                                href={product.affiliate_link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                onClick={() => handleProductClick(product.id)}
-                                                className="flex items-center justify-center gap-2 bg-yellow-400 border-4 border-black text-black font-bold font-pixel uppercase py-3 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-1 hover:shadow-none hover:bg-yellow-300 transition-all w-full text-sm"
-                                            >
-                                                <span>{t('recipePage.getLoot')}</span>
-                                                <IconExternalLink className="w-4 h-4" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                ))
+                                    );
+                                })
                             ) : (
                                 <div className="text-center py-4 text-gray-400 font-pixel">
                                     {t('recipePage.noWares')}

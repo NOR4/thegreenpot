@@ -2,17 +2,21 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pb } from '../lib/pocketbase';
 import { Link } from 'react-router-dom';
+import { getLocalizedField } from '../utils/i18n';
 
 interface Ingredient {
     id: string;
     name: string;
+    name_es?: string;
     description: string;
+    description_es?: string;
     image: string;
     category: string;
+    category_es?: string;
 }
 
 export function Ingredients() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [ingredients, setIngredients] = useState<Ingredient[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
@@ -34,11 +38,15 @@ export function Ingredients() {
     }, []);
 
     const lowerTerm = searchTerm.toLowerCase();
-    const filteredIngredients = ingredients.filter(ing =>
-        (ing.name || '').toLowerCase().includes(lowerTerm) ||
-        (ing.description || '').toLowerCase().includes(lowerTerm) ||
-        (ing.category || '').toLowerCase().includes(lowerTerm)
-    );
+    const filteredIngredients = ingredients.filter(ing => {
+        const name = getLocalizedField(ing.name, ing.name_es, i18n.language);
+        const desc = getLocalizedField(ing.description, ing.description_es, i18n.language);
+        const cat = getLocalizedField(ing.category, ing.category_es, i18n.language);
+
+        return (name || '').toLowerCase().includes(lowerTerm) ||
+            (desc || '').toLowerCase().includes(lowerTerm) ||
+            (cat || '').toLowerCase().includes(lowerTerm);
+    });
 
     if (loading) {
         return <div className="font-retro text-2xl text-center mt-10 text-purple-retro animate-pulse">{t('ingredients.loading')}</div>;
@@ -46,7 +54,7 @@ export function Ingredients() {
 
     return (
         <div className="max-w-4xl mx-auto pb-10">
-            <Link to="/" className="inline-block mb-4 font-retro hover:underline text-lg">{t('ingredients.backToScrolls')}</Link>
+            <Link to="/" className="inline-block mb-4 font-retro hover:underline text-lg uppercase">{t('ingredients.backToScrolls')}</Link>
 
             <div className="mb-10 relative">
                 {/* Decorative Background Elements */}
@@ -107,7 +115,7 @@ export function Ingredients() {
                         <div className="w-24 h-24 border-4 border-black flex-shrink-0 bg-yellow-50 overflow-hidden relative">
                             <img
                                 src={ing.image ? pb.files.getUrl(ing, ing.image) : ''}
-                                alt={ing.name}
+                                alt={getLocalizedField(ing.name, ing.name_es, i18n.language)}
                                 className="w-full h-full object-cover"
                                 style={{ imageRendering: 'pixelated' }}
                             />
@@ -117,11 +125,11 @@ export function Ingredients() {
                         </div>
                         <div className="flex flex-col">
                             <span className="font-pixel text-[10px] uppercase tracking-tighter text-purple-600 font-bold mb-1">
-                                [{ing.category}]
+                                [{getLocalizedField(ing.category, ing.category_es, i18n.language)}]
                             </span>
-                            <h2 className="font-retro text-xl mb-1 group-hover:underline">{ing.name}</h2>
+                            <h2 className="font-retro text-xl mb-1 group-hover:underline">{getLocalizedField(ing.name, ing.name_es, i18n.language)}</h2>
                             <p className="font-pixel text-xs leading-tight text-gray-700">
-                                {ing.description}
+                                {getLocalizedField(ing.description, ing.description_es, i18n.language)}
                             </p>
                         </div>
                     </Link>
