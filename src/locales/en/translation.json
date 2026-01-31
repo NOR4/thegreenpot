@@ -5,7 +5,8 @@
         "calculator": "DOSAGE CALCULATOR",
         "pantry": "PANTRY",
         "est": "EST. 2024",
-        "dispensary": "PIXEL DISPENSARY"
+        "dispensary": "PIXEL DISPENSARY",
+        "decarbolixation": "DECARB"
     },
     "auth": {
         "loginSignup": "LOGIN / SIGN UP",
@@ -72,6 +73,10 @@
         "loading": "Loading recipes...",
         "noRecipesFound": "NO RECIPES FOUND IN THIS CATEGORY",
         "allCategories": "ALL",
+        "topRated": "TOP RATED RECIPES",
+        "bestSellers": "BEST SELLERS",
+        "bestOffers": "FLASH OFFERS",
+        "learnMore": "LEARN MORE",
         "viewRecipe": "VIEW RECIPE"
     },
     "ingredients": {
@@ -122,7 +127,13 @@
         "standard": "Standard. Euphoria, relaxation.",
         "strong": "Strong. Impaired coordination.",
         "veryStrong": "Very Strong. Heavy sedation likely.",
-        "heroic": "Heroic. For experienced users only."
+        "heroic": "Heroic. For experienced users only.",
+        "usefulTools": "USEFUL TOOLS",
+        "toolsSubtitle": "Essential gear for precise alchemy.",
+        "toolThermometer": "Digital Thermometer",
+        "toolScale": "Precision Scale",
+        "toolCup": "Measuring Cup",
+        "buyNow": "BUY NOW"
     },
     "ingredientDetail": {
         "loading": "Scanning the botanical records...",

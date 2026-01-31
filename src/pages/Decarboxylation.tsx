@@ -1,4 +1,6 @@
 import { useTranslation } from 'react-i18next';
+import leafIcon from '../assets/leaf.png';
+
 
 export function Decarboxylation() {
     const { t } = useTranslation();
@@ -22,8 +24,9 @@ export function Decarboxylation() {
 
             {/* Warning Section */}
             <div className="bg-[#ef4444] border-4 border-black p-6 shadow-hard flex items-center gap-6 animate-bounce-subtle">
-                <div className="flex-shrink-0 w-16 h-16 bg-white border-4 border-black rounded-full flex items-center justify-center">
-                    <span className="text-4xl font-bold">!</span>
+                <div className="flex-shrink-0 w-16 h-16 bg-white border-4 border-black rounded-full flex items-center justify-center relative overflow-hidden">
+                    <img src={leafIcon} alt="Leaf" className="absolute inset-0 w-full h-full object-cover opacity-50" style={{ imageRendering: 'pixelated' }} />
+                    <span className="text-4xl font-bold text-red-600 relative z-10">!</span>
                 </div>
                 <p className="font-retro text-lg text-white leading-relaxed">
                     {t('decarb.warning')}
@@ -34,20 +37,20 @@ export function Decarboxylation() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* What is it? */}
                 <div className="bg-white border-4 border-black p-6 shadow-hard">
-                    <h2 className="font-retro text-2xl mb-4 text-[#4ade80] border-b-4 border-[#4ade80] pb-2">
+                    <h2 className="font-retro text-2xl mb-4 text-[#4ade80] border-b-4 border-[#4ade80] pb-2 break-words">
                         {t('decarb.whatIsIt')}
                     </h2>
-                    <p className="font-pixel text-lg leading-relaxed text-gray-700">
+                    <p className="font-pixel text-lg leading-relaxed text-gray-700 break-words">
                         {t('decarb.whatIsItText')}
                     </p>
                 </div>
 
                 {/* Pro Tip */}
                 <div className="bg-[#7c3aed] border-4 border-black p-6 shadow-hard text-white">
-                    <h2 className="font-retro text-2xl mb-4 text-[#ff00ff]">
+                    <h2 className="font-retro text-2xl mb-4 text-[#ff00ff] break-words">
                         {t('decarb.proTip').split(':')[0]}
                     </h2>
-                    <p className="font-pixel text-lg leading-relaxed italic">
+                    <p className="font-pixel text-lg leading-relaxed italic break-words">
                         {t('decarb.proTip').split(':')[1]}
                     </p>
                 </div>
@@ -100,6 +103,6 @@ export function Decarboxylation() {
                     230°F - 250°F
                 </p>
             </div>
-        </div>
+        </div >
     );
 }

@@ -684,6 +684,30 @@ const recipes: SeedRecipe[] = [
             "2. Mix in flour, then chocolate chips.",
             "3. Bake at 350°F (175°C) for 10-12 minutes."
         ]
+    },
+    {
+        title: "Pixelated Power Gummies",
+        category: ["Dessert", "Candy"],
+        difficulty: 3,
+        image: "https://placehold.co/600x400/444/fff?text=Power+Gummies",
+        price: "18 GP",
+        description: "Intense, fruit-flavored gummy bears infused with a precise dose of THC distillate or oil. A pocket-sized quest reward.",
+        time: "1 HR + 4 HR Cooling",
+        ingredients_text: [
+            "1/2 Cup Cold Water",
+            "1/4 Cup Cannabis Infused Coconut Oil",
+            "1/2 tsp Sunflower Lecithin",
+            "1 Package (3oz) Flavored Gelatin (any flavor)",
+            "2 tbsp Unflavored Gelatin",
+            "1/2 tsp Citric Acid (for tang and preservation)"
+        ],
+        instructions: [
+            "1. Emulsify: In a small saucepan over low heat, combine water, infused coconut oil, and sunflower lecithin. Whisk constantly until the oil is completely emulsified into the water.",
+            "2. Bloom: Add the unflavored and flavored gelatin. Whisk gently and let it sit for 5 minutes (bloom) without heat.",
+            "3. Melt: Turn the heat back to low-medium. Whisk for 5-10 minutes until all gelatin is dissolved. Keep it below a simmer; do not boil.",
+            "4. Fill: Use a dropper to quickly fill silicone gummy bear molds. Work fast before the mixture sets.",
+            "5. Set: Refrigerate for at least 4 hours. For better texture, let them air dry on a rack for 24 hours after removing from molds."
+        ]
     }
 ];
 

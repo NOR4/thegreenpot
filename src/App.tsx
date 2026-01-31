@@ -9,6 +9,7 @@ import { Ingredients } from './pages/Ingredients';
 import { IngredientDetail } from './pages/IngredientDetail';
 import { DosageCalculator } from './pages/DosageCalculator';
 import { Decarboxylation } from './pages/Decarboxylation';
+import { Recipes } from './pages/Recipes';
 
 function App() {
   const [ageVerified, setAgeVerified] = useState(false);
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="recipes" element={<Recipes />} />
           <Route path="recipe/:id" element={<RecipePage />} />
           <Route path="dosage-guide" element={<DosageGuide />} />
           <Route path="calculator" element={<DosageCalculator />} />

@@ -31,9 +31,9 @@ export function Layout() {
 
                     <nav className="flex flex-col gap-4">
                         <NavLink
-                            to="/"
+                            to="/recipes"
                             className={({ isActive }) =>
-                                `font-retro text-lg p-3 border-4 transition-all ${isActive
+                                `font-retro text-lg p-3 border-4 transition-all break-all leading-tight ${isActive
                                     ? 'bg-[#4ade80] border-black text-black shadow-hard transform -translate-y-1'
                                     : 'bg-white border-black text-black hover:bg-[#eec39a]'
                                 }`
@@ -44,7 +44,7 @@ export function Layout() {
                         <NavLink
                             to="/dosage-guide"
                             className={({ isActive }) =>
-                                `font-retro text-lg p-3 border-4 transition-all ${isActive
+                                `font-retro text-lg p-3 border-4 transition-all break-all leading-tight ${isActive
                                     ? 'bg-[#4ade80] border-black text-black shadow-hard transform -translate-y-1'
                                     : 'bg-white border-black text-black hover:bg-[#eec39a]'
                                 }`
@@ -55,7 +55,7 @@ export function Layout() {
                         <NavLink
                             to="/calculator"
                             className={({ isActive }) =>
-                                `font-retro text-lg p-3 border-4 transition-all ${isActive
+                                `font-retro text-lg p-3 border-4 transition-all break-all leading-tight ${isActive
                                     ? 'bg-[#4ade80] border-black text-black shadow-hard transform -translate-y-1'
                                     : 'bg-white border-black text-black hover:bg-[#eec39a]'
                                 }`
@@ -66,18 +66,18 @@ export function Layout() {
                         <NavLink
                             to="/decarboxylation"
                             className={({ isActive }) =>
-                                `font-retro text-lg p-3 border-4 transition-all ${isActive
+                                `font-retro text-lg p-3 border-4 transition-all break-all leading-tight ${isActive
                                     ? 'bg-[#4ade80] border-black text-black shadow-hard transform -translate-y-1'
                                     : 'bg-white border-black text-black hover:bg-[#eec39a]'
                                 }`
                             }
                         >
-                            DECARB
+                            {t('nav.decarbolixation')}
                         </NavLink>
                         <NavLink
                             to="/ingredients"
                             className={({ isActive }) =>
-                                `font-retro text-lg p-3 border-4 transition-all ${isActive
+                                `font-retro text-lg p-3 border-4 transition-all break-all leading-tight ${isActive
                                     ? 'bg-[#4ade80] border-black text-black shadow-hard transform -translate-y-1'
                                     : 'bg-white border-black text-black hover:bg-[#eec39a]'
                                 }`

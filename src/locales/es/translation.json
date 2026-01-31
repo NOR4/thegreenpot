@@ -5,7 +5,8 @@
         "calculator": "CALCULADORA",
         "pantry": "DESPENSA",
         "est": "EST. 2024",
-        "dispensary": "DISPENSARIO PIXEL"
+        "dispensary": "DISPENSARIO PIXEL",
+        "decarbolixation": "DESCARBOXILACIÓN"
     },
     "auth": {
         "loginSignup": "ENTRAR / REGISTRO",
@@ -72,6 +73,10 @@
         "loading": "Cargando recetas...",
         "noRecipesFound": "NO SE ENCONTRARON RECETAS EN ESTA CATEGORÍA",
         "allCategories": "TODAS",
+        "topRated": "RECETAS MEJOR VALORADAS",
+        "bestSellers": "MÁS VENDIDOS",
+        "bestOffers": "OFERTAS FLASH",
+        "learnMore": "SABER MÁS",
         "viewRecipe": "VER RECETA"
     },
     "ingredients": {
@@ -122,7 +127,13 @@
         "standard": "Estándar. Euforia, relajación.",
         "strong": "Fuerte. Coordinación afectada.",
         "veryStrong": "Muy Fuerte. Sedación pesada probable.",
-        "heroic": "Heroica. Solo para usuarios experimentados."
+        "heroic": "Heroica. Solo para usuarios experimentados.",
+        "usefulTools": "HERRAMIENTAS ÚTILES",
+        "toolsSubtitle": "Equipo esencial para una alquimia precisa.",
+        "toolThermometer": "Termómetro Digital",
+        "toolScale": "Balanza de Precisión",
+        "toolCup": "Vaso Medidor",
+        "buyNow": "COMPRAR"
     },
     "ingredientDetail": {
         "loading": "Escaneando los registros botánicos...",

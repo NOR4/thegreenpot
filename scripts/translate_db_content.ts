@@ -572,6 +572,26 @@ const recipeTranslations: Record<string, {
             "2. Mezclar la harina, luego las chispas de chocolate.",
             "3. Hornear a 350°F (175°C) durante 10-12 minutos."
         ]
+    },
+    "Pixelated Power Gummies": {
+        title_es: "Gominolas de Poder Pixeladas",
+        description_es: "Ositos de gominola intensos con sabor a frutas, infusionados con una dosis precisa de destilado de THC. Una recompensa de misión de bolsillo.",
+        category_es: "Postre, Caramelos",
+        ingredients_text_es: [
+            "1/2 Taza de Agua Fría",
+            "1/4 Taza de Aceite de Coco Infusionado con Cannabis",
+            "1/2 cucharadita de Lecitina de Girasol",
+            "1 Paquete (3oz) de Gelatina de Sabor (cualquier sabor)",
+            "2 cucharadas de Gelatina sin Sabor",
+            "1/2 cucharadita de Ácido Cítrico (para el toque ácido y conservación)"
+        ],
+        instructions_es: [
+            "1. Emulsionar: En una cacerola pequeña a fuego lento, combinar el agua, el aceite de coco infusionado y la lecitina de girasol. Batir constantemente hasta que el aceite esté completamente emulsionado en el agua.",
+            "2. Hidratar (Bloom): Agregar las gelatinas con y sin sabor. Batir suavemente y dejar reposar durante 5 minutos sin fuego.",
+            "3. Derretir: Volver a calentar a fuego medio-bajo. Batir durante 5-10 minutos hasta que toda la gelatina se disuelva. Mantener por debajo del punto de ebullición; no hervir.",
+            "4. Llenar: Usar un gotero para llenar rápidamente los moldes de silicona para gominolas. Trabajar rápido antes de que la mezcla espese.",
+            "5. Reposar: Refrigerar al menos 4 horas. Para una mejor textura, dejar secar al aire en una rejilla durante 24 horas después de desmoldar."
+        ]
     }
 };
 
@@ -708,7 +728,11 @@ const ingredientTranslations: Record<string, {
     "Sourdough Bread": { name_es: "Pan de Masa Madre", description_es: "Pan artesanal fermentado naturalmente.", category_es: "Despensa" },
     "Ripe Avocado": { name_es: "Aguacate Maduro", description_es: "Aguacate suave y listo para comer.", category_es: "Verdura" },
     "Red Pepper Flakes": { name_es: "Hojuelas de Pimiento Rojo", description_es: "Pimiento rojo seco y triturado.", category_es: "Condimento" },
-    "Meat": { name_es: "Carne", description_es: "Carne fresca de calidad.", category_es: "Carne" }
+    "Meat": { name_es: "Carne", description_es: "Carne fresca de calidad.", category_es: "Carne" },
+    "Citric Acid": { name_es: "Ácido Cítrico", description_es: "Cristales ácidos para potenciar el sabor y conservar.", category_es: "Despensa" },
+    "Flavored Gelatin": { name_es: "Gelatina de Sabor", description_es: "Mezcla de gelatina con sabor a frutas.", category_es: "Despensa" },
+    "Unflavored Gelatin": { name_es: "Gelatina sin Sabor", description_es: "Gelatina pura para dar consistencia.", category_es: "Despensa" },
+    "Cold Water": { name_es: "Agua Fría", description_es: "Agua a baja temperatura.", category_es: "Bebida" }
 };
 
 // Category translations
@@ -721,7 +745,8 @@ const categoryTranslations: Record<string, string> = {
     "Fish and Seafood": "Pescados y Mariscos",
     "Dessert": "Postre",
     "Drink": "Bebida",
-    "Salad": "Ensalada"
+    "Salad": "Ensalada",
+    "Candy": "Caramelos"
 };
 
 async function main() {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { cn } from '../utils/cn';
-import { IconChevronDown } from '../components/icons';
+import { IconChevronDown, IconShoppingCart } from '../components/icons';
 
 export function DosageCalculator() {
     const { t } = useTranslation();
@@ -166,6 +166,55 @@ export function DosageCalculator() {
                                 <div className="bg-cyan-300 border-4 border-pink-500 p-4 text-center shadow-[4px_4px_0px_0px_rgba(236,72,153,1)]">
                                     <span className="block font-retro text-black text-sm mb-1 bg-white border-2 border-pink-500 inline-block px-1">{t('calculator.perMl')}</span>
                                     <span className="block font-retro text-4xl text-black mt-2">{thcPerMl.toFixed(1)} <span className="text-lg">mg</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bg-purple-900 border-4 border-black p-6 shadow-hard relative overflow-hidden text-center">
+                        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/pixel-weave.png')] opacity-10"></div>
+                        <h2 className="font-retro text-2xl text-yellow-400 drop-shadow-[2px_2px_0_#000] mb-4 relative z-10">{t('calculator.usefulTools')}</h2>
+
+                        <div className="flex flex-col gap-4 relative z-10">
+                            {/* Thermometer */}
+                            <div className="bg-gray-800 border-4 border-black p-3 flex items-center gap-4 hover:-translate-y-1 transition-transform shadow-hard group text-left">
+                                <div className="w-12 h-12 bg-white rounded-full border-2 border-black flex items-center justify-center flex-shrink-0 group-hover:bg-yellow-100">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/808/808439.png" alt="Thermometer" className="w-8 h-8 pixelated" />
+                                </div>
+                                <div className="flex-1">
+                                    <h3 className="font-retro text-lg text-green-400 leading-none mb-1">{t('calculator.toolThermometer')}</h3>
+                                    <a href="#" className="font-pixel text-xs bg-yellow-500 text-black px-3 py-1 inline-flex items-center gap-1 border-b-2 border-yellow-700 active:border-b-0 active:translate-y-1 transition-all">
+                                        <IconShoppingCart className="w-3 h-3" />
+                                        {t('calculator.buyNow')}
+                                    </a>
+                                </div>
+                            </div>
+
+                            {/* Scale */}
+                            <div className="bg-gray-800 border-4 border-black p-3 flex items-center gap-4 hover:-translate-y-1 transition-transform shadow-hard group text-left">
+                                <div className="w-12 h-12 bg-white rounded-full border-2 border-black flex items-center justify-center flex-shrink-0 group-hover:bg-yellow-100">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/3361/3361297.png" alt="Scale" className="w-8 h-8 pixelated" />
+                                </div>
+                                <div className="flex-1">
+                                    <h3 className="font-retro text-lg text-green-400 leading-none mb-1">{t('calculator.toolScale')}</h3>
+                                    <a href="#" className="font-pixel text-xs bg-yellow-500 text-black px-3 py-1 inline-flex items-center gap-1 border-b-2 border-yellow-700 active:border-b-0 active:translate-y-1 transition-all">
+                                        <IconShoppingCart className="w-3 h-3" />
+                                        {t('calculator.buyNow')}
+                                    </a>
+                                </div>
+                            </div>
+
+                            {/* Measuring Cup */}
+                            <div className="bg-gray-800 border-4 border-black p-3 flex items-center gap-4 hover:-translate-y-1 transition-transform shadow-hard group text-left">
+                                <div className="w-12 h-12 bg-white rounded-full border-2 border-black flex items-center justify-center flex-shrink-0 group-hover:bg-yellow-100">
+                                    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046874.png" alt="Cup" className="w-8 h-8 pixelated" />
+                                </div>
+                                <div className="flex-1">
+                                    <h3 className="font-retro text-lg text-green-400 leading-none mb-1">{t('calculator.toolCup')}</h3>
+                                    <a href="#" className="font-pixel text-xs bg-yellow-500 text-black px-3 py-1 inline-flex items-center gap-1 border-b-2 border-yellow-700 active:border-b-0 active:translate-y-1 transition-all">
+                                        <IconShoppingCart className="w-3 h-3" />
+                                        {t('calculator.buyNow')}
+                                    </a>
                                 </div>
                             </div>
                         </div>
